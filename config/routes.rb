@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :theaters
   ActiveAdmin.routes(self)
   devise_for :users,
              path: 'auth',
