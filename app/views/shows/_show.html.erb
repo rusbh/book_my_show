@@ -1,0 +1,67 @@
+<div id="<%= dom_id show %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= show.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Description:</strong>
+    <%= show.description %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Poster:</strong>
+    <%= image_tag url_for(show.poster) if show.poster.attached? %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Cast:</strong>
+    <%= show.cast %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Language:</strong>
+    <%= show.language %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Genre:</strong>
+    <%= show.genre %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Category:</strong>
+    <%= show.category %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Imdb rating:</strong>
+    <%= show.imdb_rating %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Price:</strong>
+    <%= show.price %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Status:</strong>
+    <%= show.status %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Duration:</strong>
+    <%= show.duration %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Start date:</strong>
+    <%= show.start_date %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">End date:</strong>
+    <%= show.end_date %>
+  </p>
+
+</div>

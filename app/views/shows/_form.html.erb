@@ -1,0 +1,82 @@
+<%= form_with(model: show, class: "contents") do |form| %>
+  <% if show.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(show.errors.count, "error") %> prohibited this show from being saved:</h2>
+
+      <ul>
+        <% show.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :description %>
+    <%= form.text_area :description, rows: 4, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :poster %>
+    <%= form.file_field :poster, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :cast %>
+    <%= form.text_field :cast, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :language %>
+    <%= form.select :language, options_for_select([["Hindi", "hindi"], ["English", "english"], ["Gujarati", "gujarati"], ["Tamil", "tamil"], ["Telugu", "telugu"]]), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :genre %>
+    <%= form.select :genre, options_for_select([["Action", "action"], ["Adventure", "adventure"], ["Animation", "animation"], ["Comedy", "comedy"], ["Crime", "crime"], ["Documentary", "documentary"], ["Drama", "drama"], ["Fantasy", "fantasy"], ["Historical", "historical"], ["Horror", "horror"], ["Romance", "romance"], ["Science_fiction", "science_fiction"], ["Unspecified", "unspecified"]]), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :category %>
+    <%= form.select :category, options_for_select([["Movie", "movie"], ["Play", "play"], ["Sport", "sport"], ["Event", "event"]]), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :imdb_rating %>
+    <%= form.text_field :imdb_rating, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :price %>
+    <%= form.number_field :price, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :status %>
+    <%= form.select :status, options_for_select([["Idle", "idle"], ["Running", "running"], ["Cancelled", "cancelled"]]), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :duration %>
+    <%= form.number_field :duration, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :start_date %>
+    <%= form.datetime_field :start_date, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :end_date %>
+    <%= form.datetime_field :end_date, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

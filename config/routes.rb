@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :shows
   resources :screens
   resources :theaters
   ActiveAdmin.routes(self)
@@ -16,5 +17,5 @@ Rails.application.routes.draw do
 
   root to: "home#index"
   get "up" => "rails/health#show", as: :rails_health_check
-  get '*path' => redirect('/')
+  # get '*path' => redirect('/')
 end
