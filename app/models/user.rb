@@ -4,5 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :theater_admins
+  has_many :theaters, through: :theater_admins
+         
   validates :name, presence: true
 end
