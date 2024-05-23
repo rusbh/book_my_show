@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_23_112940) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_23_115729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_23_112940) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "screens", force: :cascade do |t|
+    t.integer "screen_no"
+    t.integer "seats", default: 150
+    t.integer "status"
+    t.bigint "theater_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["theater_id"], name: "index_screens_on_theater_id"
+  end
+
   create_table "theater_admins", force: :cascade do |t|
     t.bigint "theater_id", null: false
     t.bigint "user_id", null: false
@@ -98,6 +108,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_23_112940) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "screens", "theaters"
   add_foreign_key "theater_admins", "theaters"
   add_foreign_key "theater_admins", "users"
   add_foreign_key "theaters", "cities"

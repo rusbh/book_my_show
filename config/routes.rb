@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :screens
   resources :theaters
   ActiveAdmin.routes(self)
   devise_for :users,
@@ -12,9 +13,6 @@ Rails.application.routes.draw do
                sign_up: 'signup'
              }
              
-  namespace :admin do
-    
-  end
 
   root to: "home#index"
   get "up" => "rails/health#show", as: :rails_health_check
