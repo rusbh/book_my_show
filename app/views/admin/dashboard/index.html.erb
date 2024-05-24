@@ -1,0 +1,11 @@
+<div class="w-full">
+
+<% if user_signed_in? %>
+  <div class="mb-3">Welcome Admin, <%= current_user.email %></div>
+  <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
+<% else %>
+  <%= link_to "Sign in", new_user_session_path, class: "rounded-lg py-3 px-5 bg-green-500 text-white font-medium" %>
+<% end %>
+
+  <h1 class="mt-6 text-4xl font-semibold">Welcome to Theater dashboard page</h1>
+</div>

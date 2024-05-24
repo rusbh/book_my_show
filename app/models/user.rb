@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_many :theater_admins
   has_many :theaters, through: :theater_admins
-         
+
+  has_many :bookings, dependent: :destroy
+  
   validates :name, presence: true
 end

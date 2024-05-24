@@ -3,7 +3,7 @@ class Theater < ApplicationRecord
 
   has_many :screens, dependent: :destroy
   has_many :shows, through: :screens
-  has_many :feedbacks, as: :commentable
+  has_many :feedbacks, as: :commentable, dependent: :destroy
   has_many :bookings, dependent: :destroy
 
   has_many :theater_admins

@@ -1,5 +1,5 @@
 class Show < ApplicationRecord
-  has_one_attached :poster
+  has_one_attached :poster, dependent: :destroy
 
   has_many :screen_shows
   has_many :screens, through: :screen_shows
