@@ -24,7 +24,7 @@ ActiveAdmin.setup do |config|
   # You can change this directory.
   #
   # eg:
-  #   config.load_paths = [File.join(Rails.root, 'app', 'ui')]
+  config.load_paths = [File.join(Rails.root, 'app', 'superadmin')]
   #
   # Or, you can also load more directories.
   # Useful when setting namespaces with users that are not your main AdminUser entity.
