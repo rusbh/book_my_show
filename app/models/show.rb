@@ -1,11 +1,15 @@
 class Show < ApplicationRecord
   has_one_attached :poster
 
+  has_many :screen_shows
+  has_many :screens, through: :screen_shows
+
+  has_many :bookings, dependent: :destroy
   has_many :feedbacks, -> { is_feedback }, as: :commentable
   has_many :reviews, -> { is_review }, class_name: 'Feedback', as: :commentable
 
   enum language: %i[hindi english gujarati tamil telugu]
-	enum genre: %i[action adventure animation comedy crime documentary drama fantasy historical horror romance science_fiction unspecified] 
+	enum genre: %i[action adventure animation comedy crime documentary drama fantasy historical horror romance science_fiction unspecified]
   enum category: %i[movie play sport event]
 	enum status: %i[idle running cancelled]
 
