@@ -1,6 +1,9 @@
 class Show < ApplicationRecord
   has_one_attached :poster
 
+  has_many :feedbacks, -> { is_feedback }, as: :commentable
+  has_many :reviews, -> { is_review }, class_name: 'Feedback', as: :commentable
+
   enum language: %i[hindi english gujarati tamil telugu]
 	enum genre: %i[action adventure animation comedy crime documentary drama fantasy historical horror romance science_fiction unspecified] 
   enum category: %i[movie play sport event]
