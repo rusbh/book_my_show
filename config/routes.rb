@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   resources :feedbacks
   resources :shows
-  resources :screens
+  # resources :screens
   resources :theaters
 
   get 'up' => 'rails/health#show', as: :rails_health_check
