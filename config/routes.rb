@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  root "home#index"
+  root 'home#index'
   ActiveAdmin.routes(self)
 
   namespace :admin do
-    root "dashboard#index"
+    root 'screens#index'
+    resources :screens, except: [:index]
   end
 
   devise_for :users,
@@ -11,9 +12,6 @@ Rails.application.routes.draw do
              path_names: {
                sign_in: 'login',
                sign_out: 'logout',
-              #  password: 'secret',
-              #  confirmation: 'verification',
-              #  registration: 'register',
                sign_up: 'signup'
              }
 
@@ -22,7 +20,7 @@ Rails.application.routes.draw do
   resources :screens
   resources :theaters
 
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'up' => 'rails/health#show', as: :rails_health_check
 
   # devise_scope :user do
   #   authenticated :user do
@@ -37,6 +35,6 @@ Rails.application.routes.draw do
   # authenticate :user, ->(u) { u.admin? } do
   #   root 'dashboard#index'
   # end
-             
+
   # get '*path' => redirect('/')
 end
