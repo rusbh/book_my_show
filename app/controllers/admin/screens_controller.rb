@@ -17,7 +17,7 @@ class Admin::ScreensController < Admin::BaseController
 
     respond_to do |format|
       if @screen.save
-        format.html { redirect_to admin_screen_url(@screen), notice: 'Screen was successfully created.' }
+        format.html { redirect_to admin_screen_url(@screen.theater, @screen), notice: 'Screen was successfully created.' }
         format.json { render :show, status: :created, location: @screen }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -31,7 +31,7 @@ class Admin::ScreensController < Admin::BaseController
   def update
     respond_to do |format|
       if @screen.update(screen_params)
-        format.html { redirect_to admin_screen_url(@screen), notice: 'Screen was successfully updated.' }
+        format.html { redirect_to admin_screen_url(@screen.theater, @screen), notice: 'Screen was successfully updated.' }
         format.json { render :show, status: :ok, location: @screen }
       else
         format.html { render :edit, status: :unprocessable_entity }

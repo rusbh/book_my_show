@@ -24,7 +24,7 @@
 
   <% @screens.each do |screen| %>
     <div class="my-3">
-      <li class="text-xl underline"><a href="<%= admin_screen_path(screen) %>">Screen no: <%= screen.screen_no %></a></li>
+      <li class="text-xl underline"><a href="<%= admin_screen_path(screen.theater, screen) %>">Screen no: <%= screen.screen_no %></a></li>
     </div>
   <% end %>
 </div>

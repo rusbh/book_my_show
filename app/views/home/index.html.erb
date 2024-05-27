@@ -7,5 +7,9 @@
   <%= link_to "Sign in", new_user_session_path, class: "rounded-lg py-3 px-5 bg-green-500 text-white font-medium" %>
 <% end %>
 
-  <h1 class="mt-6 text-4xl font-semibold">Welcome to Book My Show</h1>
+  <h1 class="mt-6 mb-5 text-4xl font-semibold">Welcome to Book My Show</h1>
+
+  <% if current_user&.admin? %>
+    <%= link_to 'Go to Theater portal', theater_portal_path, class: "rounded-lg py-3 px-5 bg-gray-300 text-black font-medium" %>
+  <% end %>
 </div>
