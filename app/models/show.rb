@@ -13,7 +13,7 @@ class Show < ApplicationRecord
   enum category: %i[movie play sport event]
 	enum status: %i[idle running cancelled]
 
-  validates :name, :description, :cast, :language, :genre, :category, :imdb_rating, :price, :status, :duration, :start_date, :end_date, presence: true
+  validates :name, :description, :cast, :language, :genre, :category, :imdb_rating, :price, :status, :duration, :release_date, presence: true
   validates :language, inclusion: { in: languages.keys }
   validates :genre, inclusion: { in: genres.keys }
   validates :category, inclusion: { in: categories.keys }

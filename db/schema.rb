@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_24_065604) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_28_104701) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,6 +94,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_24_065604) do
     t.bigint "show_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "start_date"
+    t.date "end_date"
     t.index ["screen_id"], name: "index_screen_shows_on_screen_id"
     t.index ["show_id"], name: "index_screen_shows_on_show_id"
   end
@@ -119,10 +121,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_24_065604) do
     t.integer "price"
     t.integer "status", default: 0
     t.integer "duration", default: 120
-    t.datetime "start_date"
-    t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "release_date"
   end
 
   create_table "theater_admins", force: :cascade do |t|

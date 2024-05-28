@@ -69,6 +69,6 @@ class Admin::ShowsController < Admin::BaseController
   # Only allow a list of trusted parameters through.
   def show_params
     params.require(:show).permit(:name, :description, :poster, :cast, :language, :genre, :category, :imdb_rating,
-                                 :price, :status, :duration, :start_date, :end_date)
+                                 :price, :status, :duration, :release_date)
   end
 end

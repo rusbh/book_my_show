@@ -18,8 +18,7 @@ ActiveAdmin.register Show do
       row :price
       row :status
       row :duration
-      row :start_date
-      row :end_date
+      row :release_date
     end
   end
 
@@ -36,11 +35,10 @@ ActiveAdmin.register Show do
       f.input :price
       f.input :status
       f.input :duration
-      f.input :start_date
-      f.input :end_date
+      f.input :release_date
     end
     f.actions
   end
 
-  permit_params :name, :description, :poster, :cast, :language, :genre, :category, :imdb_rating, :price, :status, :duration, :start_date, :end_date
+  permit_params :name, :description, :poster, :cast, :language, :genre, :category, :imdb_rating, :price, :status, :duration, :release_date
 end

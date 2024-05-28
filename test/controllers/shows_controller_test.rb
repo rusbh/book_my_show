@@ -17,7 +17,7 @@ class ShowsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create show" do
     assert_difference("Show.count") do
-      post shows_url, params: { show: { cast: @show.cast, category: @show.category, description: @show.description, duration: @show.duration, end_date: @show.end_date, genre: @show.genre, imdb_rating: @show.imdb_rating, language: @show.language, name: @show.name, price: @show.price, start_date: @show.start_date, status: @show.status } }
+      post shows_url, params: { show: { cast: @show.cast, category: @show.category, description: @show.description, duration: @show.duration, end_date: @show.end_date, genre: @show.genre, imdb_rating: @show.imdb_rating, language: @show.language, name: @show.name, price: @show.price, release_date: @show.release_date, status: @show.status } }
     end
 
     assert_redirected_to show_url(Show.last)

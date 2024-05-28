@@ -24,7 +24,7 @@ class ShowsTest < ApplicationSystemTestCase
     fill_in "Language", with: @show.language
     fill_in "Name", with: @show.name
     fill_in "Price", with: @show.price
-    fill_in "Start date", with: @show.start_date
+    fill_in "Release date", with: @show.release_date
     fill_in "Status", with: @show.status
     click_on "Create Show"
 
@@ -46,7 +46,7 @@ class ShowsTest < ApplicationSystemTestCase
     fill_in "Language", with: @show.language
     fill_in "Name", with: @show.name
     fill_in "Price", with: @show.price
-    fill_in "Start date", with: @show.start_date
+    fill_in "Release date", with: @show.release_date
     fill_in "Status", with: @show.status
     click_on "Update Show"
 
