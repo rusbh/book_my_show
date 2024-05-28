@@ -25,7 +25,7 @@
     </div>
   <% end %>
 
-  <h1 class="font-bold text-3xl mt-10 mb-3">Shows</h1>
+  <h1 class="font-bold text-3xl mt-10 mb-3">All Theater Shows</h1>
 
   <% @shows.each do |show| %>
     <h1 class="text-2xl"><%= show.name.capitalize %> - on Screen <%= show.screens.first.screen_no %></h1>
