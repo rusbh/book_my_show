@@ -3,7 +3,9 @@ class Admin::ScreensController < Admin::BaseController
   before_action :set_screen, only: %i[show edit update destroy]
 
   def index
-    @screens = @theater.screens.all
+    @screens = @theater.screens
+    @shows = @theater.shows
+    @feedbacks = @theater.feedbacks
   end
 
   def show; end

@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   namespace :admin do
     scope ":theater_id" do
       root 'screens#index'
-      resources :screens, except: [:index]
+      resources :screens, except: [:index] do
+        resources :shows
+      end
     end
   end
   

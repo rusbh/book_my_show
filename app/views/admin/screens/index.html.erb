@@ -17,14 +17,25 @@
     <%= link_to "Add New screen", new_admin_screen_path, class: "rounded-lg py-3 px-5 my-auto bg-blue-600 text-white block font-medium" %>
   </div>
   
-  <div class="flex justify-between items-center mt-10">
-    <h1 class="font-bold text-3xl">Screens</h1>
-    
-  </div>
+  <h1 class="font-bold text-3xl mt-10">Screens</h1>  
 
   <% @screens.each do |screen| %>
     <div class="my-3">
       <li class="text-xl underline"><a href="<%= admin_screen_path(screen.theater, screen) %>">Screen no: <%= screen.screen_no %></a></li>
     </div>
   <% end %>
+
+  <h1 class="font-bold text-3xl mt-10 mb-3">Shows</h1>
+
+  <% @shows.each do |show| %>
+    <h1 class="text-2xl"><%= show.name.capitalize %> - on Screen <%= show.screens.first.screen_no %></h1>
+    <%= image_tag url_for(show.poster) if show.poster.attached? %>
+  <% end %>
+
+  <h1 class="font-bold text-3xl mt-10">Feedbacks</h1>
+
+  <% @feedbacks.each do |f| %>
+    <li class="text-2xl"><%= f.comment %><span> - by <%= f.user.name %></span></li>
+  <% end %>
+  </div>
 </div>
