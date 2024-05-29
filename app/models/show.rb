@@ -18,4 +18,6 @@ class Show < ApplicationRecord
   validates :genre, inclusion: { in: genres.keys }
   validates :category, inclusion: { in: categories.keys }
   validates :imdb_rating, inclusion: { in: 1..10 }
+
+  accepts_nested_attributes_for :screen_shows
 end

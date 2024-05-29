@@ -36,27 +36,37 @@
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Imdb rating:</strong>
-    <%= show.imdb_rating %>
+    ⭐ <%= show.imdb_rating %>
   </p>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Price:</strong>
-    <%= show.price %>
+    ₹ <%= show.price %>
   </p>
 
-  <p class="my-5">
+  <!--<p class="my-5">
     <strong class="block font-medium mb-1">Status:</strong>
-    <%= show.status %>
-  </p>
+    <%#= show.status %>-->
+<!--  </p>-->
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Duration:</strong>
-    <%= show.duration %>
+    <%= "#{show.duration/60}h #{show.duration % 60}m" %>
   </p>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Release date:</strong>
     <%= show.release_date %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Show start date for this screen:</strong>
+    <%= show.screen_shows.first.start_date %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Show end date for this screen:</strong>
+    <%= show.screen_shows.first.end_date %>
   </p>
 
 </div>

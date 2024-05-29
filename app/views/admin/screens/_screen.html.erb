@@ -10,4 +10,13 @@
   <p class="my-5">
     <strong class="block font-medium mb-1">Status: <%= screen.status %></strong>
   </p>
+
+  <strong class="block font-medium mb-1">Shows: </strong>
+  <% if screen.screen_shows.present? %>
+    <p class="my-5">
+    <%= screen.screen_shows.first.show.name %>
+    </p>  
+  <% else %>
+    <p>No shows scheduled or Running currently</p>
+  <% end %>
 </div>

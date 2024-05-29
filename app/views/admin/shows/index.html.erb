@@ -7,14 +7,14 @@
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Shows</h1>
-    <%= link_to "New show", new_show_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <%= link_to "New show", new_admin_screen_show_path(@theater, @screen), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
   <div id="shows" class="min-w-full">
     <% @shows.each do |show| %>
       <%= render show %>
       <p>
-        <%= link_to "Show this show", show, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <%= link_to "Show this show", admin_screen_show_path(@theater, @screen, show), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       </p>
     <% end %>
   </div>
