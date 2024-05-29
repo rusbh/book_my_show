@@ -51,7 +51,7 @@
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Duration:</strong>
-    <%= "#{show.duration/60}h #{show.duration % 60}m" %>
+    <%= formatted_duration(show.duration) %>
   </p>
 
   <p class="my-5">

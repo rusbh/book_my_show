@@ -1,14 +1,6 @@
 <div class="w-full">
-
-  <% if user_signed_in? %>
-    <div class="flex justify-between">
-      <h1 class="mb-3 text-3xl font-medium">Welcome to Theater dashboard page, <%= current_user.email %></h1>
-      <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
-    </div>
-  <% else %>
-    <%= link_to "Sign in", new_user_session_path, class: "rounded-lg py-3 px-5 bg-green-500 text-white font-medium" %>
-  <% end %>
-  
+  <h1 class="mb-3 text-3xl font-medium">Welcome to Theater dashboard page, <%= current_user.email %></h1>
+      
   <div class="flex justify-between mt-10">
     <div>
       <h1 class="text-4xl mt-5 font-medium"><%= @theater.name %></h1>

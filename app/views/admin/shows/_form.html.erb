@@ -76,11 +76,11 @@
   <div class="my-5">
     <%= form.fields_for :screen_shows do |ss| %>
       <div class="my-5">
-        <%= ss.hidden_field :show_id, value: [@show.id], class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <%= ss.hidden_field :show_id, value: [@show.id] %>
       </div>
 
       <div class="my-5">
-        <%= ss.hidden_field :screen_id, value: [@screen.id] , class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <%= ss.hidden_field :screen_id, value: [@screen.id] %>
       </div>
       
       <div class="my-5">
