@@ -1,21 +1,8 @@
 class Admin::ShowsController < Admin::BaseController
-  before_action :set_theater
-  before_action :set_screen
-  before_action :set_show, only: %i[show edit update destroy]
-
-  def index
-    @shows = @screen.shows
-  end
-
-  def show; end
-
-  def new
-    @show = Show.new
-    @show.screen_shows.build
-  end
+  before_action :set_show
 
   def create
-    @show = Show.new(show_params)
+    @show = ScreenShow.new(show_params)
 
     respond_to do |format|
       if @show.save
@@ -63,9 +50,9 @@ class Admin::ShowsController < Admin::BaseController
   end
 
   def set_screen
-    @screen = Screen.find(params[:screen_id])
+    # @screen = Screen.find(params[:screen_id])
     # @screen = @theater.screens.first
-    # @screen = @theater.screens.find_by(id: params[:screen_id])
+    @screen = @theater.screens.find_by(id: params[:screen_id])
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -76,6 +63,6 @@ class Admin::ShowsController < Admin::BaseController
   # Only allow a list of trusted parameters through.
   def show_params
     params.require(:show).permit(:name, :description, :poster, :cast, :language, :genre, :category, :imdb_rating,
-                                 :status, :duration, :release_date, screen_shows_attributes: [:screen_id, :show_id, :price, :start_date,:end_date])
+                                 :status, :duration, :release_date, screen_shows_attributes: [:price, :start_date,:end_date])
   end
 end

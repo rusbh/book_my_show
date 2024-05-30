@@ -9,20 +9,9 @@
     <%= link_to "Edit this screen", edit_admin_screen_path(@screen), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Back to Theater Portal", admin_root_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">
-      <%= button_to "Destroy this screen", @admin_screen, method: :delete, data: { confirm: "All shows assigned to this screen will also be deleted" }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= button_to "Destroy this screen", @admin_screen, method: :delete, data: { turbo_confirm: "All shows assigned to this screen will also be lost." }, class: "mt-2 rounded-lg py-3 px-5 bg-red-400 font-medium" %>
     </div>
 
-    <h1><%= link_to 'See Screen assigned Shows', admin_screen_shows_path(@theater, @screen, @show), class: "mt-20 rounded-lg py-3 px-5 bg-orange-300 inline-block font-medium mx-32" %></h1>
-
-    <!--<h1 class="text-2xl mt-10 mb-3 font-bold">Shows for this screen</h1>
-
-    <%# if @screen.screen_shows.present? %>-->
-      <%# @screen.screen_shows.each do |ss| %>
-<!--        <h1 class="text-xl"><%#= ss.show.name %></h1>-->
-        <%#= image_tag url_for(ss.show.poster) if ss.show.poster.attached? %>
-      <%# end %>
-    <%# else %>
-<!--      <p>No shows scheduled or Running currently</p>-->
-    <%# end %>
+    <h1><%= link_to "Manage Assigned Shows", admin_screen_shows_path(@theater, @screen, @show), class: "mt-5 rounded-lg py-3 px-5 bg-orange-300 inline-block font-medium " %></h1>
   </div>
 </div>

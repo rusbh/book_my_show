@@ -18,7 +18,7 @@
 
   <div class="my-5">
     <%= form.label :description %>
-    <%= form.text_area :description, rows: 4, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.text_area :description, rows: 4, class: "resize-none block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
@@ -33,17 +33,17 @@
 
   <div class="my-5">
     <%= form.label :language %>
-    <%= form.select :language, options_for_select([["Hindi", "hindi"], ["English", "english"], ["Gujarati", "gujarati"], ["Tamil", "tamil"], ["Telugu", "telugu"]]), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :language, options_for_select([["Hindi", "hindi"], ["English", "english"], ["Gujarati", "gujarati"], ["Tamil", "tamil"], ["Telugu", "telugu"]]), {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
     <%= form.label :genre %>
-    <%= form.select :genre, options_for_select([["Action", "action"], ["Adventure", "adventure"], ["Animation", "animation"], ["Comedy", "comedy"], ["Crime", "crime"], ["Documentary", "documentary"], ["Drama", "drama"], ["Fantasy", "fantasy"], ["Historical", "historical"], ["Horror", "horror"], ["Romance", "romance"], ["Science_fiction", "science_fiction"], ["Unspecified", "unspecified"]]), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :genre, options_for_select([["Action", "action"], ["Adventure", "adventure"], ["Animation", "animation"], ["Comedy", "comedy"], ["Crime", "crime"], ["Documentary", "documentary"], ["Drama", "drama"], ["Fantasy", "fantasy"], ["Historical", "historical"], ["Horror", "horror"], ["Romance", "romance"], ["Science_fiction", "science_fiction"], ["Unspecified", "unspecified"]]), {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
     <%= form.label :category %>
-    <%= form.select :category, options_for_select([["Movie", "movie"], ["Play", "play"], ["Sport", "sport"], ["Event", "event"]]), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :category, options_for_select([["Movie", "movie"], ["Play", "play"], ["Sport", "sport"], ["Event", "event"]]), {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
@@ -53,7 +53,7 @@
 
   <div class="my-5">
     <%= form.label :status %>
-    <%= form.select :status, options_for_select([["Idle", "idle"], ["Running", "running"], ["Cancelled", "cancelled"]]), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :status, options_for_select([["Idle", "idle"], ["Running", "running"], ["Cancelled", "cancelled"]]), {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
@@ -66,14 +66,12 @@
     <%= form.date_field :release_date, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <h1 class="text-2xl font-bold">Edit Show details</h1>
-
   <div class="my-5">
     <%= form.fields_for :screen_shows do |ss| %>
       <% if form_type == :new %> 
         <div class="my-5">
-          <%#= ss.select :show_id, options_for_select(Show.all.map {|s| [s.name, s.id ]}) %>
-          <%= ss.hidden_field :show_id, value: @show.name %>
+          <%= ss.label :show_id, "Pick a Show" %>
+          <%= ss.select :show_id, options_for_select(Show.all.map {|s| [s.name, s.id ]}), {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
         </div>
       <% end %>
 
@@ -88,17 +86,17 @@
       </div>
       
       <div class="my-5">
-        <%= ss.label :price %>
+        <%= ss.label :price, "Ticket Price in Rupees (₹)" %>
         <%= ss.number_field :price, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
       </div>
 
       <div class="my-5">
-        <%= ss.label :start_date %>
+        <%= ss.label :start_date, "Starting date for this screen" %>
         <%= ss.date_field :start_date, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
       </div>
   
       <div class="my-5">
-        <%= ss.label :end_date %>
+        <%= ss.label :end_date, "Ending date for this screen" %>
         <%= ss.date_field :end_date, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
       </div>
     <% end %>

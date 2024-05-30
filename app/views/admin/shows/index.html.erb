@@ -5,17 +5,16 @@
 
   <% content_for :title, "Shows" %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Shows</h1>
+  <div class="flex justify-between items-center mb-10">
+    <h1 class="font-medium text-4xl">Screen <%= @screen.screen_no %>'s all shows</h1>
     <%= link_to "New show", new_admin_screen_show_path(@theater, @screen), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
   <div id="shows" class="min-w-full">
     <% @shows.each do |show| %>
-      <%= render show %>
-      <p>
-        <%= link_to "Show this show", admin_screen_show_path(@theater, @screen, show), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
+    <a href="<%= admin_screen_show_path(@theater, @screen, show) %>">
+      <%= image_tag url_for(show.poster.variant(:display)) if show.poster.attached? %>
+      <h1 class="text-3xl font-semibold"><%= show.name %></h1>
     <% end %>
   </div>
 </div>

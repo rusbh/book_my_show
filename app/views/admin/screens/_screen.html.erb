@@ -1,22 +1,22 @@
 <div id="<%= dom_id screen %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">Screen no: <%= screen.screen_no %></strong>
+    <strong class="block font-medium mb-1">Screen: <%= screen.screen_no %></strong>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Seats: <%= screen.seats %></strong>
+    <strong class="block font-medium mb-1">Seat Capacity: <%= screen.seats %></strong>
   </p>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Status: <%= screen.status %></strong>
   </p>
 
-  <strong class="block font-medium mb-1">Shows: </strong>
-  <% if screen.screen_shows.present? %>
-    <p class="my-5">
-    <%= screen.screen_shows.first.show.name %>
-    </p>  
-  <% else %>
-    <p>No shows scheduled or Running currently</p>
-  <% end %>
+  <strong class="block font-medium text-2xl mt-10 mb-2">Shows: </strong>
+  <div class="mb-5">
+    <% if screen.screen_shows.present? %>
+      <li class="ml-5"><%= screen.screen_shows.first.show.name %></li>
+    <% else %>
+      <p>No shows scheduled or Running currently</p>
+    <% end %>
+  </div>
 </div>
