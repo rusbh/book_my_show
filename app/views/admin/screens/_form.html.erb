@@ -21,10 +21,7 @@
     <%= form.number_field :seats, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :status %>
-    <%= form.select :status, options_for_select([["Idle", "idle"], ["Running", "running"], ["In Maintenance", "in_maintenance"], ["Unavailable", "unavailable"]]), class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+  <%= form.hidden_field :status, value: @screen.status %>
 
   <div class="my-5">
     <%= form.hidden_field :theater_id, value: [@theater.id] %>

@@ -11,7 +11,7 @@
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Poster:</strong>
-    <%= image_tag url_for(show.poster) if show.poster.attached? %>
+    <%= image_tag url_for(show.poster.variant(:display)) if show.poster.attached? %>
   </p>
 
   <p class="my-5">
@@ -40,16 +40,6 @@
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Price:</strong>
-    ₹ <%= show.price %>
-  </p>
-
-  <!--<p class="my-5">
-    <strong class="block font-medium mb-1">Status:</strong>
-    <%#= show.status %>-->
-<!--  </p>-->
-
-  <p class="my-5">
     <strong class="block font-medium mb-1">Duration:</strong>
     <%= formatted_duration(show.duration) %>
   </p>
@@ -57,6 +47,11 @@
   <p class="my-5">
     <strong class="block font-medium mb-1">Release date:</strong>
     <%= show.release_date %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Price:</strong>
+    ₹<%= show.screen_shows.first.price %>
   </p>
 
   <p class="my-5">

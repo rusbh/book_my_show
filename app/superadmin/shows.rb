@@ -15,7 +15,6 @@ ActiveAdmin.register Show do
       row :genre
       row :category
       row :imdb_rating
-      row :price
       row :status
       row :duration
       row :release_date
@@ -32,7 +31,6 @@ ActiveAdmin.register Show do
       f.input :genre
       f.input :category
       f.input :imdb_rating
-      f.input :price
       f.input :status
       f.input :duration
       f.input :release_date
@@ -40,5 +38,5 @@ ActiveAdmin.register Show do
     f.actions
   end
 
-  permit_params :name, :description, :poster, :cast, :language, :genre, :category, :imdb_rating, :price, :status, :duration, :release_date
+  permit_params :name, :description, :poster, :cast, :language, :genre, :category, :imdb_rating, :status, :duration, :release_date
 end

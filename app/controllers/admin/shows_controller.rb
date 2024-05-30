@@ -19,7 +19,9 @@ class Admin::ShowsController < Admin::BaseController
 
     respond_to do |format|
       if @show.save
-        format.html { redirect_to admin_screen_show_url(@theater, @screen, @show), notice: 'Show was successfully created.' }
+        format.html do
+          redirect_to admin_screen_show_url(@theater, @screen, @show), notice: 'Show was successfully created.'
+        end
         format.json { render :show, status: :created, location: @show }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -33,7 +35,9 @@ class Admin::ShowsController < Admin::BaseController
   def update
     respond_to do |format|
       if @show.update(show_params)
-        format.html { redirect_to admin_screen_show_url(@theater, @screen, @show), notice: 'Show was successfully updated.' }
+        format.html do
+          redirect_to admin_screen_show_url(@theater, @screen, @show), notice: 'Show was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @show }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,6 +64,8 @@ class Admin::ShowsController < Admin::BaseController
 
   def set_screen
     @screen = Screen.find(params[:screen_id])
+    # @screen = @theater.screens.first
+    # @screen = @theater.screens.find_by(id: params[:screen_id])
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -70,6 +76,6 @@ class Admin::ShowsController < Admin::BaseController
   # Only allow a list of trusted parameters through.
   def show_params
     params.require(:show).permit(:name, :description, :poster, :cast, :language, :genre, :category, :imdb_rating,
-                                 :price, :status, :duration, :release_date, screen_shows_attributes: [:screen_id, :show_id, :start_date, :end_date])
+                                 :status, :duration, :release_date, screen_shows_attributes: [:price, :start_date,:end_date])
   end
 end
