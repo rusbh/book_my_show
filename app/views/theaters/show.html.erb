@@ -6,7 +6,14 @@
 
     <%= render @theater %>
 
-    <h1>Feedbacks</h1>
+    <h1 class="text-3xl">All shows for theater:</h1>
+
+    <% @theater.shows.each do |show| %>
+      <div class="my-5">
+        <h1 class="text-2xl"><%= show.name.capitalize %> - on Screen <%= show.screens.first.screen_no %></h1>
+        <%= image_tag url_for(show.poster.variant(:display)) if show.poster.attached? %>
+      </div>
+    <% end %>
 
     <div>
       <% @theater.feedbacks.each do |f| %>
@@ -14,10 +21,14 @@
       <% end %> 
     </div>
 
-    <%= link_to "Edit this theater", edit_theater_path(@theater), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to theaters", theaters_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this theater", @theater, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    <h1>Feedbacks</h1>
+
+    <div>
+      <% @theater.feedbacks.each do |f| %>
+        <li><%= f.comment %> - <%= f.user.name %></li>
+      <% end %> 
     </div>
+    
+    <%= link_to "Back to theaters", theaters_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
 </div>

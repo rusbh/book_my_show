@@ -12,7 +12,7 @@
     <% end %>
     <% if user_signed_in? %>
       <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
-      <a href="profile"><img src="/profile.svg" height="45" width="45"></a>
+      <a href="/profile"><img src="/profile.svg" height="45" width="45"></a>
     <% else %>
       <%= link_to "Sign up", new_user_registration_path, class: "rounded-lg py-3 px-5 bg-stone-300 text-black font-medium" %>
       <%= link_to "Sign in", new_user_session_path, class: "rounded-lg py-3 px-5 bg-green-500 text-white font-medium" %>

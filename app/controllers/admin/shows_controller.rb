@@ -70,7 +70,6 @@ class Admin::ShowsController < Admin::BaseController
   end
 
   def set_screen_show
-    # @screen_show = @show.screen_shows.find_by(id: @show.id)
     @screen_show = @show.screen_shows.find_by(screen_id: @screen.id)
   end
 

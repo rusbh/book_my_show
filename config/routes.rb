@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'profile', to: "users#index", as: :profile
+  get 'profile', to: 'users#index', as: :profile
   root 'home#index'
   ActiveAdmin.routes(self)
 
@@ -19,9 +19,9 @@ Rails.application.routes.draw do
              }
 
   resources :feedbacks
-  resources :shows
+  resources :shows, only: %i[index show]
+  resources :theaters, only: %i[index show]
   # resources :screens
-  resources :theaters
 
   get 'up' => 'rails/health#show', as: :rails_health_check
 
