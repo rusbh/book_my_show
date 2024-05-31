@@ -1,42 +1,55 @@
-<div class="w-full">
-  <h1 class="mb-3 text-3xl font-medium">Welcome to Theater dashboard page, <%= current_user.email %></h1>
+<div class="w-full px-6">
+  <h1 class="mb-3 text-3xl font-medium">Welcome to the Theater Dashboard Page, <%= current_user.email %></h1>
 
-  <div class="flex justify-between mt-10">
+  <div class="flex justify-between mt-10 items-center">
     <h1 class="font-bold text-4xl">Screens</h1> 
-    <%= link_to "Add New screen", new_admin_screen_path, class: "rounded-lg py-3 px-5 my-auto bg-blue-600 text-white block font-medium" %>
+    <%= link_to "Add New Screen", new_admin_screen_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium hover:bg-blue-700 transition" %>
   </div> 
 
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
   <% @screens.each do |screen| %>
-    <div class="my-3">
-      <%= link_to "#{screen.screen_no}", admin_screen_path(screen), class: "rounded-lg py-3 px-5 my-auto max-w-24 text-center bg-stone-200 hover:bg-stone-300 text-black block font-medium" %>
+    <div class="flex justify-center">
+      <%= link_to admin_screen_path(screen), class: "w-full h-20 flex items-center justify-center rounded-lg bg-indigo-300 hover:bg-indigo-400 text-black font-medium text-center transition transform hover:scale-105" do %>
+        <span class="text-2xl"><%= screen.screen_no %></span>
+      <% end %>
     </div>
   <% end %>
+</div>
 
   <h1 class="font-bold text-3xl mt-10 mb-3">All Theater Shows</h1>
 
-  <% @shows.each do |show| %>
-    <div class="my-5">
-      <h1 class="text-2xl"><%= show.name.capitalize %> - on Screen <%= show.screens.first.screen_no %></h1>
-      <%= image_tag url_for(show.poster.variant(:display)) if show.poster.attached? %>
-    </div>
-  <% end %>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% @shows.each do |show| %>
+      <div class="my-5">
+        <%= image_tag url_for(show.poster.variant(:display)) if show.poster.attached? %>
+      </div>
+    <% end %>
+  </div>
 
-  <h1 class="mt-24 text-3xl">Total bookings of shows by screen for current week</h1>
-  <%= bar_chart Screen.group_by_day(:created_at).count %>
+  <h1 class="mt-24 text-3xl font-bold">Total Bookings of Shows by Screen for Current Week</h1>
+  <div class="my-6">
+    <%= bar_chart Screen.group_by_day(:created_at).count %>
+  </div>
 
-  <h1 class="text-3xl">Total bookings in general by week</h1>
-  <%= line_chart Screen.group_by_day(:created_at).count %>
+  <h1 class="text-3xl font-bold mt-10">Total Bookings in General by Week</h1>
+  <div class="my-6">
+    <%= line_chart Screen.group_by_day(:created_at).count %>
+  </div>
   
-  <h1 class="text-3xl">Total bookings in general by month</h1>
-  <%= line_chart Screen.group_by_day(:created_at).count %>
+  <h1 class="text-3xl font-bold mt-10">Total Bookings in General by Month</h1>
+  <div class="my-6">
+    <%= line_chart Screen.group_by_day(:created_at).count %>
+  </div>
 
-  <h1 class="text-3xl">Most popular show based on booking</h1>
-  <%= pie_chart Screen.group_by_day(:created_at).count %>
+  <h1 class="text-3xl font-bold mt-10">Most Popular Show Based on Booking</h1>
+  <div class="my-6">
+    <%= pie_chart Screen.group_by_day(:created_at).count %>
+  </div>
 
   <h1 class="font-bold text-3xl mt-10">Feedbacks</h1>
-
-  <% @feedbacks.each do |f| %>
-    <li class="text-2xl"><%= f.comment %><span> - by <%= f.user.name %></span></li>
-  <% end %>
-  </div>
+  <ul class="list-disc list-inside mt-4 space-y-2">
+    <% @feedbacks.each do |f| %>
+      <li class="text-xl"><%= f.comment %><span class="text-gray-600"> - by <%= f.user.name %></span></li>
+    <% end %>
+  </ul>
 </div>
