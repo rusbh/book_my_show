@@ -3,7 +3,7 @@ class Admin::ScreensController < Admin::BaseController
   before_action :set_screen, only: %i[show edit update destroy]
 
   def index
-    @screens = @theater.screens
+    @screens = @theater.screens.includes(:shows)
     @shows = @theater.shows
     @feedbacks = @theater.feedbacks
   end
@@ -19,7 +19,7 @@ class Admin::ScreensController < Admin::BaseController
 
     respond_to do |format|
       if @screen.save
-        format.html { redirect_to admin_screen_url(@screen.theater, @screen), notice: 'Screen was successfully created.' }
+        format.html { redirect_to admin_screen_url(@screen), notice: 'Screen was successfully created.' }
         format.json { render :show, status: :created, location: @screen }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -33,7 +33,7 @@ class Admin::ScreensController < Admin::BaseController
   def update
     respond_to do |format|
       if @screen.update(screen_params)
-        format.html { redirect_to admin_screen_url(@screen.theater, @screen), notice: 'Screen was successfully updated.' }
+        format.html { redirect_to admin_screen_url(@screen), notice: 'Screen was successfully updated.' }
         format.json { render :show, status: :ok, location: @screen }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,7 +56,11 @@ class Admin::ScreensController < Admin::BaseController
   # getting admin's assigned theater
   def set_theater
     @theater_admin = TheaterAdmin.where(user: current_user).first
-    @theater = @theater_admin.theater
+    if @theater_admin.nil?
+      redirect_to root_path, alert: 'You are not assigned to any theater'
+    else
+      @theater = @theater_admin.theater
+    end
   end
 
   # Use callbacks to share common setup or constraints between actions.

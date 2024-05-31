@@ -11,15 +11,17 @@ class Show < ApplicationRecord
   has_many :reviews, -> { is_review }, class_name: 'Feedback', as: :commentable
 
   enum language: %i[hindi english gujarati tamil telugu]
-	enum genre: %i[action adventure animation comedy crime documentary drama fantasy historical horror romance science_fiction unspecified]
+  enum genre: %i[action adventure animation comedy crime documentary drama fantasy historical horror romance
+                 science_fiction unspecified]
   enum category: %i[movie play sport event]
-	enum status: %i[idle running cancelled]
+  enum status: %i[idle running cancelled]
 
-  validates :name, :description, :cast, :language, :genre, :category, :imdb_rating, :status, :duration, :release_date, presence: true
+  validates :name, :description, :cast, :language, :genre, :category, :imdb_rating, :status, :duration, :release_date,
+            presence: true
   validates :language, inclusion: { in: languages.keys }
   validates :genre, inclusion: { in: genres.keys }
   validates :category, inclusion: { in: categories.keys }
   validates :imdb_rating, inclusion: { in: 1..10 }
 
-  accepts_nested_attributes_for :screen_shows, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :screen_shows, allow_destroy: true, reject_if: :all_blank
 end

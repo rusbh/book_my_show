@@ -9,7 +9,7 @@
   </div>
   <div class="flex items-center gap-x-8">
     <% if current_user&.admin? %>
-      <%= link_to 'Go to Theater portal', theater_portal_path, class: "rounded-lg py-3 px-5 bg-orange-300 text-black font-medium" %>
+      <%= link_to 'Go to Theater portal', admin_root_path, class: "rounded-lg py-3 px-5 bg-orange-300 text-black font-medium" %>
     <% end %>
     <% if user_signed_in? %>
       <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>

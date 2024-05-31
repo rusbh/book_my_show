@@ -8,7 +8,7 @@
 
   <% @screens.each do |screen| %>
     <div class="my-3">
-      <%= link_to "#{screen.screen_no}", admin_screen_path(screen.theater, screen), class: "rounded-lg py-3 px-5 my-auto max-w-24 text-center bg-stone-200 hover:bg-stone-300 text-black block font-medium" %>
+      <%= link_to "#{screen.screen_no}", admin_screen_path(screen), class: "rounded-lg py-3 px-5 my-auto max-w-24 text-center bg-stone-200 hover:bg-stone-300 text-black block font-medium" %>
     </div>
   <% end %>
 
@@ -16,7 +16,7 @@
 
   <% @shows.each do |show| %>
     <h1 class="text-2xl"><%= show.name.capitalize %> - on Screen <%= show.screens.first.screen_no %></h1>
-    <%= image_tag url_for(show.poster.variant(:display)) if show.poster.attached? %>
+    <%= image_tag url_for(show.poster.variant(:display)) if show.poster.attached? %>``
   <% end %>
 
   <h1 class="font-bold text-3xl mt-10">Feedbacks</h1>

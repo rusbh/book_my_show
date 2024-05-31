@@ -3,6 +3,6 @@
 
   <%= render "form", show: @show, form_type: :edit %>
 
-  <%= link_to "Show this show", admin_screen_show_path(@theater, @screen, @show), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to shows", admin_screen_shows_path(@theater, @screen), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Show this show", admin_screen_show_path(@screen, @show), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Back to shows", admin_screen_shows_path(@screen), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>

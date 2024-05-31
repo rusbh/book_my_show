@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   # devise method for redirecting admin to theater portal after login
   def after_sign_in_path_for(resource)
     if resource.admin?
-      theater_portal_path
+      admin_root_path
     else
       root_path
     end

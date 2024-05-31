@@ -7,12 +7,12 @@
 
   <div class="flex justify-between items-center mb-10">
     <h1 class="font-medium text-4xl">Screen <%= @screen.screen_no %>'s all shows</h1>
-    <%= link_to "New show", new_admin_screen_show_path(@theater, @screen), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <%= link_to "New show", new_admin_screen_show_path(@screen), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
   <div id="shows" class="min-w-full">
     <% @shows.each do |show| %>
-    <a href="<%= admin_screen_show_path(@theater, @screen, show) %>">
+    <a href="<%= admin_screen_show_path(@screen, show) %>">
       <%= image_tag url_for(show.poster.variant(:display)) if show.poster.attached? %>
       <h1 class="text-3xl font-semibold"><%= show.name %></h1>
     <% end %>
