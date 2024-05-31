@@ -6,6 +6,22 @@
 
     <%= render @show %>
 
+    <h1>Reviews:</h1>
+
+    <div>
+      <% @show.reviews.each do |r| %>
+        <li><%= r.comment %> - <%= r.user.name %></li>
+      <% end %> 
+    </div>
+
+    <h1>Feedbacks:</h1>
+
+    <div>
+      <% @show.feedbacks.each do |f| %>
+        <li><%= f.comment %> - <%= f.user.name %></li>
+      <% end %> 
+    </div>
+
     <%= link_to "Edit this show", edit_show_path(@show), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Back to shows", shows_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">

@@ -1,0 +1,13 @@
+<div>
+  <h1 class="font-bold text-4xl"><%= current_user.name %></h1>
+
+  <div class="my-12">
+    <h1 class="text-2xl font-bold">Your all bookings:</h1>
+    <div class="text-xl my-3">
+      <% current_user.bookings.each do |b| %>
+        <li><span class="font-medium"><%= b.show.name %></span>, <%= b.screen.theater.name %> on <%= b.booking_date.strftime("%d/%m/%y at %H:%M%p") %></li>
+      <% end %>
+    </p>
+  </div>
+</div>
+

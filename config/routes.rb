@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'profile', to: "users#index", as: :profile
   root 'home#index'
   ActiveAdmin.routes(self)
 

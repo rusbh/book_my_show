@@ -1,18 +1,11 @@
 <div id="<%= dom_id show %>">
+  
   <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= show.name %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= show.description %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Poster:</strong>
     <%= image_tag url_for(show.poster) if show.poster.attached? %>
   </p>
+
+  <p><%= show.name %></p>
+  <p><%= show.description %></p>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Cast:</strong>
