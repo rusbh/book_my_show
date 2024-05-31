@@ -15,9 +15,23 @@
   <h1 class="font-bold text-3xl mt-10 mb-3">All Theater Shows</h1>
 
   <% @shows.each do |show| %>
-    <h1 class="text-2xl"><%= show.name.capitalize %> - on Screen <%= show.screens.first.screen_no %></h1>
-    <%= image_tag url_for(show.poster.variant(:display)) if show.poster.attached? %>``
+    <div class="my-5">
+      <h1 class="text-2xl"><%= show.name.capitalize %> - on Screen <%= show.screens.first.screen_no %></h1>
+      <%= image_tag url_for(show.poster.variant(:display)) if show.poster.attached? %>
+    </div>
   <% end %>
+
+  <h1 class="mt-24 text-3xl">Total bookings of shows by screen for current week</h1>
+  <%= bar_chart Screen.group_by_day(:created_at).count %>
+
+  <h1 class="text-3xl">Total bookings in general by week</h1>
+  <%= line_chart Screen.group_by_day(:created_at).count %>
+  
+  <h1 class="text-3xl">Total bookings in general by month</h1>
+  <%= line_chart Screen.group_by_day(:created_at).count %>
+
+  <h1 class="text-3xl">Most popular show based on booking</h1>
+  <%= pie_chart Screen.group_by_day(:created_at).count %>
 
   <h1 class="font-bold text-3xl mt-10">Feedbacks</h1>
 
