@@ -3,15 +3,15 @@ class Show < ApplicationRecord
   friendly_id :name, use: :slugged
 
   has_one_attached :poster, dependent: :destroy do |attachable|
-    attachable.variant :display, resize_to_limit: [300, 400]
+    attachable.variant :display, resize_to_limit: [300, 350]
   end
 
   has_many :screenings, dependent: :destroy
   has_many :screens, through: :screenings
 
   has_many :bookings, dependent: :destroy
-  has_many :feedbacks, -> { is_feedback }, as: :commentable
-  has_many :reviews, -> { is_review }, class_name: 'Feedback', as: :commentable
+  has_many :feedbacks, -> { is_feedback }, as: :commentable, dependent: :destroy
+  has_many :reviews, -> { is_review }, class_name: 'Feedback', as: :commentable, dependent: :destroy
 
   enum language: %i[hindi english gujarati tamil telugu]
   enum genre: %i[action adventure animation comedy crime documentary drama fantasy historical horror romance

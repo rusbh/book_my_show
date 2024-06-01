@@ -9,7 +9,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
   <% @screens.each do |screen| %>
     <div class="flex justify-center">
-      <%= link_to admin_screen_path(screen), class: "w-full h-20 flex items-center justify-center rounded-lg bg-indigo-300 hover:bg-indigo-400 text-black font-medium text-center transition transform hover:scale-105" do %>
+      <%= link_to admin_screen_path(screen), class: "w-full h-28 flex items-center justify-center rounded-lg bg-indigo-300 hover:bg-indigo-400 text-black font-medium text-center transition transform hover:scale-105" do %>
         <span class="text-2xl"><%= screen.screen_no %></span>
       <% end %>
     </div>
@@ -19,9 +19,9 @@
   <h1 class="font-bold text-3xl mt-10 mb-3">All Theater Shows</h1>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <% @shows.each do |show| %>
+    <% @screening.shows.each do |show| %>
       <div class="my-5">
-        <%= image_tag url_for(show.poster.variant(:display)) if show.poster.attached? %>
+        <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg" if show.poster.attached? %>
       </div>
     <% end %>
   </div>

@@ -13,7 +13,7 @@
   <div id="shows" class="min-w-full">
     <% @shows.each do |show| %>
     <a href="<%= admin_screen_show_path(@screen, show) %>">
-      <%= image_tag url_for(show.poster.variant(:display)) if show.poster.attached? %>
+      <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
       <h1 class="text-3xl font-semibold"><%= show.name %></h1>
     <% end %>
   </div>

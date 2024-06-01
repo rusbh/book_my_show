@@ -68,19 +68,15 @@
 
   <div class="my-5">
     <%= form.fields_for :screenings do |ss| %>
-      <% if form_type == :new %> 
-        <div class="my-5">
-          <%#= ss.label :show_id, "Pick a Show" %>
-          <%#= ss.select :show_id, options_for_select(Show.all.map {|s| [s.name, s.id ]}), {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-          <%= ss.hidden_field :show_id, value: @show.name %>
-        </div>
-      <% end %>
-
-      <% if form_type == :edit %> 
-        <div class="my-5">
-          <%= ss.hidden_field :show_id, value: @show.id %>
-        </div>
-      <% end %>
+      <div class="my-5">
+        <% if ss.object.new_record? %>
+          <%= ss.label :show_id, "Pick a Show" %>
+          <%= ss.select :show_id, options_for_select(Show.all.map {|s| [s.name, s.id ]}), {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+          <%#= ss.hidden_field :show_id, value: @show.name %>
+        <% else %>
+         <%= ss.hidden_field :show_id, value: @show.id %>
+        <% end %>
+      </div>
 
       <div class="my-5">
         <%= ss.hidden_field :screen_id, value: @screen.id %>
