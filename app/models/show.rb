@@ -6,8 +6,8 @@ class Show < ApplicationRecord
     attachable.variant :display, resize_to_limit: [300, 400]
   end
 
-  has_many :screen_shows, dependent: :destroy
-  has_many :screens, through: :screen_shows
+  has_many :screenings, dependent: :destroy
+  has_many :screens, through: :screenings
 
   has_many :bookings, dependent: :destroy
   has_many :feedbacks, -> { is_feedback }, as: :commentable
@@ -26,5 +26,5 @@ class Show < ApplicationRecord
   validates :category, inclusion: { in: categories.keys }
   validates :imdb_rating, inclusion: { in: 1..10 }
 
-  accepts_nested_attributes_for :screen_shows, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :screenings, allow_destroy: true, reject_if: :all_blank
 end

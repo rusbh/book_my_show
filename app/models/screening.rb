@@ -1,4 +1,4 @@
-class ScreenShow < ApplicationRecord
+class Screening < ApplicationRecord
   belongs_to :screen
   belongs_to :show
 

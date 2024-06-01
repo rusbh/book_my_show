@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_31_190713) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_01_165645) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -100,7 +100,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_31_190713) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
-  create_table "screen_shows", force: :cascade do |t|
+  create_table "screenings", force: :cascade do |t|
     t.bigint "screen_id", null: false
     t.bigint "show_id", null: false
     t.datetime "created_at", null: false
@@ -108,8 +108,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_31_190713) do
     t.date "start_date"
     t.date "end_date"
     t.integer "price"
-    t.index ["screen_id"], name: "index_screen_shows_on_screen_id"
-    t.index ["show_id"], name: "index_screen_shows_on_show_id"
+    t.index ["screen_id"], name: "index_screenings_on_screen_id"
+    t.index ["show_id"], name: "index_screenings_on_show_id"
   end
 
   create_table "screens", force: :cascade do |t|
@@ -180,8 +180,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_31_190713) do
   add_foreign_key "bookings", "shows"
   add_foreign_key "bookings", "users"
   add_foreign_key "feedbacks", "users"
-  add_foreign_key "screen_shows", "screens"
-  add_foreign_key "screen_shows", "shows"
+  add_foreign_key "screenings", "screens"
+  add_foreign_key "screenings", "shows"
   add_foreign_key "screens", "theaters"
   add_foreign_key "theater_admins", "theaters"
   add_foreign_key "theater_admins", "users"

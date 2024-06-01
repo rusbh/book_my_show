@@ -2,7 +2,7 @@ class Admin::ShowsController < Admin::BaseController
   before_action :set_theater
   before_action :set_screen
   before_action :set_show, only: %i[show edit update destroy]
-  before_action :set_screen_show, only: %i[show edit update destroy]
+  before_action :set_screening, only: %i[show edit update destroy]
 
   def index
     @shows = @screen.shows
@@ -12,7 +12,7 @@ class Admin::ShowsController < Admin::BaseController
 
   def new
     @show = Show.new
-    @screen_show = @show.screen_shows.build
+    @screening = @show.screenings.build
   end
 
   def create
@@ -32,7 +32,7 @@ class Admin::ShowsController < Admin::BaseController
   end
 
   def edit
-    @show.screen_shows.build if @show.screen_shows.empty?
+    @show.screenings.build if @show.screenings.empty?
   end
 
   def update
@@ -50,7 +50,7 @@ class Admin::ShowsController < Admin::BaseController
   end
 
   def destroy
-    @screen_show.destroy!
+    @screening.destroy!
     respond_to do |format|
       format.html { redirect_to admin_screen_shows_url(@screen), notice: 'Show was successfully destroyed.' }
       format.json { head :no_content }
@@ -69,8 +69,8 @@ class Admin::ShowsController < Admin::BaseController
     @show = Show.friendly.find(params[:id])
   end
 
-  def set_screen_show
-    @screen_show = @show.screen_shows.find_by(screen_id: @screen.id)
+  def set_screening
+    @screening = @show.screenings.find_by(screen_id: @screen.id)
   end
 
   def set_screen
@@ -79,6 +79,6 @@ class Admin::ShowsController < Admin::BaseController
 
   def show_params
     params.require(:show).permit(:name, :description, :poster, :cast, :language, :genre, :category, :imdb_rating,
-                                 :status, :duration, :release_date, screen_shows_attributes: %i[id show_id screen_id price start_date end_date _destroy])
+                                 :status, :duration, :release_date, screenings_attributes: %i[id show_id screen_id price start_date end_date _destroy])
   end
 end

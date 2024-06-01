@@ -13,8 +13,8 @@
 
   <strong class="block font-medium text-2xl mt-10 mb-2">Shows: </strong>
   <div class="mb-5">
-    <% if screen.screen_shows.present? %>
-      <li class="ml-5"><%= screen.screen_shows.first.show.name %></li>
+    <% if screen.screenings.present? %>
+      <li class="ml-5"><%= screen.screenings.first.show.name %></li>
     <% else %>
       <p>No shows scheduled or Running currently</p>
     <% end %>

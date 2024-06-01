@@ -1,4 +1,4 @@
-ActiveAdmin.register ScreenShow do
+ActiveAdmin.register Screening do
   form do |f|
     f.inputs do
       f.input :screen, as: :select, collection: Theater.first.screens.map { |s| [s.screen_no, s.id] }
