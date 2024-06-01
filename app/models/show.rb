@@ -1,4 +1,7 @@
 class Show < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   has_one_attached :poster, dependent: :destroy do |attachable|
     attachable.variant :display, resize_to_limit: [300, 400]
   end

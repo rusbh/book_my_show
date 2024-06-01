@@ -66,7 +66,7 @@ class Admin::ShowsController < Admin::BaseController
   end
 
   def set_show
-    @show = Show.find(params[:id])
+    @show = Show.friendly.find(params[:id])
   end
 
   def set_screen_show

@@ -70,12 +70,23 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "friendly_id", "~> 5.5"
-gem "sass-rails", "~> 6.0"
+# auth
 gem "devise", "~> 4.9"
-gem "activeadmin", "~> 3.2"
 gem "pundit", "~> 2.3"
+
+# active-admin
+gem "activeadmin", "~> 3.2"
+gem "sass-rails", "~> 6.0"
+
+# better urls
+gem "friendly_id", "~> 5.5"
+
+# dev mailer
 gem "letter_opener", "~> 1.10"
+
+# charts
 gem "chartkick", "~> 5.0"
-gem "sidekiq", "~> 7.2"
 gem "groupdate", "~> 6.4"
+
+# background-jobs
+gem "sidekiq", "~> 7.2"
