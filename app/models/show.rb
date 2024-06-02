@@ -21,6 +21,7 @@ class Show < ApplicationRecord
 
   validates :name, :description, :cast, :language, :genre, :category, :imdb_rating, :status, :duration, :release_date,
             presence: true
+  validates :name, uniqueness: true
   validates :language, inclusion: { in: languages.keys }
   validates :genre, inclusion: { in: genres.keys }
   validates :category, inclusion: { in: categories.keys }
