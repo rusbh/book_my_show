@@ -1,50 +1,21 @@
 <div id="<%= dom_id show %>">
   
-  <p class="my-5">
-    <%= image_tag url_for(show.poster) if show.poster.attached? %>
-  </p>
+  <div class="flex gap-x-16 bg-slate-100 p-16 rounded-lg">
+    <%= image_tag url_for(show.poster),class: "rounded-lg" if show.poster.attached? %>
+    <div class="my-auto">
+      <h1 class="font-bold text-4xl"><%= show.name.capitalize %></h1>
+      <p class="text-xl mt-4"><%= show.description %></p>
 
-  <p><%= show.name %></p>
-  <p><%= show.description %></p>
+      <p class="mt-6 flex items-center gap-2">⭐ <span class="text-xl"><%= show.imdb_rating %>/10</span></p>
+      <p class="my-3 text-xl"><%= show.language.capitalize %></p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Cast:</strong>
-    <%= show.cast %>
-  </p>
+      <p class="mb-7 text-2xl"><%= formatted_duration(show.duration) %> • <%= show.genre.capitalize %> • <%= format_date(show.release_date) %></p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Language:</strong>
-    <%= show.language %>
-  </p>
+      <%= link_to "Book tickets", new_admin_screen_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>
+    </div>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Genre:</strong>
-    <%= show.genre %>
-  </p>
+  </div>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Category:</strong>
-    <%= show.category %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Imdb rating:</strong>
-    <%= show.imdb_rating %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Status:</strong>
-    <%= show.status %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Duration:</strong>
-    <%= show.duration %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Release date:</strong>
-    <%= show.release_date %>
-  </p>
-
+  <h1 class="font-semibold mt-10 text-2xl">Cast:</h1>
+  <p class="text-xl"><%= show.cast %></p>
 </div>

@@ -19,7 +19,7 @@
   <h1 class="font-bold text-3xl mt-10 mb-3">All Theater Shows</h1>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <% @screening.shows.each do |show| %>
+    <% @shows.each do |show| %>
       <div class="my-5">
         <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg" if show.poster.attached? %>
       </div>
@@ -28,22 +28,22 @@
 
   <h1 class="mt-24 text-3xl font-bold">Total Bookings of Shows by Screen for Current Week</h1>
   <div class="my-6">
-    <%= bar_chart Screen.group_by_day(:created_at).count %>
+    <%= bar_chart @current_week_bookings_by_screen, xtitle:"Bookings", ytitle: "Screen", download: true %>
   </div>
 
   <h1 class="text-3xl font-bold mt-10">Total Bookings in General by Week</h1>
   <div class="my-6">
-    <%= line_chart Screen.group_by_day(:created_at).count %>
+    <%= line_chart @bookings_by_week, xtitle:"for current Week", ytitle: "Bookings", download: true %>
   </div>
   
   <h1 class="text-3xl font-bold mt-10">Total Bookings in General by Month</h1>
   <div class="my-6">
-    <%= line_chart Screen.group_by_day(:created_at).count %>
+    <%= line_chart @bookings_by_month, xtitle:"By Months", ytitle: "Bookings", download: true  %>
   </div>
 
   <h1 class="text-3xl font-bold mt-10">Most Popular Show Based on Booking</h1>
   <div class="my-6">
-    <%= pie_chart Screen.group_by_day(:created_at).count %>
+    <%= pie_chart @popular_shows, download: true %>
   </div>
 
   <h1 class="font-bold text-3xl mt-10">Feedbacks</h1>

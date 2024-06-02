@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root 'screens#index'
     resources :screens do
-      resources :shows
+      resources :screenings
     end
   end
 

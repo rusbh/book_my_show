@@ -6,6 +6,15 @@ class Admin::ScreensController < Admin::BaseController
     @screens = @theater.screens.includes(:shows)
     @shows = @theater.shows
     @feedbacks = @theater.feedbacks
+
+    @current_week_bookings_by_screen = Booking.where(booking_date: Time.current.beginning_of_week..Time.current.end_of_week).group(:screen_id).count
+
+    @bookings_by_week = Booking.group_by_day(:booking_date).count
+    @bookings_by_month = Booking.group_by_month(:booking_date).count
+
+    @popular_shows = Booking.joins(:show)
+                            .group('shows.name')
+                            .count
   end
 
   def show; end

@@ -10,4 +10,8 @@ module ApplicationHelper
       "#{hours}h #{minutes}m"
     end
   end
+
+  def format_date(date)
+    date.strftime("%d %B, %Y")
+  end
 end

@@ -9,9 +9,9 @@
     <%= link_to "Edit this screen", edit_admin_screen_path(@screen), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Back to Theater Portal", admin_root_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">
-      <%= button_to "Destroy this screen", @admin_screen, method: :delete, data: { turbo_confirm: "All shows assigned to this screen will also be removed." }, class: "mt-2 rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
+      <%= button_to "Destroy this screen", @admin_screen, method: :delete, data: { turbo_confirm: "All screenings assigned to this screen will also be removed." }, class: "mt-2 rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
     </div>
 
-    <h1><%= link_to "Manage Assigned Shows", admin_screen_shows_path(@screen, @show), class: "mt-5 rounded-lg py-3 px-5 bg-orange-300 inline-block font-medium " %></h1>
+    <h1><%= link_to "Manage Assigned Shows", admin_screen_screenings_path(@screen, @screening), class: "mt-5 rounded-lg py-3 px-5 bg-orange-300 inline-block font-medium " %></h1>
   </div>
 </div>

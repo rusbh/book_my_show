@@ -1,0 +1,27 @@
+<div id="<%= dom_id screening %>">
+<!--  <p class="my-5">
+    <strong class="block font-medium mb-1">Theater's Screen:</strong>
+    <%#= screening.screen.screen_no %>-->
+<!--  </p>-->
+
+  <p class="my-5">
+    <%= image_tag screening.show.poster.variant(:display), class: "rounded-lg" %>
+  </p>
+
+  <p class="text-2xl font-semibold"><%= screening.show.name %></p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Price:</strong>
+    ₹ <%= screening.price %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Screening start Date</strong>
+    <%= screening.start_date %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Screening end date</strong>
+    <%= screening.end_date %>
+  </p>
+</div>
