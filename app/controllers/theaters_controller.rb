@@ -7,7 +7,9 @@ class TheatersController < ApplicationController
   end
 
   # GET /theaters/1 or /theaters/1.json
-  def show; end
+  def show
+    @feedback = @theater.feedbacks.new
+  end
 
   private
 

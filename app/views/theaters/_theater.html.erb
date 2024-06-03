@@ -1,17 +1,6 @@
 <div id="<%= dom_id theater %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= theater.name %>
-  </p>
+  <h1 class="font-semibold text-3xl"><%= theater.name %></h1>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Address:</strong>
-    <%= theater.address %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">City:</strong>
-    <%= theater.city.name %>
-  </p>
-
+  <p class="ml-1 text-2xl mt-2"><%= theater.address %></p>
+  <p class="ml-1 text-xl my-2"><%= theater.city.name %>, <%= theater.city.state %></p>
 </div>

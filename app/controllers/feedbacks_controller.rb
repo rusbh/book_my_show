@@ -1,9 +1,10 @@
 class FeedbacksController < ApplicationController
+  before_action :set_theater
   before_action :set_feedback, only: %i[ show edit update destroy ]
 
   # GET /feedbacks or /feedbacks.json
   def index
-    @feedbacks = Feedback.all
+    @feedbacks = Feedback.new
   end
 
   # GET /feedbacks/1 or /feedbacks/1.json
@@ -12,7 +13,7 @@ class FeedbacksController < ApplicationController
 
   # GET /feedbacks/new
   def new
-    @feedback = Feedback.new
+    @feedback = @theater.feedbacks.new
   end
 
   # GET /feedbacks/1/edit
@@ -21,14 +22,16 @@ class FeedbacksController < ApplicationController
 
   # POST /feedbacks or /feedbacks.json
   def create
-    @feedback = Feedback.new(feedback_params)
+    @feedback = @theater.feedbacks.new(feedback_params.merge(user: current_user))
 
     respond_to do |format|
       if @feedback.save
-        format.html { redirect_to feedback_url(@feedback), notice: "Feedback was successfully created." }
+        # format.turbo_stream
+        format.html { redirect_to theater_url(@theater), notice: "Feedback was successfully created." }
         format.json { render :show, status: :created, location: @feedback }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        # format.turbo_stream
+        format.html { ren der :new, status: :unprocessable_entity }
         format.json { render json: @feedback.errors, status: :unprocessable_entity }
       end
     end
@@ -38,9 +41,11 @@ class FeedbacksController < ApplicationController
   def update
     respond_to do |format|
       if @feedback.update(feedback_params)
-        format.html { redirect_to feedback_url(@feedback), notice: "Feedback was successfully updated." }
+        # format.turbo_stream
+        format.html { redirect_to theater_url(@theater), notice: "Feedback was successfully updated." }
         format.json { render :show, status: :ok, location: @feedback }
       else
+        # format.turbo_stream
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @feedback.errors, status: :unprocessable_entity }
       end
@@ -65,6 +70,10 @@ class FeedbacksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def feedback_params
-      params.require(:feedback).permit(:comment, :type_of, :user_id, :commentable_id, :commentable_type)
+      params.require(:feedback).permit(:comment, :type_of, :user_id, :commentable_id)
+    end
+
+    def set_theater
+      @theater = Theater.friendly.find(params[:theater_id])
     end
 end

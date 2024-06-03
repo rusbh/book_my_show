@@ -1,25 +1,29 @@
-  <div class="w-full">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <%= render @show %>
+
+  <h1 class="text-2xl font-semibold mt-5">Reviews:</h1>
+
+  <% if @show.reviews.exists? %>
+    <% @show.reviews.each do |r| %>
+      <li><%= r.comment %> - <%= r.user.name %></li>
     <% end %>
+  <% else %>
+    <h1>No reviews yet</h1>
+  <% end %>
+  
+  <h1 class="text-2xl font-semibold mt-5">Feedbacks:</h1>
 
-    <%= render @show %>
-
-    <h1>Reviews:</h1>
-
-    <div>
-      <% @show.reviews.each do |r| %>
-        <li><%= r.comment %> - <%= r.user.name %></li>
-      <% end %> 
-    </div>
-
-    <h1>Feedbacks:</h1>
-
-    <div>
-      <% @show.feedbacks.each do |f| %>
-        <li><%= f.comment %> - <%= f.user.name %></li>
-      <% end %> 
-    </div>
-
-    <%= link_to "Back to shows", shows_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </div>
+  <% if @show.feedbacks.exists? %> 
+    <% @show.feedbacks.each do |f| %>
+      <li><%= f.comment %> - <%= f.user.name %></li>
+    <% end %>
+  <% else %>
+    <h1>No feedbacks yet</h1>
+  <% end %> 
+  
+  <%= link_to "Back to shows", shows_path, class: "mt-5 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+</div>

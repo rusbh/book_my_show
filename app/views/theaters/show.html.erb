@@ -1,32 +1,32 @@
-  <div class="w-full">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
 
-    <%= render @theater %>
+  <%= render @theater %>
 
-    <h1 class="text-3xl">All shows for theater:</h1>
+  <h1 class="text-2xl font-semibold mt-5">All shows for theater:</h1>
 
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
     <% @theater.shows.each do |show| %>
       <div class="my-5">
-        <h1 class="text-2xl"><%= show.name.capitalize %> - on Screen <%= show.screens.first.screen_no %></h1>
-        <%= image_tag url_for(show.poster.variant(:display)) if show.poster.attached? %>
+        <%= image_tag url_for(show.poster.variant(:display)),class: "rounded-lg" if show.poster.attached? %>
+        <h1 class="text-2xl my-4 font-semibold"><%= show.name.capitalize %> - Screen <%= show.screens.first.screen_no %></h1>
       </div>
     <% end %>
-
-    <div>
-      <% @theater.feedbacks.each do |f| %>
-        <li><%= f.comment %> - <%= f.user.name %></li>
-      <% end %> 
-    </div>
-
-    <h1>Feedbacks</h1>
-
-    <div>
-      <% @theater.feedbacks.each do |f| %>
-        <li><%= f.comment %> - <%= f.user.name %></li>
-      <% end %> 
-    </div>
-    
-    <%= link_to "Back to theaters", theaters_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
+
+  <h2 class="text-2xl font-semibold mt-5">
+      <%= pluralize(@theater.feedbacks.size, 'Feedback') %>
+  </h2>
+
+  <%= render "feedbacks/form", theater: @theater, feedback: @feedback %>
+
+  <% if @theater.feedbacks.exists? %>
+    <%= render partial: "feedbacks/feedback", collection: @theater.feedbacks %>
+  <% else %>
+    <h1>No feedbacks yet</h1>
+  <% end %>
+
+  <%= link_to "Back to theaters", theaters_path, class: "mt-5 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+</div>

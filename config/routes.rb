@@ -19,8 +19,13 @@ Rails.application.routes.draw do
              }
 
   resources :feedbacks
-  resources :shows, only: %i[index show]
-  resources :theaters, only: %i[index show]
+  resources :shows, only: %i[index show] do
+    resources :bookings
+  end
+  
+  resources :theaters, only: %i[index show] do
+    resources :feedbacks
+  end
   # resources :screens
 
   get 'up' => 'rails/health#show', as: :rails_health_check
