@@ -1,0 +1,10 @@
+<h1>Book My Show</h1>
+
+<p>Hi <%= @booking.user.name %>, </p>
+
+<p>You have booked <span ><%= pluralize(@booking.ticket, "ticket") %></span> of <span><%= @booking.show.name %></span> at <span><%= @booking.screen.theater.name %></span></p>
+
+<p>Time: <span><%= @booking.booking_date.strftime("%H:%M %p") %></span></p>
+
+<p>Date: <span><%= @booking.booking_date.strftime("%d %B, %y %A") %></span></p>
+<p>If not then, drop us a reply mail</p>

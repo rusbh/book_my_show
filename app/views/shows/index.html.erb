@@ -1,18 +1,16 @@
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+<% if notice.present? %>
+  <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+<% end %>
+
+<% content_for :title, "Shows" %>
+
+<h1 class="font-bold text-4xl mb-5">All Shows</h1>
+
+<div id="shows" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+  <% @shows.each do |show| %>
+    <a href="<%= show_path(show) %>">
+      <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
+      <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
+    </a>
   <% end %>
-
-  <% content_for :title, "Shows" %>
-
-  <h1 class="font-bold text-4xl">Shows</h1>
-
-  <div id="shows" class="min-w-full">
-    <% @shows.each do |show| %>
-      <%= render show %>
-      <p>
-        <%= link_to "Show this show", show, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
-    <% end %>
-  </div>
 </div>

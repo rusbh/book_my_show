@@ -1,0 +1,11 @@
+Book My Show
+
+Hi <%= @booking.user.name %>,
+
+You have booked <%= pluralize(@booking.ticket, "ticket") %> of <%= @booking.show.name %> at <%= @booking.screen.theater.name %>
+
+Time: <%= @booking.booking_date.strftime("%H:%M %p") %>
+
+Date: <%= @booking.booking_date.strftime("%d %B, %y %A") %>
+
+If not then, drop us a reply mail
