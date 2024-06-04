@@ -9,7 +9,6 @@ class Show < ApplicationRecord
   has_many :screenings, dependent: :destroy
   has_many :screens, through: :screenings
 
-  has_many :bookings, dependent: :destroy
   has_many :feedbacks, as: :commentable, dependent: :destroy
 
   enum language: %i[hindi english gujarati tamil telugu]

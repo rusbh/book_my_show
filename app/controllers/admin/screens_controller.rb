@@ -5,16 +5,20 @@ class Admin::ScreensController < Admin::BaseController
   def index
     @screens = @theater.screens.includes(:shows)
     @shows = @theater.shows
-    @bookings = @theater.bookings
+    @bookings = Booking.joins(screening: :screen).where(screens: { theater_id: @theater.id })
     @feedbacks = @theater.feedbacks
 
-    @current_week_bookings_by_screen = @bookings.where(booking_date: Time.current.beginning_of_week..Time.current.end_of_week).joins(:screen).group('screens.screen_no').count
+    @current_week_bookings_by_screen = @bookings.where(booking_date: Time.current.beginning_of_week..Time.current.end_of_week).joins(screening: :screen).group('screens.screen_no').count
 
-    @bookings_by_week = @bookings.where(booking_date: Time.current.beginning_of_week..Time.current.end_of_week).group_by_day(:booking_date).count
+    @bookings_by_week = @bookings.where(booking_date: Time.current.beginning_of_week..Time.current.end_of_week)
+                                 .group_by_day(:booking_date)
+                                 .count
 
-    @bookings_by_month = @bookings.where(booking_date: Time.current.beginning_of_month..Time.current.end_of_month).group_by_day(:booking_date).count
+    @bookings_by_month = @bookings.where(booking_date: Time.current.beginning_of_month..Time.current.end_of_month)
+                                  .group_by_day(:booking_date)
+                                  .count
 
-    @popular_shows = @bookings.joins(:show).group('shows.name').count
+    @popular_shows = @bookings.joins(screening: :show).group('shows.name').count
   end
 
   def show; end

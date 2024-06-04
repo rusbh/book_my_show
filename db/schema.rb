@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_04_050953) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_04_191215) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,12 +61,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_050953) do
     t.datetime "booking_date"
     t.integer "status", default: 0
     t.bigint "user_id", null: false
-    t.bigint "show_id", null: false
-    t.bigint "screen_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["screen_id"], name: "index_bookings_on_screen_id"
-    t.index ["show_id"], name: "index_bookings_on_show_id"
+    t.bigint "screening_id", null: false
+    t.index ["screening_id"], name: "index_bookings_on_screening_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
@@ -175,8 +173,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_050953) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "bookings", "screens"
-  add_foreign_key "bookings", "shows"
+  add_foreign_key "bookings", "screenings"
   add_foreign_key "bookings", "users"
   add_foreign_key "feedbacks", "users"
   add_foreign_key "screenings", "screens"

@@ -1,8 +1,6 @@
 class Screen < ApplicationRecord
   belongs_to :theater
   
-  has_many :bookings, dependent: :destroy
-  
   has_many :screenings, dependent: :destroy
   has_many :shows, through: :screenings
 

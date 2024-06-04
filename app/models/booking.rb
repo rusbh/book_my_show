@@ -1,7 +1,6 @@
 class Booking < ApplicationRecord
   belongs_to :user
-  belongs_to :show
-  belongs_to :screen
+  belongs_to :screening
   
   after_create :decrement_seats
   before_create :seats_not_available
@@ -17,17 +16,14 @@ class Booking < ApplicationRecord
 
   def decrement_seats
     ticket_purchased = self.ticket
-    seats_available = self.screen.seats
+    screen = self.screening.screen
 
-    seats_remaining = seats_available - ticket_purchased
-
-    @screen = Screen.find_by(id: self.screen_id)
-    @screen.seats = seats_remaining
-    @screen.save
+    screen.seats -= ticket_purchased
+    screen.save
   end
 
   def seats_not_available
-    if self.screen.seats < self.ticket
+    if self.screening.screen.seats < self.ticket
       errors.add(:base, 'Not enough seats available')
     end
   end

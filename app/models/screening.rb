@@ -1,6 +1,8 @@
 class Screening < ApplicationRecord
   belongs_to :screen
   belongs_to :show
+
+  has_many :bookings, dependent: :destroy
   
   after_save :update_screen_status
   after_destroy :update_screen_status
