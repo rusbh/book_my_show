@@ -1,7 +1,7 @@
 <%= form_for [commentable, Feedback.new] do |f| %>
   <div class="my-4">
     <%= f.label :comment %>
-    <%= f.text_area :comment, rows: 4, class: "block shadow rounded-md border resize-none border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= f.text_area :comment, rows: 4, required: true, class: "block shadow rounded-md border resize-none border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">

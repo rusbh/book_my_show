@@ -29,17 +29,17 @@
 
   <h1 class="mt-24 text-3xl font-bold">Total Bookings of Shows by Screen for Current Week</h1>
   <div class="my-6">
-    <%= bar_chart @current_week_bookings_by_screen, xtitle:"Bookings", ytitle: "Screen", download: true %>
+    <%= bar_chart @current_week_bookings_by_screen, xtitle:"Bookings of shows for current week", ytitle: "Screen No", download: true %>
   </div>
 
   <h1 class="text-3xl font-bold mt-10">Total Bookings in General by Week</h1>
   <div class="my-6">
-    <%= line_chart @bookings_by_week, xtitle:"for current Week", ytitle: "Bookings", download: true %>
+    <%= line_chart @bookings_by_week, xtitle:"Current Week", ytitle: "Bookings", download: true %>
   </div>
   
   <h1 class="text-3xl font-bold mt-10">Total Bookings in General by Month</h1>
   <div class="my-6">
-    <%= line_chart @bookings_by_month, xtitle:"By Months", ytitle: "Bookings", download: true  %>
+    <%= line_chart @bookings_by_month, xtitle:"Current Month", ytitle: "Bookings", download: true  %>
   </div>
 
   <h1 class="text-3xl font-bold mt-10">Most Popular Show Based on Booking</h1>

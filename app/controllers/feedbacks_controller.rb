@@ -1,14 +1,12 @@
 class FeedbacksController < ApplicationController
-  before_action :authenticate_user!, notice: "you must login before to comment"
+  before_action :authenticate_user!
 
   def create
     @feedback = @commentable.feedbacks.new(feedback_params)
     @feedback.user = current_user
-    if @feedback.save
-      redirect_to [@commentable], notice: "Feedback was successfully submitted."
-    else
-      # render @commentable_url, status: :unprocessable_entity
-    end
+    @feedback.save
+    
+    redirect_to @commentable, notice: "Feedback was successfully submitted."
   end
 
   def feedback_params

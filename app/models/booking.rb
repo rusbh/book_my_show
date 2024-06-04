@@ -11,6 +11,10 @@ class Booking < ApplicationRecord
   validates :ticket, presence: true, inclusion: { in: 1..10, message: 'You can only book maximum 10 tickets' }
   validates :booking_date, presence: true
 
+  scope :past, -> { where('booking_date < ?', Time.current).where(status: :confirmed) }
+  scope :upcoming, -> { where('booking_date >= ?', Time.current).where(status: :confirmed) }
+  scope :cancelled, -> { where(status: :cancelled) }
+
   def decrement_seats
     ticket_purchased = self.ticket
     seats_available = self.screen.seats

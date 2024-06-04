@@ -18,7 +18,7 @@ class Admin::ScreeningsController < Admin::BaseController
     respond_to do |format|
       if @screening.save
         format.html do
-          redirect_to admin_screen_screening_url(@screen, @screening), notice: 'Show was successfully created.'
+          redirect_to admin_screen_screening_url(@screen, @screening), notice: 'Screening was successfully created.'
         end
         format.json { render :screening, status: :created, location: @screening }
       else
@@ -34,7 +34,7 @@ class Admin::ScreeningsController < Admin::BaseController
     respond_to do |format|
       if @screening.update(screening_params)
         format.html do
-          redirect_to admin_screen_screening_url(@screen, @screening), notice: 'screening was successfully updated.'
+          redirect_to admin_screen_screening_url(@screen, @screening), notice: 'Screening was successfully updated.'
         end
         format.json { render :screening, status: :ok, location: @screening }
       else
@@ -49,7 +49,7 @@ class Admin::ScreeningsController < Admin::BaseController
   def destroy
     @screening.destroy!
     respond_to do |format|
-      format.html { redirect_to admin_screen_screenings_url(@screen), notice: 'screening was successfully destroyed.' }
+      format.html { redirect_to admin_screen_screenings_url(@screen), notice: 'Screening was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
