@@ -5,25 +5,17 @@
 
   <%= render @show %>
 
-  <h1 class="text-2xl font-semibold mt-5">Reviews:</h1>
-
-  <% if @show.reviews.exists? %>
-    <% @show.reviews.each do |r| %>
-      <li><%= r.comment %> - <%= r.user.name %></li>
-    <% end %>
-  <% else %>
-    <h1>No reviews yet</h1>
-  <% end %>
+  <h2 class="text-2xl font-semibold mt-20">
+      <%= pluralize(@show.feedbacks.size, 'Reviews') %>
+  </h2>
   
-  <h1 class="text-2xl font-semibold mt-5">Feedbacks:</h1>
+  <%= render "feedbacks/form", commentable: @show, feedback: @feedback %>
 
-  <% if @show.feedbacks.exists? %> 
-    <% @show.feedbacks.each do |f| %>
-      <li><%= f.comment %> - <%= f.user.name %></li>
-    <% end %>
+  <% if @show.feedbacks.exists? %>
+    <%= render partial: "feedbacks/feedback", collection: @show.feedbacks %>
   <% else %>
-    <h1>No feedbacks yet</h1>
-  <% end %> 
+    <h1 class="p-6 bg-slate-50 rounded-xl my-6">No reviews yet</h1>
+  <% end %>
   
   <%= link_to "Back to shows", shows_path, class: "mt-5 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>

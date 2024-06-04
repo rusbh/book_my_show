@@ -2,14 +2,12 @@
 
 one:
   comment: MyText
-  type_of: 1
   user: one
   commentable: one
   commentable_type: Commentable
 
 two:
   comment: MyText
-  type_of: 1
   user: two
   commentable: two
   commentable_type: Commentable

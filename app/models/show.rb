@@ -10,8 +10,7 @@ class Show < ApplicationRecord
   has_many :screens, through: :screenings
 
   has_many :bookings, dependent: :destroy
-  has_many :feedbacks, -> { is_feedback }, as: :commentable, dependent: :destroy
-  has_many :reviews, -> { is_review }, class_name: 'Feedback', as: :commentable, dependent: :destroy
+  has_many :feedbacks, as: :commentable, dependent: :destroy
 
   enum language: %i[hindi english gujarati tamil telugu]
   enum genre: %i[action adventure animation comedy crime documentary drama fantasy historical horror romance

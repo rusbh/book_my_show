@@ -17,7 +17,6 @@ class FeedbacksTest < ApplicationSystemTestCase
     fill_in "Comment", with: @feedback.comment
     fill_in "Commentable", with: @feedback.commentable_id
     fill_in "Commentable type", with: @feedback.commentable_type
-    fill_in "Type of", with: @feedback.type_of
     fill_in "User", with: @feedback.user_id
     click_on "Create Feedback"
 
@@ -32,7 +31,6 @@ class FeedbacksTest < ApplicationSystemTestCase
     fill_in "Comment", with: @feedback.comment
     fill_in "Commentable", with: @feedback.commentable_id
     fill_in "Commentable type", with: @feedback.commentable_type
-    fill_in "Type of", with: @feedback.type_of
     fill_in "User", with: @feedback.user_id
     click_on "Update Feedback"
 

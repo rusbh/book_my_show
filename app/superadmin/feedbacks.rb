@@ -1,7 +1,6 @@
 ActiveAdmin.register Feedback do
   form do |f|
     f.inputs do
-      f.input :type_of
       f.input :user, as: :select, collection: User.all.map { |user| [user.email, user.id] }
       f.input :comment
       f.input :commentable_type  # Show, Theater
@@ -10,5 +9,5 @@ ActiveAdmin.register Feedback do
     f.actions
   end
   
-  permit_params :comment, :type_of, :user_id, :commentable_type, :commentable_id
+  permit_params :comment, :user_id, :commentable_type, :commentable_id
 end
