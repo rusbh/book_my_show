@@ -14,6 +14,10 @@ class Booking < ApplicationRecord
   scope :upcoming, -> { where('booking_date >= ?', Time.current).where(status: :confirmed) }
   scope :cancelled, -> { where(status: :cancelled) }
 
+  def send_booking_confirmed
+    BookingMailer.booking_confirmation(self).deliver_now
+  end
+
   def decrement_seats
     ticket_purchased = self.ticket
     screen = self.screening.screen

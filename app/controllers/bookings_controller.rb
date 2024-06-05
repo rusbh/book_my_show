@@ -10,6 +10,7 @@ class BookingsController < ApplicationController
     @booking.user = current_user
 
     if @booking.save
+      @booking.send_booking_confirmed
       redirect_to profile_path, notice: 'Booking was successfully created.'
     else
       render :new
