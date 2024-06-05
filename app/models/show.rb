@@ -24,4 +24,11 @@ class Show < ApplicationRecord
   validates :genre, inclusion: { in: genres.keys }
   validates :category, inclusion: { in: categories.keys }
   validates :imdb_rating, inclusion: { in: 1..10 }
+
+  scope :recommened, -> { order(created_at: :desc).take(5) }
+
+  scope :hindi_shows, -> { where(language: :hindi).take(5) }
+  scope :events, -> { where(category: :event).take(5) }
+  scope :plays, -> { where(category: :play).take(5) }
+  scope :sport, -> { where(language: :hindi).take(5) }
 end

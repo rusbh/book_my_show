@@ -1,3 +1,20 @@
 <div class="w-full">
-  <h1 class="mt-6 mb-5 text-4xl font-semibold">Welcome to Book My Show</h1>
+  <div class="flex justify-between mb-10">
+   <a href=""><img src="/indvspak-banner.jpeg" alt="" height="500" width="725" class="rounded-xl"></a>
+   <a href=""><img src="/mr-and-mrs-mahi-banner.jpeg" alt="" height="500" width="725" class="rounded-xl"></a>
+  </div>
+
+  <div class="flex justify-between">
+    <h1 class="mt-10 mb-5 text-3xl font-semibold">Recommended Shows</h1>
+    <p><%= link_to 'See All ›', shows_path, class: "ml-2 py-3 px-5 inline-block font-medium" %></p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+    <% @recommened_shows.each do |show| %>
+      <a href="<%= show_path(show) %>">
+        <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
+        <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
+      </a>
+    <% end %>
+  </div>
 </div>

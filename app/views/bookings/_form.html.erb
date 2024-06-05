@@ -1,0 +1,35 @@
+<%= form_with(model: [@screening, booking], class:"contents") do |f| %>
+  <% if booking.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(booking.errors.count, "error") %>prohibited this booking from being saved:</h2>
+
+      <ul>
+        <% booking.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= f.hidden_field :screening_id, value: @screening.id %>
+  </div>
+  
+  <div class="my-5">
+    <%= f.label :ticket %>
+    <%= f.number_field :ticket, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= f.label :booking_date %>
+    <%= f.datetime_field :booking_date, min: @screening.start_date, max: @screening.end_date,class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+  
+  <div class="my-5">
+    <%= f.hidden_field :status, value: :confirmed %>
+  </div>
+
+  <div class="inline">
+    <%= f.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

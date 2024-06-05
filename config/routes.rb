@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :shows, only: %i[index show] do
+    get '/book-now', to: "screenings#index"
     resources :feedbacks, module: :shows, only: [:create]
+  end
+
+  resources :screenings, only: [:create, :index, :show] do
+    resources :bookings, only: [:create, :new]
   end
 
   resources :theaters, only: %i[index show] do
