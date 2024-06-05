@@ -1,7 +1,7 @@
 <div class="w-full">
   <div class="flex justify-between mb-10">
-   <a href=""><img src="/indvspak-banner.jpeg" alt="" height="500" width="725" class="rounded-xl"></a>
-   <a href=""><img src="/mr-and-mrs-mahi-banner.jpeg" alt="" height="500" width="725" class="rounded-xl"></a>
+   <a href="/shows/t20-world-cup-2024-india-vs-pakistan"><img src="/indvspak-banner.jpeg" alt="" height="500" width="725" class="rounded-xl"></a>
+   <a href="/shows/mr-mrs-mahi"><img src="/mr-and-mrs-mahi-banner.jpeg" alt="" height="500" width="725" class="rounded-xl"></a>
   </div>
 
   <div class="flex justify-between">
@@ -11,6 +11,36 @@
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
     <% @recommened_shows.each do |show| %>
+      <a href="<%= show_path(show) %>">
+        <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
+        <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
+      </a>
+    <% end %>
+  </div>
+
+  <h1 class="font-bold text-3xl my-5 underline">Action packed</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+    <% @action_shows.each do |show| %>
+      <a href="<%= show_path(show) %>">
+        <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
+        <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
+      </a>
+    <% end %>
+  </div>
+
+  <h1 class="font-bold text-3xl my-5 underline">In Gujarati</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+    <% @gujarati_shows.each do |show| %>
+      <a href="<%= show_path(show) %>">
+        <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
+        <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
+      </a>
+    <% end %>
+  </div>
+
+  <h1 class="font-bold text-3xl my-5 underline">In sports/plays</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+    <% @except_movies.each do |show| %>
       <a href="<%= show_path(show) %>">
         <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
         <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>

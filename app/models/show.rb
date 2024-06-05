@@ -27,8 +27,13 @@ class Show < ApplicationRecord
 
   scope :recommened, -> { order(created_at: :desc).take(5) }
 
-  scope :hindi_shows, -> { where(language: :hindi).take(5) }
-  scope :events, -> { where(category: :event).take(5) }
-  scope :plays, -> { where(category: :play).take(5) }
-  scope :sport, -> { where(language: :hindi).take(5) }
+  scope :movies, -> { where(category: :movie) }
+  scope :plays, -> { where(category: :play) }
+  scope :sports, -> { where(category: :sport) }
+
+  scope :gujarati, -> { where(language: :gujarati).take(5) }
+
+  scope :action, -> { where(genre: :action).take(5) }
+
+  scope :except_movies, -> { where.not(category: :movie) }
 end
