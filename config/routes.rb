@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   get 'profile', to: 'users#index', as: :profile
   root 'home#index'
@@ -30,6 +32,10 @@ Rails.application.routes.draw do
                sign_out: 'logout',
                sign_up: 'signup'
              }
-
+       
   get 'up' => 'rails/health#show', as: :rails_health_check
+  
+  # authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  # end
 end

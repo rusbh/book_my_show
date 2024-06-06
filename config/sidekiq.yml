@@ -1,0 +1,6 @@
+:scheduler:
+  :schedule:
+    screening_info_update:
+      cron: "* * * * *"
+      class: "ScreeningInfoUpdateScheduler"
+      queue: "default"

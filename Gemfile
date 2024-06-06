@@ -93,3 +93,4 @@ gem "groupdate", "~> 6.4"
 
 # background-jobs
 gem "sidekiq", "~> 7.2"
+gem 'sidekiq-scheduler', '~> 5.0', '>= 5.0.3'
