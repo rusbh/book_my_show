@@ -4,13 +4,14 @@ Rails.application.routes.draw do
   get 'profile', to: 'users#index', as: :profile
   root 'home#index'
   ActiveAdmin.routes(self)
+  mount Sidekiq::Web => '/sidekiq'
 
   resources :shows, only: %i[index show] do
     get '/book-now', to: "screenings#index"
     resources :feedbacks, module: :shows, only: [:create]
   end
 
-  resources :screenings, only: [:create, :index, :show] do
+  resources :screenings, only: [:index, :show] do
     resources :bookings, only: [:create, :new]
   end
 
@@ -34,8 +35,4 @@ Rails.application.routes.draw do
              }
        
   get 'up' => 'rails/health#show', as: :rails_health_check
-  
-  # authenticate :user, lambda { |u| u.admin? } do
-    mount Sidekiq::Web => '/sidekiq'
-  # end
 end

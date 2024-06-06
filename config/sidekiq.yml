@@ -1,6 +1,9 @@
+tasks: &tasks
+  ScreeningInfoUpdateJob:
+    cron: "0 0 * * *"
+    queue: "default"
+    description: "Screenings updates on midnight"
+
 :scheduler:
   :schedule:
-    screening_info_update:
-      cron: "* * * * *"
-      class: "ScreeningInfoUpdateScheduler"
-      queue: "default"
+    <<: *tasks
