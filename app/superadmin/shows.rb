@@ -32,7 +32,7 @@ ActiveAdmin.register Show do
       f.input :category
       f.input :imdb_rating
       f.input :status
-      f.input :duration
+      f.input :duration, label: 'Duration of show (in Minutes)'
       f.input :release_date
     end
     f.actions

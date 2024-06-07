@@ -27,7 +27,7 @@ class Booking < ApplicationRecord
   end
 
   def seats_not_available
-    if self.screening.screen.seats < self.ticket
+    if screening.screen.seats < self.ticket
       errors.add(:base, 'Not enough seats available')
     end
   end

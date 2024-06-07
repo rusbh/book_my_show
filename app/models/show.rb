@@ -17,8 +17,8 @@ class Show < ApplicationRecord
   enum category: %i[movie play sport event]
   enum status: %i[idle running cancelled]
 
-  validates :name, :description, :cast, :language, :genre, :category, :imdb_rating, :status, :duration, :release_date,
-            presence: true
+  validates :name, :description, :cast, :poster, :language, :genre, :category, :imdb_rating, :status, :duration,
+            :release_date, presence: true
   validates :name, uniqueness: true
   validates :language, inclusion: { in: languages.keys }
   validates :genre, inclusion: { in: genres.keys }
@@ -30,6 +30,7 @@ class Show < ApplicationRecord
   scope :movies, -> { where(category: :movie) }
   scope :plays, -> { where(category: :play) }
   scope :sports, -> { where(category: :sport) }
+  scope :events, -> { where(category: :event) }
 
   scope :gujarati, -> { where(language: :gujarati).take(5) }
 

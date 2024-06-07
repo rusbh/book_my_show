@@ -1,6 +1,11 @@
 <div id="<%= dom_id feedback %>">
   <div class="p-6 bg-slate-100 rounded-xl my-6">
-    <p class="font-semibold text-xl"><%= feedback.user&.name %></p>
+    <div class="flex justify-between text-center">
+      <p class="font-semibold text-xl"><%= feedback.user&.name %></p>
+      <% if feedback.user == current_user %>
+        <%= button_to "Delete", [commentable, feedback], method: :delete, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
+      <% end %>
+    </div>
     <div class="prose prose-slate">
       <%= feedback.comment %>
     </div>

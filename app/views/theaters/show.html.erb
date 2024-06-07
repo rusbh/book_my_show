@@ -1,8 +1,4 @@
 <div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
   <%= render @theater %>
 
   <h1 class="text-2xl font-semibold mt-10">All shows for theater:</h1>
@@ -11,7 +7,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
       <% @theater.shows.each do |show| %>
         <div class="my-5">
-         <%= image_tag url_for(show.poster.variant(:display)),class: "rounded-lg" if show.poster.attached? %>
+         <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg" if show.poster.attached? %>
           <h1 class="text-2xl my-4 font-semibold"><%= show.name.capitalize %> - Screen <%= show.screens.first.screen_no %></h1>
         </div>
       <% end %>
@@ -22,13 +18,13 @@
     
 
   <h2 class="text-2xl font-semibold mt-10">
-      <%= pluralize(@theater.feedbacks.size, 'Feedback') %>
+      <%= pluralize(@theater.feedbacks.count, "Feedback") %>
   </h2>
 
   <%= render "feedbacks/form", commentable: @theater, feedback: @feedback %>
 
   <% if @theater.feedbacks.exists? %>
-    <%= render partial: "feedbacks/feedback", collection: @theater.feedbacks %>
+    <%= render partial: "feedbacks/feedback", collection: @theater.feedbacks, locals: { commentable: @theater } %>
   <% else %>
     <h1 class="p-6 bg-slate-50 rounded-xl my-6">No feedbacks yet</h1>
   <% end %>

@@ -7,6 +7,7 @@ class ShowsController < ApplicationController
     @movies = Show.movies
     @plays = Show.plays
     @sports = Show.sports
+    @events = Show.events
   end
 
   # GET /shows/1 or /shows/1.json

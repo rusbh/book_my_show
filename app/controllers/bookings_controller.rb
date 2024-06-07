@@ -14,7 +14,7 @@ class BookingsController < ApplicationController
       @booking.send_booking_confirmed
       redirect_to profile_path, notice: 'Booking was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
