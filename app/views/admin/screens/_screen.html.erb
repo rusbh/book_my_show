@@ -1,20 +1,20 @@
 <div id="<%= dom_id screen %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">Screen: <%= screen.screen_no %></strong>
+    <strong class="block mb-1 text-3xl font-medium">Screen No: <%= screen.screen_no %></strong>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Seat Capacity: <%= screen.seats %></strong>
+    <strong class="block font-medium mb-1 text-3xl">Seat Capacity: <%= screen.seats %></strong>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Status: <%= screen.status %></strong>
+    <strong class="block font-medium mb-1 text-3xl">Status: <%= screen.status %></strong>
   </p>
 
-  <strong class="block font-medium text-2xl mt-10 mb-2">Shows: </strong>
+  <strong class="block font-medium text-3xl mt-10 mb-2">Shows: </strong>
   <div class="mb-5">
     <% if screen.screenings.present? %>
-      <li class="ml-5"><%= screen.screenings.first.show.name %></li>
+      <li class="ml-5 text-3xl mb-10"><%= screen.screenings.first.show.name %></li>
     <% else %>
       <p>No shows scheduled or Running currently</p>
     <% end %>

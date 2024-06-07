@@ -1,21 +1,29 @@
 <div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
   <% content_for :title, "Screenings" %>
 
   <div class="flex justify-between items-center">
-    <h1 class="font-bold mb-4 text-4xl">Screenings for Shows</h1>
-    <%= link_to "Add new show", new_admin_screen_screening_path(@screen), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
-
-  <div id="feedbacks" class="min-w-full">
-    <% @screenings.each do |screening| %>
-      <a href="<%= admin_screen_screening_path(@screen, screening) %>">
-        <%= image_tag url_for(screening.show.poster.variant(:display)), class: "block rounded-lg hover:scale-105 cursor-pointer transition" if screening.show.poster.attached? %>
-      <h1 class="text-3xl mt-4 font-semibold"><%= screening.show.name %></h1>
-      </a>
+    <h1 class="font-semibold mb-4 text-4xl">Shows for this Screen - <%= @screen.screen_no %></h1>
+    <% if @screen.idle? || @screen.running? %>
+      <%= link_to "Add new show", new_admin_screen_screening_path(@screen), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>
+    <% else %>
+      <%= button_to "Unavailable", {}, disabled: true, class: "rounded-lg py-3 px-5 bg-gray-400 cursor-default text-white font-medium" %>
     <% end %>
   </div>
+
+    <% if @screenings.exists? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mt-5">
+        <% @screenings.each do |screening| %>
+          <a href="<%= admin_screen_screening_path(@screen, screening) %>">
+            <%= image_tag url_for(screening.show.poster.variant(:display)), class: "block rounded-lg hover:scale-105 cursor-pointer transition" if screening.show.poster.attached? %>
+          <h1 class="text-2xl mt-4 font-semibold"><%= screening.show.name %></h1>
+          </a>
+        <% end %>
+      </div>
+    <% else %>
+      <% unless @screen.idle? || @screen.running? %>
+       <p class="text-3xl font-semibold text-center mt-32">This Screen is in Maintenance / Unavailable</p>
+       <% else %>
+        <p class="text-3xl font-semibold text-center mt-32">No shows scheduled or Running currently for this screen</p>
+      <% end %>
+    <% end %>
 </div>

@@ -29,28 +29,50 @@
 
   <h1 class="mt-24 text-3xl font-bold">Total Bookings of Shows by Screen for Current Week</h1>
   <div class="my-6">
-    <%= bar_chart @current_week_bookings_by_screen, xtitle:"Bookings of shows for current week", ytitle: "Screen No", download: true %>
+    <%= bar_chart @current_week_bookings_by_screen, xtitle: "Bookings of shows for current week", ytitle: "Screen No", download: true %>
   </div>
 
-  <h1 class="text-3xl font-bold mt-10">Total Bookings in General by Week</h1>
-  <div class="my-6">
-    <%= line_chart @bookings_by_week, xtitle:"Current Week", ytitle: "Bookings", download: true %>
-  </div>
-  
-  <h1 class="text-3xl font-bold mt-10">Total Bookings in General by Month</h1>
-  <div class="my-6">
-    <%= line_chart @bookings_by_month, xtitle:"Current Month", ytitle: "Bookings", download: true  %>
+  <div class="flex justify-between mt-20">
+    <h1 class="text-3xl font-bold mt-10">Total Bookings in General</h1>
+    <div class="mt-6">
+      <select id="time_period" class="rounded-lg mt-5 text-xl cursor-pointer" onchange="selectTimePeriod(this)">
+        <option value="week">By Week</option>
+        <option value="month">By Month</option>
+      </select>
+    </div>
   </div>
 
-  <h1 class="text-3xl font-bold mt-10">Most Popular Show Based on Booking</h1>
+  <div id="week_chart" class="my-6">
+    <%= line_chart @bookings_by_week, xtitle: "Current Week", ytitle: "Bookings", download: true %>
+  </div>
+
+  <div id="month_chart" class="my-6" style="display: none;">
+    <%= line_chart @bookings_by_month, xtitle: "Current Month", ytitle: "Bookings", download: true %>
+  </div>
+
+  <h1 class="text-3xl font-bold mt-32">Most Popular Show Based on Booking</h1>
   <div class="my-6">
     <%= pie_chart @popular_shows, download: true %>
   </div>
 
-  <h1 class="font-bold text-3xl mt-10">Feedbacks</h1>
-  <ul class="list-disc list-inside mt-4 space-y-2">
+  <h1 class="font-bold text-3xl mt-32">Feedbacks</h1>
+  <ul class="list-disc list-inside mt-4 space-y-2 mb-40">
     <% @feedbacks.each do |f| %>
       <li class="text-xl"><%= f.comment %><span class="text-gray-600"> - by <%= f.user.name %></span></li>
     <% end %>
   </ul>
 </div>
+
+<script>
+  function selectTimePeriod(select) {
+    var selectedValue = select.value;
+    if (selectedValue === 'week') {
+      document.getElementById('week_chart').style.display = 'block';
+      document.getElementById('month_chart').style.display = 'none';
+    } else if (selectedValue === 'month') {
+      document.getElementById('week_chart').style.display = 'none';
+      document.getElementById('month_chart').style.display = 'block';
+    }
+  }
+</script>
+
