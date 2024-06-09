@@ -6,7 +6,7 @@
     <% if @screen.idle? || @screen.running? %>
       <%= link_to "Add new show", new_admin_screen_screening_path(@screen), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>
     <% else %>
-      <%= button_to "Unavailable", {}, disabled: true, class: "rounded-lg py-3 px-5 bg-gray-400 cursor-default text-white font-medium" %>
+      <%= button_to "Unavailable", {}, disabled: true, class: "rounded-lg py-3 px-5 bg-slate-200 cursor-default font-medium" %>
     <% end %>
   </div>
 

@@ -32,3 +32,13 @@ input.datepicker[type='datetime-local']::-webkit-calendar-picker-indicator {
   cursor: pointer;
   background: transparent;
 }
+
+input[readonly] {
+  pointer-events: none;
+}
+
+input[readonly]:focus {
+  outline: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}

@@ -9,7 +9,7 @@ class Screen < ApplicationRecord
   enum status: %i[idle running in_maintenance unavailable]
   
   validates :screen_no, :seats, presence: true
-  validates :screen_no, :seats, numericality: { greater_than: 0 }
+  validates :screen_no, :seats, numericality: { greater_than_or_equal_to: 0 }
 
   private
 

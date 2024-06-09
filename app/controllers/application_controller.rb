@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :store_user_location!, if: :storable_location?
 
   http_basic_authenticate_with name: Rails.application.credentials.dig(:superadmin, :username),
                                password: Rails.application.credentials.dig(:superadmin, :password),
@@ -14,12 +15,20 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def storable_location?
+    request.get? && is_navigational_format? && !devise_controller? && !request.xhr? 
+  end
+
+  def store_user_location!
+    store_location_for(:user, request.fullpath)
+  end
+
   # devise method for redirecting admin to theater portal after login
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(resource_or_scope)
     if resource.admin?
       admin_root_path
     else
-      root_path
+      stored_location_for(resource_or_scope) || root_path
     end
   end
 

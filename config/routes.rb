@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :feedbacks, module: :shows, only: [:create, :destroy]
   end
 
-  resources :screenings, only: [:index, :show] do
+  resources :screenings, only: [:index] do
     resources :bookings, only: [:create, :new]
   end
 

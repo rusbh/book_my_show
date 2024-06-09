@@ -4,3 +4,6 @@ import "controllers"
 
 import "chartkick"
 import "Chart.bundle"
+
+import LocalTime from "local-time"
+LocalTime.start()

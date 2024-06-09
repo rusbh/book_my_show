@@ -11,7 +11,7 @@
     <strong class="block font-medium mb-1 text-3xl">Status: <%= screen.status %></strong>
   </p>
 
-  <strong class="block font-medium text-3xl mt-10 mb-2">Shows: </strong>
+  <strong class="block font-medium text-3xl mt-10 mb-2">Shows running or scheduled: </strong>
   <div class="mb-5">
     <% if screen.screenings.present? %>
       <li class="ml-5 text-3xl mb-10"><%= screen.screenings.first.show.name %></li>

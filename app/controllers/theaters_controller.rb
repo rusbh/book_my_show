@@ -3,12 +3,13 @@ class TheatersController < ApplicationController
 
   # GET /theaters or /theaters.json
   def index
-    @theaters = Theater.all
+    @theaters = Theater.all.includes(:city)
   end
 
   # GET /theaters/1 or /theaters/1.json
   def show
     @feedback = @theater.feedbacks.new
+    @theater_shows = @theater.shows.includes(poster_attachment: :blob)
   end
 
   private

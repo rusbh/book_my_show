@@ -3,8 +3,8 @@ class Admin::ScreensController < Admin::BaseController
   before_action :set_screen, only: %i[show edit update destroy]
 
   def index
-    @screens = @theater.screens.includes(:shows)
-    @shows = @theater.shows
+    @screens = @theater.screens.order(created_at: :asc)
+    @shows = @theater.shows.includes(poster_attachment: :blob)
     @bookings = Booking.joins(screening: :screen).where(screens: { theater_id: @theater.id })
     @feedbacks = @theater.feedbacks
 

@@ -12,7 +12,12 @@
 
   <p class="text-xl">Price: ₹ <%= ss.price %></p>
   <p class="text-lg mb-5"><%= ss.screen.seats %> seats remaining</p>
-  <%= link_to "Book now", new_screening_booking_path(ss), class: "rounded-lg py-3 px-5 my-3 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>
+  <% if ss.screen.seats == 0 %>
+    <%= button_to "Unavailable", {}, disabled: true, class: "rounded-lg py-3 px-5 bg-slate-300 cursor-default font-medium" %>
+  <% else %>
+    <%= link_to "Book now", new_screening_booking_path(ss), class: "rounded-lg py-3 px-5 my-3 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>
+  <% end %>
+  
   <hr class="mt-8">
   <% end %>
 <% else %>

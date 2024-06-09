@@ -3,13 +3,12 @@
 <h1 class="mt-10 text-3xl font-semibold underline">Booking History:</h1>
 
 <div class="my-6">
-
   <h1 class="text-2xl mt-10">Upcoming bookings:</h1>
 
   <% if @upcoming_bookings.exists? %>
     <div class="text-2xl my-3">
       <% @upcoming_bookings.each do |b| %>
-        <li><%= pluralize(b.ticket, "ticket") %> of <span class="font-medium"><%= b.screening.show.name %></span>, <%= b.screening.screen.theater.name %> on <%= b.booking_date.strftime("%d/%m/%y at showtime of %H:%M %p") %></li>
+        <li><%= pluralize(b.ticket, "ticket") %> of <span class="font-medium"><%= b.screening.show.name %></span>, <%= b.screening.screen.theater.name %> on <%= format_date(b.booking_date) %></li>
       <% end %>
     </div>
   <% else %>
@@ -21,7 +20,7 @@
   <% if @past_bookings.exists? %>
     <div class="text-2xl my-3">
       <% @past_bookings.each do |b| %>
-        <li><span class="font-medium"><%= b.screening.show.name %></span>, <%= b.screening.screen.theater.name %> on <%= b.booking_date.strftime("%d/%m/%y at showtime of %H:%M %p") %></li>
+        <li><span class="font-medium"><%= b.screening.show.name %></span>, <%= b.screening.screen.theater.name %> on <%= format_date(b.booking_date) %></li>
       <% end %>
     </div>
   <% else %>
@@ -32,7 +31,7 @@
     <h1 class="text-2xl mt-10 underline">Cancelled bookings:</h1>
     <div class="text-2xl my-3">
       <% @cancelled_bookings.each do |b| %>
-        <li><span class="font-medium"><%= b.screening.show.name %></span>, <%= b.screening.screen.theater.name %> on <%= b.booking_date.strftime("%d/%m/%y at showtime of %H:%M %p") %></li>
+        <li><span class="font-medium"><%= b.screening.show.name %></span>, <%= b.screening.screen.theater.name %> on <%= format_date(b.booking_date) %></li>
       <% end %>
     </div>
   <% end %>

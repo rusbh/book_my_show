@@ -25,16 +25,16 @@ class Show < ApplicationRecord
   validates :category, inclusion: { in: categories.keys }
   validates :imdb_rating, inclusion: { in: 1..10 }
 
-  scope :recommened, -> { order(created_at: :desc).take(5) }
+  scope :recommended, -> { order(created_at: :desc).includes(poster_attachment: :blob).take(5) }
 
-  scope :movies, -> { where(category: :movie) }
-  scope :plays, -> { where(category: :play) }
-  scope :sports, -> { where(category: :sport) }
-  scope :events, -> { where(category: :event) }
+  scope :movies, -> { where(category: :movie).includes(poster_attachment: :blob) }
+  scope :plays, -> { where(category: :play).includes(poster_attachment: :blob) }
+  scope :sports, -> { where(category: :sport).includes(poster_attachment: :blob) }
+  scope :events, -> { where(category: :event).includes(poster_attachment: :blob) }
 
-  scope :gujarati, -> { where(language: :gujarati).take(5) }
+  scope :gujarati, -> { where(language: :gujarati).includes(poster_attachment: :blob).take(5) }
 
-  scope :action, -> { where(genre: :action).take(5) }
+  scope :action, -> { where(genre: :action).includes(poster_attachment: :blob).take(5) }
 
-  scope :except_movies, -> { where.not(category: :movie) }
+  scope :except_movies, -> { where.not(category: :movie).includes(poster_attachment: :blob) }
 end

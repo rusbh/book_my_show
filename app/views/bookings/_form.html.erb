@@ -1,7 +1,7 @@
-<%= form_with(model: [@screening, booking], class:"contents") do |f| %>
+<%= form_with(model: [@screening, booking], class: "contents") do |f| %>
   <% if booking.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(booking.errors.count, "error") %>prohibited this booking from being saved:</h2>
+      <h2><%= pluralize(booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
 
       <ul>
         <% booking.errors.each do |error| %>
@@ -15,14 +15,20 @@
     <%= f.hidden_field :screening_id, value: @screening.id %>
   </div>
   
-  <div class="my-5">
-    <%= f.label :ticket, "Ticket quantity (you can buy maximum 10 tickets)" %>
-    <%= f.number_field :ticket, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="my-5" data-controller="counter">
+    <%= f.label :ticket, "Tickets quantity (you can buy maximum 10 tickets)", class: "block text-gray-700 font-medium mb-2" %>
+    <div class="flex items-center text-2xl">
+      <%= content_tag(:button, "-", type: "button", class: "bg-gray-200 text-black px-4 py-2 border border-r-0 border-gray-300 rounded-l-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400", data: { action: "click->counter#decrement" }) %>
+      
+      <%= f.text_field :ticket, readonly: true, class: "block text-center text-2xl w-16 shadow-sm border-t border-b border-gray-300 outline-none px-3 py-2", data: { counter_target: "ticket" } %>
+
+      <%= content_tag(:button, "+", type: "button", class: "bg-gray-200 text-black px-4 py-2 border border-l-0 border-gray-300 rounded-r-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400", data: { action: "click->counter#increment" }) %>
+    </div>
   </div>
 
   <div class="my-5">
     <%= f.label :booking_date %>
-    <%= f.datetime_field :booking_date, min: Date.current, max: @screening.end_date, class: "datepicker block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= f.date_field :booking_date, min: @screening.start_date, max: @screening.end_date, class: "datepicker block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
   
   <div class="my-5">

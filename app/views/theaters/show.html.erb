@@ -3,9 +3,9 @@
 
   <h1 class="text-2xl font-semibold mt-10">All shows for theater:</h1>
 
-  <% if @theater.shows.exists? %>
+  <% if @theater_shows.exists? %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-      <% @theater.shows.each do |show| %>
+      <% @theater_shows.each do |show| %>
         <a href="<%= show_book_now_path(show) %>">
         <div class="my-5">
          <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg" if show.poster.attached? %>

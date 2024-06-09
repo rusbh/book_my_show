@@ -9,5 +9,8 @@
     <div class="prose prose-slate">
       <%= feedback.comment %>
     </div>
+    <% if feedback.created_at.present? %>
+      Posted <%= time_tag feedback.created_at, "data-local": "time-ago" %>    
+    <% end %>
   </div>
 </div>
