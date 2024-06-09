@@ -4,6 +4,7 @@ class FeedbacksController < ApplicationController
   def create
     @feedback = @commentable.feedbacks.new(feedback_params)
     @feedback.user = current_user
+    authorize @feedback
     @feedback.save
     
     redirect_to @commentable, notice: "Feedback was successfully submitted."
@@ -11,6 +12,7 @@ class FeedbacksController < ApplicationController
 
   def destroy
     @feedback = @commentable.feedbacks.find(params[:id])
+    authorize @feedback
     @feedback.destroy
     redirect_to @commentable, notice: "Feedback was successfully deleted."
   end

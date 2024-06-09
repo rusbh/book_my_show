@@ -4,11 +4,13 @@ class BookingsController < ApplicationController
 
   def new
     @booking = @screening.bookings.new
+    authorize @booking
   end
 
   def create
     @booking = @screening.bookings.new(booking_params)
     @booking.user = current_user
+    authorize @booking
 
     if @booking.save
       @booking.send_booking_confirmed

@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   include ApplicationHelper
+  include Pundit::Authorization
+  
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :store_user_location!, if: :storable_location?
@@ -15,6 +18,11 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to root_path
+  end
 
   def record_not_found
     redirect_to '/404'
