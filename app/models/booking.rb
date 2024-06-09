@@ -1,6 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :screening
+  belongs_to :show_timing
 
   after_create :decrement_seats
   before_create :seats_not_available

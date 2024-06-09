@@ -18,6 +18,17 @@
       <p class="my-5">
         <strong class="block font-medium mb-1">Screening End date: <%= format_date(screening.end_date) %></strong>     
       </p>
+
+      <p>
+        <strong>Daily Show Times</strong>
+        <ul>
+          <% screening.show_timings.each do |t| %>
+            <li>
+              <%= format_time(t.time) %>
+            </li>
+          <% end %>
+        </ul>
+      </p>
     </div>
   </section>
 </div>

@@ -30,6 +30,11 @@
     <%= f.label :booking_date %>
     <%= f.date_field :booking_date, min: @screening.start_date, max: @screening.end_date, class: "datepicker block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
+
+  <div class="my-5">
+    <%= f.label :show_timing_id, 'Select show time' %>
+    <%= f.collection_select :show_timing_id, @screening.show_timings, :id, :formatted_time, {} ,class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full"  %>
+  </div>
   
   <div class="my-5">
     <%= f.hidden_field :status, value: :confirmed %>

@@ -3,6 +3,7 @@ class Screening < ApplicationRecord
   belongs_to :show
 
   has_many :bookings, dependent: :destroy
+  has_many :show_timings, dependent: :destroy
   
   after_save :update_screen_status
   after_destroy :update_screen_status
@@ -12,6 +13,8 @@ class Screening < ApplicationRecord
   validate :start_date_before_end_date
   validate :no_overlapping_screenings
   validate :prohibit_screening_by_screen_status
+
+  accepts_nested_attributes_for :show_timings, reject_if: :all_blank, allow_destroy: true
 
   private
 

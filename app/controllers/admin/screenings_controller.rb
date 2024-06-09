@@ -10,6 +10,7 @@ class Admin::ScreeningsController < Admin::BaseController
 
   def new
     @screening = Screening.new
+    @screening.show_timings.build
   end
 
   def create
@@ -74,6 +75,7 @@ class Admin::ScreeningsController < Admin::BaseController
   end
 
   def screening_params
-    params.require(:screening).permit(:show_id, :screen_id, :price, :start_date, :end_date)
+    params.require(:screening).permit(:show_id, :screen_id, :price, :start_date, :end_date,
+                                      show_timings_attributes: %i[id time _destroy])
   end
 end

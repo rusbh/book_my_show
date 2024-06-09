@@ -1,4 +1,7 @@
-<%= form_with(model: [:admin, @screen, @screening], class: "contents") do |f| %>
+<%= form_with(model: [:admin, @screen, @screening], data: {
+               controller: "nested-form",
+               nested_form_wrapper_selector_value: ".nested-form-wrapper",
+             }, class: "contents") do |f| %>
   <% if screening.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(screening.errors.count, "error") %>  prohibited this screening from being saved:</h2>
@@ -33,6 +36,20 @@
   <div class="my-5">
     <%= f.label :end_date, "Ending date for this screen" %>
     <%= f.date_field :end_date, min: Date.current, class: "datepicker block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <template data-nested-form-target = "template">
+    <%= f.fields_for :show_timings, ShowTiming.new, child_index: "NEW_RECORD" do |show_timing_fields| %>
+      <%= render "admin/screenings/show_timing_form", f: show_timing_fields %>
+    <% end %>
+  </template>
+  
+  <%= f.fields_for :show_timings do |show_timing_fields| %>
+    <%= render "admin/screenings/show_timing_form", f: show_timing_fields %>
+  <% end %>
+
+  <div data-nested-form-target="target" class="my-5">
+    <button type="button" data-action="nested-form#add">Add new time</button>
   </div>
 
   <div class="inline">
