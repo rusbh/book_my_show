@@ -7,10 +7,11 @@ class Screening < ApplicationRecord
   
   after_save :update_screen_status
   after_destroy :update_screen_status
+  before_create :start_date_before_end_date
   
   validates :price, :start_date, :end_date, presence: true
   validates :price, numericality: { greater_than: 0 }
-  validate :start_date_before_end_date
+  
   validate :no_overlapping_screenings
   validate :prohibit_screening_by_screen_status
 
@@ -21,6 +22,7 @@ class Screening < ApplicationRecord
   def start_date_before_end_date
     if start_date > end_date
       errors.add(:start_date, 'must be before the end date')
+      throw(:abort)
     end
   end
 
