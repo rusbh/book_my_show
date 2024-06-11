@@ -8,7 +8,7 @@ class Theater < ApplicationRecord
   has_many :shows, through: :screens
   has_many :feedbacks, as: :commentable, dependent: :destroy
 
-  has_many :theater_admins
+  has_many :theater_admins, dependent: :destroy
   has_many :admins, through: :theater_admins, source: :user
 
   validates :name, :address, presence: true, uniqueness: true

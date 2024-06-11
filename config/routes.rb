@@ -7,16 +7,16 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   resources :shows, only: %i[index show] do
-    get '/book-now', to: "screenings#index"
-    resources :feedbacks, module: :shows, only: [:create, :destroy]
+    get '/book-now', to: 'screenings#index'
+    resources :feedbacks, module: :shows, only: %i[create destroy]
   end
 
   resources :screenings, only: [:index] do
-    resources :bookings, only: [:create, :new]
+    resources :bookings, only: %i[create new]
   end
 
   resources :theaters, only: %i[index show] do
-    resources :feedbacks, module: :theaters, only: [:create, :destroy]
+    resources :feedbacks, module: :theaters, only: %i[create destroy]
   end
 
   namespace :admin do
@@ -33,6 +33,11 @@ Rails.application.routes.draw do
                sign_out: 'logout',
                sign_up: 'signup'
              }
-       
+
+  get '/theater-inquiry', to: 'users#theater_inquiry'
+  post '/theater-inquiry', to: 'users#theater_inquiry_details'
   get 'up' => 'rails/health#show', as: :rails_health_check
+  match '*path', via: :all, to: 'application#not_found_method', constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
+  }
 end
