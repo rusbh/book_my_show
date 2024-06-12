@@ -17,13 +17,12 @@ class Show < ApplicationRecord
   enum category: %i[movie play sport event]
   enum status: %i[idle running cancelled]
 
-  validates :name, :description, :cast, :poster, :language, :genre, :category, :imdb_rating, :status, :duration,
+  validates :name, :description, :cast, :poster, :language, :genre, :category, :status, :duration,
             :release_date, presence: true
   validates :name, uniqueness: true
   validates :language, inclusion: { in: languages.keys }
   validates :genre, inclusion: { in: genres.keys }
   validates :category, inclusion: { in: categories.keys }
-  validates :imdb_rating, inclusion: { in: 1..10 }
 
   scope :recommended, -> { order(created_at: :desc).includes(poster_attachment: :blob).take(5) }
 
@@ -37,4 +36,8 @@ class Show < ApplicationRecord
   scope :action, -> { where(genre: :action).includes(poster_attachment: :blob).take(5) }
 
   scope :except_movies, -> { where.not(category: :movie).includes(poster_attachment: :blob) }
+
+  def average_rating
+    feedbacks.average(:rating).to_f.round(1)
+  end
 end

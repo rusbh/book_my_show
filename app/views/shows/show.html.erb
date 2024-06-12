@@ -4,9 +4,17 @@
   <h2 class="text-2xl font-semibold mt-20">
       <%= pluralize(@show.feedbacks.size, "Reviews") %>
   </h2>
-
-  <%= render "feedbacks/form", commentable: @show, feedback: @feedback %>
-
+  
+  <% if @user_has_booked %>
+    <% unless @user_has_feedback %>
+      <%= render "feedbacks/form", commentable: @show, feedback: @feedback %>
+    <% end %>
+  <% else %>
+    <p class="p-6 bg-slate-50 rounded-xl my-6">
+      You need to book this show before you can leave a review.
+    </p>
+  <% end %>
+  
   <% if @show.feedbacks.exists? %>
     <%= render partial: "feedbacks/feedback", collection: @show.feedbacks, locals: { commentable: @show } %>
   <% else %>

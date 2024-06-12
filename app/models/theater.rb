@@ -12,4 +12,8 @@ class Theater < ApplicationRecord
   has_many :admins, through: :theater_admins, source: :user
 
   validates :name, :address, presence: true, uniqueness: true
+
+  def average_rating
+    feedbacks.average(:rating).to_f.round(1)
+  end
 end

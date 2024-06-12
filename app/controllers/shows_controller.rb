@@ -8,10 +8,13 @@ class ShowsController < ApplicationController
     @plays = Show.plays
     @sports = Show.sports
     @events = Show.events
-  end
+  end 
 
   # GET /shows/1 or /shows/1.json
-  def show; end
+  def show
+    @user_has_feedback = @show.feedbacks.find_by(user_id: current_user&.id)
+    @user_has_booked = current_user.bookings.joins(screening: :show).where(screenings: { show: @show }).exists?
+  end
 
   private
 

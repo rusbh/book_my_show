@@ -23,8 +23,10 @@
       <%= pluralize(@theater.feedbacks.count, "Feedback") %>
   </h2>
 
-  <%= render "feedbacks/form", commentable: @theater, feedback: @feedback %>
-
+  <% unless @user_has_feedback %>
+    <%= render "feedbacks/form", commentable: @theater, feedback: @feedback %>
+  <% end %>
+  
   <% if @theater.feedbacks.exists? %>
     <%= render partial: "feedbacks/feedback", collection: @theater.feedbacks, locals: { commentable: @theater } %>
   <% else %>

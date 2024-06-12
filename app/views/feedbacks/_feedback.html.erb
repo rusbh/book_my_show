@@ -1,16 +1,24 @@
 <div id="<%= dom_id feedback %>">
   <div class="p-6 bg-slate-100 rounded-xl my-6">
+
     <div class="flex justify-between text-center">
       <p class="font-semibold text-xl"><%= feedback.user&.name %></p>
+      
       <% if feedback.user == current_user %>
-        <%= button_to "Delete", [commentable, feedback], method: :delete, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
+        <div class="flex gap-x-5">
+          <% if feedback.created_at.present? %>
+            <p class="text-xl flex items-center gap-2">⭐ <span class="text-xl"><%= feedback.rating %>/10</span></p>
+          <% end %>
+          <%= button_to "Delete", [commentable, feedback], method: :delete, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
+        </div>
       <% end %>
     </div>
+
     <div class="prose prose-slate">
       <%= feedback.comment %>
     </div>
     <% if feedback.created_at.present? %>
-      Posted <%= time_tag feedback.created_at, "data-local": "time-ago" %>    
+      <p class="mt-3">Posted <%= time_tag feedback.created_at, "data-local": "time-ago" %></p>
     <% end %>
   </div>
 </div>

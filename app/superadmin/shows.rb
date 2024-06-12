@@ -14,7 +14,6 @@ ActiveAdmin.register Show do
       row :language
       row :genre
       row :category
-      row :imdb_rating
       row :status
       row :duration
       row :release_date
@@ -30,7 +29,6 @@ ActiveAdmin.register Show do
       f.input :language
       f.input :genre
       f.input :category
-      f.input :imdb_rating
       f.input :status
       f.input :duration, label: 'Duration of show (in Minutes)'
       f.input :release_date
@@ -38,5 +36,5 @@ ActiveAdmin.register Show do
     f.actions
   end
 
-  permit_params :name, :description, :poster, :cast, :language, :genre, :category, :imdb_rating, :status, :duration, :release_date
+  permit_params :name, :description, :poster, :cast, :language, :genre, :category, :status, :duration, :release_date
 end
