@@ -23,8 +23,14 @@
       <%= pluralize(@theater.feedbacks.count, "Feedback") %>
   </h2>
 
-  <% unless @user_has_feedback %>
-    <%= render "feedbacks/form", commentable: @theater, feedback: @feedback %>
+  <% if @user_has_booked_in_theater %>
+    <% unless @user_has_feedback %>
+      <%= render "feedbacks/form", commentable: @theater, feedback: @feedback %>
+    <% end %>
+  <% else %>
+    <p class="p-6 bg-slate-50 rounded-xl my-6">
+      You need to book a show in this theater before you can leave a review.
+    </p>
   <% end %>
   
   <% if @theater.feedbacks.exists? %>
