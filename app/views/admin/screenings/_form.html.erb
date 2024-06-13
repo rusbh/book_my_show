@@ -43,6 +43,8 @@
       <%= render "admin/screenings/show_timing_form", f: show_timing_fields %>
     <% end %>
   </template>
+
+  <p class="mt-10">Set daily timing for show (time is in 24 hours format)</p>
   
   <%= f.fields_for :show_timings do |show_timing_fields| %>
     <%= render "admin/screenings/show_timing_form", f: show_timing_fields %>

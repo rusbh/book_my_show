@@ -16,7 +16,7 @@
   </div>
   
   <div class="my-5" data-controller="counter">
-    <%= f.label :ticket, "Tickets quantity (you can buy maximum 10 tickets)", class: "block text-gray-700 font-medium mb-2" %>
+    <%= f.label :ticket, "Tickets quantity (you can buy maximum upto 10 tickets)", class: "block text-gray-700 font-medium mb-2" %>
     <div class="flex items-center text-2xl">
       <%= content_tag(:button, "-", type: "button", class: "bg-gray-200 text-black px-4 py-2 border border-r-0 border-gray-300 rounded-l-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400", data: { action: "click->counter#decrement" }) %>
       
@@ -24,11 +24,6 @@
 
       <%= content_tag(:button, "+", type: "button", class: "bg-gray-200 text-black px-4 py-2 border border-l-0 border-gray-300 rounded-r-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400", data: { action: "click->counter#increment" }) %>
     </div>
-  </div>
-
-  <div class="my-5">
-    <%= f.label :booking_date %>
-    <%= f.date_field :booking_date, min: @screening.start_date, max: @screening.end_date, class: "datepicker block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">

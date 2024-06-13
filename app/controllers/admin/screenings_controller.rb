@@ -18,6 +18,7 @@ class Admin::ScreeningsController < Admin::BaseController
 
     respond_to do |format|
       if @screening.save
+        RecurringScreeningsJob.perform_async(@screening.id)
         format.html do
           redirect_to admin_screen_screening_url(@screen, @screening), notice: 'Screening was successfully created.'
         end
@@ -76,6 +77,6 @@ class Admin::ScreeningsController < Admin::BaseController
 
   def screening_params
     params.require(:screening).permit(:show_id, :screen_id, :price, :start_date, :end_date,
-                                      show_timings_attributes: %i[id time _destroy])
+                                      show_timings_attributes: %i[id at_timeof _destroy])
   end
 end

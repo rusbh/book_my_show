@@ -1,10 +1,10 @@
 class ShowTiming < ApplicationRecord
   belongs_to :screening
-  has_one :booking, dependent: :destroy
+  has_many :booking, dependent: :destroy
 
-  validates :time, presence: true
+  validates :at_timeof, presence: true
 
   def formatted_time
-    time.strftime("%I:%M %p")
+    at_timeof.strftime("%d %B, %y at %H:%M %p")
   end
 end

@@ -1,11 +1,11 @@
 <div class="nested-form-wrapper" data-new-record="<%= f.object.new_record? %>">
-    <%= f.label :time, "Time (time is in 24 hours format)", class: "block" %>
     <% if f.object.new_record? %>
-        <%= f.time_field :time, value: "%H:%M", 
-                                min: "hh:mm:ss",
-                                max: "hh:mm:ss" %>
+        <%= f.time_field :at_timeof,
+                         min: "hh:mm:ss",
+                         max: "hh:mm:ss",
+                         class: "shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-3" %>
     <% else %>
-        <%= f.time_field :time, value: f.object.time.strftime("%H:%M") %>
+        <%= f.datetime_field :at_timeof, value: f.object.at_timeof, class: "shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-3" %>
     <% end %>
 
     <button type="button" data-action="nested-form#remove">Remove this time</button>

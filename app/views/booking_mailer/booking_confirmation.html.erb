@@ -4,7 +4,7 @@
 
 <p>You have booked <span><%= pluralize(@booking.ticket, "ticket") %></span> of <span><%= @booking.screening.show.name %></span> at <span><%= @booking.screening.screen.theater.name %></span></p>
 
-<p>Time: <span><%= @booking.show_timing.time.strftime("%I:%M %p") %></span></p>
+<p>Time: <span><%= @booking.show_timing.at_timeof.strftime("%I:%M %p") %></span></p>
 
 <p>Date: <span><%= @booking.booking_date.strftime("%d %B, %Y %A") %></span></p>
 <p>If not then, drop us a reply mail</p>

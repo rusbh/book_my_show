@@ -4,7 +4,7 @@ Hi <%= @booking.user.name %>,
 
 You have booked <%= pluralize(@booking.ticket, "ticket") %> of <%= @booking.screening.show.name %> at <%= @booking.screening.screen.theater.name %>
 
-Time: <%= @booking.show_timing.time.strftime("%I:%M %p") %>
+Time: <%= @booking.show_timing.at_timeof.strftime("%I:%M %p") %>
 
 Date: <%= @booking.booking_date.strftime("%d %B, %y %A") %>
 

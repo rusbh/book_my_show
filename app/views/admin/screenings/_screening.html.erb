@@ -20,11 +20,11 @@
       </p>
 
       <p>
-        <strong>Daily Show Times</strong>
+        <strong>All Show Times</strong>
         <ul>
           <% screening.show_timings.each do |t| %>
             <li>
-              <%= format_time(t.time) %>
+              <%= format_datetime(t.at_timeof) %>
             </li>
           <% end %>
         </ul>
