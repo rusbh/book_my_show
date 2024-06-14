@@ -24,7 +24,7 @@ class FeedbacksController < ApplicationController
   private
 
   def feedback_params
-    params.require(:feedback).permit(:comment, :rating)
+    params.require(:feedback).permit(:comment, :rating, :commentable_id, :commentable_type)
   end
 
   def set_commentable

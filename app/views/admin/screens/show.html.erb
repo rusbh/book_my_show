@@ -8,6 +8,6 @@
       <%= button_to "Destroy this screen", @admin_screen, method: :delete, data: { turbo_confirm: "All screenings assigned to this screen will also be removed." }, class: "mt-2 rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
     </div>
 
-    <h1 class="mt-14"><%= link_to "Manage Assigned Shows", admin_screen_screenings_path(@screen, @screening), class: "mt-5 rounded-lg py-3 px-5 bg-orange-300 inline-block font-medium " %></h1>
+    <h1 class="mt-14"><%= link_to "Manage Assigned Shows", admin_screen_screenings_path(@screen, @screening), class: "mt-5 text-3xl rounded-lg bg-zinc-200 text-center py-10 px-5 inline-block font-medium w-full" %></h1>
   </div>
 </div>

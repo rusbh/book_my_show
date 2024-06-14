@@ -10,6 +10,7 @@ class TheatersController < ApplicationController
   def show
     @feedback = @theater.feedbacks.new
     @theater_shows = @theater.shows.includes(poster_attachment: :blob)
+    @theater_feedbacks = @theater.feedbacks
     @user_has_feedback = @theater.feedbacks.find_by(user_id: current_user.id)
     @user_has_booked_in_theater = current_user&.has_booked_in_theater?(@theater)
   end

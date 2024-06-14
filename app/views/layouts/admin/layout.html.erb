@@ -14,9 +14,9 @@
   <body>
     <%= render 'layouts/admin/header' %>
     <%= render 'layouts/flash' %>
-    <main class="container mx-auto mt-8 mb-8 px-5">
+    <main class="container mx-auto mt-8 mb-48 px-5">
       <%= yield %>
     </main>
-    <%= debug(params) if Rails.env.development? %>
+    <%#= debug(params) if Rails.env.development? %>
   </body>
 </html>

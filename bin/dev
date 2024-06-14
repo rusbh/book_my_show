@@ -8,7 +8,7 @@ fi
 # Default to port 3000 if not specified
 export PORT="${PORT:-3000}"
 
-export BINDING="${BINDING:-192.168.31.221}"
+# export BINDING="${BINDING:-192.168.31.221}"
 
 # Let the debug gem allow remote connections,
 # but avoid loading until `debugger` is called

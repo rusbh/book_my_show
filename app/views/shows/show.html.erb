@@ -2,7 +2,7 @@
   <%= render @show %>
 
   <h2 class="text-2xl font-semibold mt-20">
-      <%= pluralize(@show.feedbacks.size, "Reviews") %>
+      <%= pluralize(@show.feedbacks.count, "Reviews") %>
   </h2>
   
   <% if @user_has_booked %>
@@ -15,8 +15,8 @@
     </p>
   <% end %>
   
-  <% if @show.feedbacks.exists? %>
-    <%= render partial: "feedbacks/feedback", collection: @show.feedbacks, locals: { commentable: @show } %>
+  <% if @show_feedbacks.exists? %>
+    <%= render partial: "feedbacks/feedback", collection: @show_feedbacks, locals: { commentable: @show } %>
   <% else %>
     <h1 class="p-6 bg-slate-50 rounded-xl my-6">No reviews yet</h1>
   <% end %>

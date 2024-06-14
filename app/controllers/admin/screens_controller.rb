@@ -6,7 +6,7 @@ class Admin::ScreensController < Admin::BaseController
     @screens = @theater.screens.order(created_at: :asc)
     @shows = @theater.shows.includes(poster_attachment: :blob)
     @bookings = Booking.joins(screening: :screen).where(screens: { theater_id: @theater.id })
-    @feedbacks = @theater.feedbacks
+    @feedbacks = @theater.feedbacks.includes([:user])
 
     @current_week_bookings_by_screen = @bookings.where(booking_date: Time.current.beginning_of_week..Time.current.end_of_week).joins(screening: :screen).group('screens.screen_no').count
 
