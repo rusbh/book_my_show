@@ -1,6 +1,7 @@
 class FeedbacksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_commentable
+  before_action :set_feedback, only: %i[edit update destroy]
 
   def create
     @feedback = @commentable.feedbacks.new(feedback_params)
@@ -13,6 +14,22 @@ class FeedbacksController < ApplicationController
       render @commentable, status: :unprocessable_entity
     end
   end
+
+  def edit
+    authorize @feedback
+  end
+
+  def update
+    authorize @feedback
+    respond_to do |format|
+      if @feedback.update(feedback_params)
+        format.html{ redirect_to @commentable, notice: "Feedback was successfully updated."}
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   def destroy
     @feedback = @commentable.feedbacks.find(params[:id])
@@ -39,5 +56,9 @@ class FeedbacksController < ApplicationController
     else
       fail "Unsupported commentable"
     end
+  end
+
+  def set_feedback
+    @feedback = @commentable.feedbacks.find(params[:id])
   end
 end

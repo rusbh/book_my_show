@@ -2,13 +2,13 @@
   <div class="p-6 bg-slate-100 rounded-xl my-6">
 
     <div class="flex justify-between text-center">
-      <p class="font-semibold text-xl"><%= feedback.user&.name %></p>
+      <p class="font-semibold text-xl"><%= feedback.user.name %></p>
       
       <div class="flex gap-x-5">
-        <% if feedback.created_at.present? %>
-          <p class="text-xl flex items-center gap-2">⭐ <span class="text-xl"><%= feedback.rating.round(1) %>/10</span></p>
-        <% end %>
+        <p class="text-xl flex items-center gap-2">⭐ <span class="text-xl"><%= feedback.rating.round(1) %>/10</span></p>
+
         <% if feedback.user == current_user %>
+          <%= link_to "Edit", edit_polymorphic_path([commentable, feedback]), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium" %>
           <%= button_to "Delete", [commentable, feedback], method: :delete, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
         <% end %>
       </div>
@@ -18,9 +18,7 @@
     <div class="prose prose-slate">
       <%= feedback.comment %>
     </div>
-    
-    <% if feedback.created_at.present? %>
-      <p class="mt-3">Posted <%= time_tag feedback.created_at, "data-local": "time-ago" %></p>
-    <% end %>
+
+    <p class="mt-3">Posted <%= time_tag feedback.created_at, "data-local": "time-ago" %></p>
   </div>
 </div>

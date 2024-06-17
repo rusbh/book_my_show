@@ -12,7 +12,7 @@ class ShowsController < ApplicationController
 
   # GET /shows/1 or /shows/1.json
   def show
-    @show_feedbacks = @show.feedbacks
+    @show_feedbacks = @show.feedbacks.order(created_at: :desc)
     @user_has_feedback = @show.feedbacks.find_by(user_id: current_user&.id)
     @user_has_booked = current_user&.user_has_booked?(@show)
   end

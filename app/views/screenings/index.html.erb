@@ -1,6 +1,6 @@
 <% if @show_screenings.exists? %>
+  <h1 class="text-4xl font-semibold mb-10"><%= @show_screenings.first.show.name %>'s screenings in theaters</h1>
   <% @show_screenings.each do |ss| %>
-  <h1 class="text-4xl font-semibold mb-10"><%= ss.show.name %>'s screenings in theaters</h1>
 
   <section class="my-5 flex justify-between items-center">
     <div>

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :shows, only: %i[index show] do
     get '/book-now', to: 'screenings#index'
-    resources :feedbacks, only: %i[create update destroy]
+    resources :feedbacks, only: %i[create update destroy edit]
   end
 
   resources :screenings, only: [:index] do
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
 
   resources :theaters, only: %i[index show] do
-    resources :feedbacks, only: %i[create update destroy]
+    resources :feedbacks, only: %i[create update destroy edit]
   end
 
   namespace :admin do

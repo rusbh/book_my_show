@@ -13,6 +13,14 @@ class FeedbackPolicy < ApplicationPolicy
     !user.admin
   end
 
+  def edit?
+    !user.admin
+  end
+
+  def update?
+    !user.admin
+  end
+
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve
