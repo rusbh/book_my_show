@@ -20,7 +20,7 @@
   <% if @past_bookings.exists? %>
     <div class="text-2xl my-3">
       <% @past_bookings.each do |b| %>
-        <li><span class="font-medium"><%= b.screening.show.name %></span>, <%= b.screening.screen.theater.name %> on  <%= format_datetime(b.show_timing.at_timeof) %></li>
+        <li><%= pluralize(b.ticket, "ticket") %> of <span class="font-medium"></span><span class="font-medium"><%= b.screening.show.name %></span>, <%= b.screening.screen.theater.name %> on  <%= format_datetime(b.show_timing.at_timeof) %></li>
       <% end %>
     </div>
   <% else %>

@@ -1,12 +1,15 @@
 <div class="nested-form-wrapper" data-new-record="<%= f.object.new_record? %>">
     <% if f.object.new_record? %>
-        <%= f.time_field :at_timeof, required: true,
-                                     min: "hh:mm:ss",
-                                     max: "hh:mm:ss",
-                                     class: "shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-3" %>
+        <%= f.time_field :at_timeof,
+                         min: "hh:mm:ss",
+                         max: "hh:mm:ss",
+                         class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-3" %>
     <% else %>
         <%= f.datetime_field :at_timeof, value: f.object.at_timeof, class: "shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-3" %>
     <% end %>
+
+    <%= f.label :seats, "seats for that timing" %>
+    <%= f.number_field :seats, placeholder: "enter seats capacity", class: "remove-arrow block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2" %>
 
     <button type="button" data-action="nested-form#remove">Remove this time</button>
     

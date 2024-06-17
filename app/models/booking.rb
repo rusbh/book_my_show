@@ -4,7 +4,7 @@ class Booking < ApplicationRecord
   belongs_to :show_timing
 
   after_create :decrement_seats
-  before_create :seats_not_available
+  before_create :seats_not_available, :show_time_in_past
 
   enum status: { confirmed: 0, cancelled: 1 }
 
@@ -20,16 +20,20 @@ class Booking < ApplicationRecord
   end
 
   def decrement_seats
-    ticket_purchased = self.ticket
-    screen = self.screening.screen
-
-    screen.seats -= ticket_purchased
-    screen.save
+    self.show_timing.seats -= self.ticket
+    self.show_timing.save
   end
 
   def seats_not_available
-    if screening.screen.seats < self.ticket
-      errors.add(:base, 'Not enough seats available')
+    if show_timing.seats < self.ticket
+      errors.add(:base, 'Not enough seats available on your selected time')
+      throw(:abort)
+    end
+  end
+
+  def show_time_in_past
+    if self.show_timing.at_timeof < Time.current
+      errors.add(:base, "you can't select previous time")
       throw(:abort)
     end
   end

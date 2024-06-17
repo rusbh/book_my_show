@@ -20,7 +20,7 @@ class Admin::ScreeningsController < Admin::BaseController
       if @screening.save
         RecurringScreeningsJob.perform_async(@screening.id)
         format.html do
-          redirect_to admin_screen_screening_url(@screen, @screening), notice: 'Screening was successfully created.'
+          redirect_to admin_screen_screenings_path(@screen), notice: 'Screening was successfully created.'
         end
         format.json { render :screening, status: :created, location: @screening }
       else
@@ -46,7 +46,10 @@ class Admin::ScreeningsController < Admin::BaseController
     end
   end
 
-  def show; end
+  def show
+    @show_timings = @screening.show_timings.order(at_timeof: :asc)
+  end
+
 
   def destroy
     @screening.destroy!
@@ -77,6 +80,6 @@ class Admin::ScreeningsController < Admin::BaseController
 
   def screening_params
     params.require(:screening).permit(:show_id, :screen_id, :price, :start_date, :end_date,
-                                      show_timings_attributes: %i[id at_timeof _destroy])
+                                      show_timings_attributes: %i[id at_timeof seats _destroy])
   end
 end

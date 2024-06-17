@@ -17,11 +17,6 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :seats %>
-    <%= form.number_field :seats, class: "remove-arrow block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
     <%= form.label :status %>
     <%= form.collection_select :status, [["Idle", "idle"], ["In Maintenance", "in_maintenance"], ["Unavailable", "unavailable"]], :last, :first, {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>

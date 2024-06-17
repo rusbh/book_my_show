@@ -1,3 +1,3 @@
 ActiveAdmin.register Screen do
-  permit_params :screen_no, :seats, :status, :theater_id
+  permit_params :screen_no, :status, :theater_id
 end

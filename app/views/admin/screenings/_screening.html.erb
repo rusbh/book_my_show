@@ -22,9 +22,10 @@
       <p>
         <strong>All Show Times</strong>
         <ul>
-          <% screening.show_timings.each do |t| %>
+          <% @show_timings.each do |t| %>
             <li>
-              <%= format_datetime(t.at_timeof) %>
+              <p><%= format_datetime(t.at_timeof) %></p>
+              <p>Seats: <%= t.seats %></p>
             </li>
           <% end %>
         </ul>

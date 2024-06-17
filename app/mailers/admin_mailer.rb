@@ -4,7 +4,7 @@ class AdminMailer < ApplicationMailer
     mail to: 'superadmin@bms.com', subject: "New admin request for BMS theater portal"
   end
 
-  def invitation(user, token)
+  def admin_invitation(user, token)
     @user = user
     @token = token
     mail(to: @user.email, subject: "Welcome to BMS Theater Portal")

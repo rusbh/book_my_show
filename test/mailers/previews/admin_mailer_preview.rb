@@ -6,7 +6,7 @@ class AdminMailerPreview < ActionMailer::Preview
     AdminMailer.admin_request(details)
   end
 
-  def invitation
-    AdminMailer.invitation(User.first, SecureRandom.base36)
+  def admin_invitation
+    AdminMailer.admin_invitation(User.first, SecureRandom.base36)
   end
 end
