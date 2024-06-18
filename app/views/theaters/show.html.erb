@@ -17,20 +17,24 @@
   <% else %>
     <h1 class="text-xl">No shows currently running in this theater</h1>
   <% end %>
-    
+  
   <h2 class="text-2xl font-semibold mt-10">
+    <%= turbo_frame_tag "count" do %>
       <%= pluralize(@theater.feedbacks.count, "Feedback") %>
+    <% end %>
   </h2>
 
-  <% if @user_has_booked_in_theater %>
-    <% unless @user_has_feedback %>
-      <%= render "feedbacks/form", commentable: @theater, feedback: @feedback %>
+  <div id="feedback_form">
+    <% if @user_has_booked_in_theater %>
+      <% unless @user_has_feedback %>
+        <%= render "feedbacks/form", commentable: @theater, feedback: @feedback %>
+      <% end %>
+    <% else %>
+      <p class="p-6 bg-slate-50 rounded-xl my-6">
+        You need to book a show in this theater before you can leave a review.
+      </p>
     <% end %>
-  <% else %>
-    <p class="p-6 bg-slate-50 rounded-xl my-6">
-      You need to book a show in this theater before you can leave a review.
-    </p>
-  <% end %>
+  </div>
   
   <% if @theater_feedbacks.present? %>
     <%= render partial: "feedbacks/feedback", collection: @theater_feedbacks, locals: { commentable: @theater } %>

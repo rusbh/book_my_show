@@ -1,5 +1,6 @@
 <h1 class="text-3xl font-semibold">Edit Feedback</h1>
 
+<%= turbo_frame_tag dom_id(@feedback) do %>
 <%= form_for([@commentable, @feedback], local: true) do |form| %>
   <% if @feedback.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
@@ -30,3 +31,4 @@
   <%= link_to 'Cancel', @commentable, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 <% end %>
 
+<% end %>

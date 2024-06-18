@@ -10,15 +10,15 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def destroy?
-    !user.admin
+    !user.admin && user == record.user
   end
 
   def edit?
-    !user.admin
+    !user.admin && user == record.user
   end
 
   def update?
-    !user.admin
+    !user.admin && user == record.user
   end
 
   class Scope < ApplicationPolicy::Scope

@@ -2,6 +2,17 @@
   <div class="mx-auto">
     <%= render @screen %>
 
+  <strong class="block font-medium text-3xl mt-10 mb-2">Shows running or scheduled: </strong>
+  <div class="mb-5">
+    <% if @screen.screenings.present? %>
+      <% @screen.screenings.each do |ss| %>
+        <li class="ml-5 text-3xl"><%= ss.show.name %></li>
+      <% end %>
+    <% else %>
+      <p>No shows scheduled or Running currently</p>
+    <% end %>
+  </div>
+
     <%= link_to "Edit this screen's details", edit_admin_screen_path(@screen), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Back to Theater Portal", admin_root_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">

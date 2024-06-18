@@ -1,5 +1,5 @@
 <div class="w-full px-6">
-  <h1 class="mb-3 text-3xl font-medium">Welcome to the Theater Dashboard, <%= current_user.name %></h1>
+  <h1 class="mb-3 text-3xl font-medium">Welcome to the Theater Dashboard, <%= current_user&.name %></h1>
 
   <div class="flex justify-between mt-10 items-center">
     <h1 class="font-bold text-4xl">Screens</h1> 
@@ -37,7 +37,9 @@
 
   <h1 class="mt-24 text-3xl font-bold">Total Bookings of Shows by Screen for Current Week</h1>
   <div class="my-6">
-    <%= bar_chart @current_week_bookings_by_screen, xtitle: "Bookings of shows for current week", ytitle: "Screen No", download: true %>
+    <% @library_options = { scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } } } %>
+    
+    <%= bar_chart @current_week_bookings_by_screen, xtitle: "Bookings of shows for current week", ytitle: "Screen No", download: true, library: @library_options %>
   </div>
 
   <div class="flex justify-between mt-20">

@@ -1,19 +1,23 @@
 <div class="w-full">
   <%= render @show %>
-
-  <h2 class="text-2xl font-semibold mt-20">
-      <%= pluralize(@show.feedbacks.count, "Reviews") %>
-  </h2>
   
-  <% if @user_has_booked %>
-    <% unless @user_has_feedback %>
-      <%= render "feedbacks/form", commentable: @show, feedback: @feedback %>
+  <h2 class="text-2xl font-semibold mt-20">
+    <%= turbo_frame_tag "count" do %>
+      <%= pluralize(@show.feedbacks.count, "Reviews") %>
     <% end %>
-  <% else %>
-    <p class="p-6 bg-slate-50 rounded-xl my-6">
-      You need to book this show before you can leave a review.
-    </p>
-  <% end %>
+  </h2>
+
+  <div id="feedback_form">
+    <% if @user_has_booked %>
+      <% unless @user_has_feedback %>
+        <%= render "feedbacks/form", commentable: @show, feedback: @feedback %>
+      <% end %>
+    <% else %>
+      <p class="p-6 bg-slate-50 rounded-xl my-6">
+        You need to book this show before you can leave a review.
+      </p>
+    <% end %>
+  </div>
   
   <% if @show_feedbacks.exists? %>
     <%= render partial: "feedbacks/feedback", collection: @show_feedbacks, locals: { commentable: @show } %>

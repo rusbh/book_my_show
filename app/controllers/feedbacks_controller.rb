@@ -1,4 +1,5 @@
 class FeedbacksController < ApplicationController
+  include ActionView::RecordIdentifier
   before_action :authenticate_user!
   before_action :set_commentable
   before_action :set_feedback, only: %i[edit update destroy]
@@ -7,11 +8,14 @@ class FeedbacksController < ApplicationController
     @feedback = @commentable.feedbacks.new(feedback_params)
     @feedback.user = current_user
     authorize @feedback
-    if @feedback.save
-      redirect_to @commentable, notice: "Feedback was successfully submitted."
-    else
-      flash[:alert] = "All fields are required"
-      render @commentable, status: :unprocessable_entity
+
+    respond_to do |format|
+      if @feedback.save
+        format.html { redirect_to @commentable, notice: 'Feedback was successfully submitted.' }
+      else
+        flash[:alert] = 'All fields are required'
+        format.html { render @commentable, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -23,19 +27,23 @@ class FeedbacksController < ApplicationController
     authorize @feedback
     respond_to do |format|
       if @feedback.update(feedback_params)
-        format.html{ redirect_to @commentable, notice: "Feedback was successfully updated."}
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@feedback), partial: "feedbacks/feedback", locals: { feedback: @feedback, commentable: @commentable }) }
+        format.html { redirect_to @commentable }
       else
         format.html { render :edit, status: :unprocessable_entity }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@feedback), partial: "feedbacks/form", locals: { commentable: @commentable, feedback: @feedback }) }
       end
     end
   end
 
-
   def destroy
-    @feedback = @commentable.feedbacks.find(params[:id])
     authorize @feedback
     @feedback.destroy
-    redirect_to @commentable, notice: "Feedback was successfully deleted."
+
+    respond_to do |format|
+      format.html { redirect_to @commentable }
+      format.turbo_stream
+    end
   end
 
   private
@@ -54,7 +62,7 @@ class FeedbacksController < ApplicationController
     elsif params[:theater_id]
       Theater.friendly.find(params[:theater_id])
     else
-      fail "Unsupported commentable"
+      raise 'Unsupported commentable'
     end
   end
 

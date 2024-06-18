@@ -1,5 +1,5 @@
-<div id="<%= dom_id feedback %>">
-  <div class="p-6 bg-slate-100 rounded-xl my-6">
+<%= turbo_frame_tag dom_id(feedback) do %>
+  <div class="feedback-highlight p-6 bg-slate-100 rounded-xl my-6">
 
     <div class="flex justify-between text-center">
       <p class="font-semibold text-xl"><%= feedback.user.name %></p>
@@ -8,8 +8,7 @@
         <p class="text-xl flex items-center gap-2">⭐ <span class="text-xl"><%= feedback.rating.round(1) %>/10</span></p>
 
         <% if feedback.user == current_user %>
-          <%= link_to "Edit", edit_polymorphic_path([commentable, feedback]), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium" %>
-          <%= button_to "Delete", [commentable, feedback], method: :delete, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
+          <%= link_to "Edit", edit_polymorphic_path([commentable, feedback]), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium" %>    
         <% end %>
       </div>
       
@@ -21,4 +20,8 @@
 
     <p class="mt-3">Posted <%= time_tag feedback.created_at, "data-local": "time-ago" %></p>
   </div>
-</div>
+
+  <% if feedback.user == current_user %>
+    <%= button_to "Delete", [commentable, feedback], method: :delete, data: {turbo_confirm: "are you sure?" }, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
+  <% end %>
+<% end %>
