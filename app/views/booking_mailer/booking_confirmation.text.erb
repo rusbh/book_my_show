@@ -4,8 +4,10 @@ Hi <%= @booking.user.name %>,
 
 You have booked <%= pluralize(@booking.ticket, "ticket") %> of <%= @booking.screening.show.name %> at <%= @booking.screening.screen.theater.name %>
 
-Time: <%= @booking.show_timing.at_timeof.strftime("%I:%M %p") %>
+Show/Movie Time: <%= @booking.show_timing.at_timeof.strftime("%I:%M %p") %>
 
 Date: <%= @booking.booking_date.strftime("%d %B, %y %A") %>
 
-If not then, drop us a reply mail
+You have been charged total of ₹ <%= @booking.ticket * @booking.screening.price %>.
+
+If any query then, drop us a reply mail

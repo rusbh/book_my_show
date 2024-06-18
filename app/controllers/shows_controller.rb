@@ -3,7 +3,7 @@ class ShowsController < ApplicationController
 
   # GET /shows or /shows.json
   def index
-    @shows = Show.all
+    @shows = Show.active
     @movies = Show.movies
     @plays = Show.plays
     @sports = Show.sports

@@ -15,7 +15,7 @@ class Show < ApplicationRecord
   enum genre: %i[action adventure animation comedy crime documentary drama fantasy historical horror romance
                  science_fiction unspecified]
   enum category: %i[movie play sport event]
-  enum status: %i[idle running cancelled]
+  enum status: %i[idle cancelled]
 
   validates :name, :description, :cast, :poster, :language, :genre, :category, :status, :duration,
             :release_date, presence: true
@@ -24,18 +24,20 @@ class Show < ApplicationRecord
   validates :genre, inclusion: { in: genres.keys }
   validates :category, inclusion: { in: categories.keys }
 
-  scope :recommended, -> { order(created_at: :desc).includes(poster_attachment: :blob).take(5) }
+  scope :active, -> { where(status: :idle) }
 
-  scope :movies, -> { where(category: :movie).includes(poster_attachment: :blob) }
-  scope :plays, -> { where(category: :play).includes(poster_attachment: :blob) }
-  scope :sports, -> { where(category: :sport).includes(poster_attachment: :blob) }
-  scope :events, -> { where(category: :event).includes(poster_attachment: :blob) }
+  scope :recommended, -> { order(created_at: :desc).active.includes(poster_attachment: :blob).take(5) }
 
-  scope :gujarati, -> { where(language: :gujarati).includes(poster_attachment: :blob).take(5) }
+  scope :movies, -> { where(category: :movie).active.includes(poster_attachment: :blob) }
+  scope :plays, -> { where(category: :play).active.includes(poster_attachment: :blob) }
+  scope :sports, -> { where(category: :sport).active.includes(poster_attachment: :blob) }
+  scope :events, -> { where(category: :event).active.includes(poster_attachment: :blob) }
 
-  scope :action, -> { where(genre: :action).includes(poster_attachment: :blob).take(5) }
+  scope :gujarati, -> { where(language: :gujarati).active.includes(poster_attachment: :blob).take(5) }
 
-  scope :except_movies, -> { where.not(category: :movie).includes(poster_attachment: :blob) }
+  scope :action, -> { where(genre: :action).active.includes(poster_attachment: :blob).take(5) }
+
+  scope :except_movies, -> { where.not(category: :movie).active.includes(poster_attachment: :blob) }
 
   def average_rating
     feedbacks.average(:rating).to_f.round(1)

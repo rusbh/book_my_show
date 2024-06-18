@@ -4,7 +4,6 @@ class BookingsController < ApplicationController
 
   def new
     @booking = @screening.bookings.new
-    @show_timings = @screening.show_timings.select { |m| m.at_timeof > Time.current }
     authorize @booking
   end
 
