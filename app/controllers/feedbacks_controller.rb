@@ -1,5 +1,5 @@
 class FeedbacksController < ApplicationController
-  include ActionView::RecordIdentifier
+  include ActionView::RecordIdentifier 
   before_action :authenticate_user!
   before_action :set_commentable
   before_action :set_feedback, only: %i[edit update destroy]
@@ -11,7 +11,7 @@ class FeedbacksController < ApplicationController
 
     respond_to do |format|
       if @feedback.save
-        format.html { redirect_to @commentable, notice: 'Feedback was successfully submitted.' }
+        format.html { redirect_to @commentable }
       else
         flash[:alert] = 'All fields are required'
         format.html { render @commentable, status: :unprocessable_entity }
@@ -27,7 +27,7 @@ class FeedbacksController < ApplicationController
     authorize @feedback
     respond_to do |format|
       if @feedback.update(feedback_params)
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@feedback), partial: "feedbacks/feedback", locals: { feedback: @feedback, commentable: @commentable }) }
+        format.turbo_stream
         format.html { redirect_to @commentable }
       else
         format.html { render :edit, status: :unprocessable_entity }

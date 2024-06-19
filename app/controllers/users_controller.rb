@@ -16,7 +16,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'Thank you for submitting the form, We will contact you to verify details soon'
       redirect_to root_path
     else
-      flash[:alert] = 'All fields are required and in valid format'
+      flash.now[:alert] = 'All fields are required and in valid format'
       render 'users/theater_inquiry', status: :unprocessable_entity
     end
   end

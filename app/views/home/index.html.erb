@@ -6,9 +6,10 @@
 
   <div class="flex justify-between">
     <h1 class="mt-10 mb-5 text-3xl font-semibold">Recommended Shows</h1>
-    <p><%= link_to 'See All ›', shows_path, class: "ml-2 py-3 px-5 inline-block font-medium" %></p>
+    <p><%= link_to 'See All ›', shows_path, class: "mt-10 ml-2 py-3 px-5 inline-block font- text-xl" %></p>
   </div>
 
+<% if @recommended_shows.present? %>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
     <% @recommended_shows.each do |show| %>
       <a href="<%= show_path(show) %>">
@@ -17,8 +18,13 @@
       </a>
     <% end %>
   </div>
+<% else %>
+  <h1 class="text-xl">No shows are currently running in theaters</h1>
+<% end %>
 
-  <h1 class="font-bold text-3xl my-5 underline">Action packed</h1>
+<h1 class="font-bold text-3xl my-5 underline">Action packed</h1>
+
+<% if @action_shows.present? %>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
     <% @action_shows.each do |show| %>
       <a href="<%= show_path(show) %>">
@@ -27,8 +33,13 @@
       </a>
     <% end %>
   </div>
+<% else %>
+  <h1 class="text-xl">No action shows currently running in theaters</h1>
+<% end %>
+  
+<h1 class="font-bold text-3xl my-5 underline">In Gujarati</h1>
 
-  <h1 class="font-bold text-3xl my-5 underline">In Gujarati</h1>
+<% if @gujarati_shows.present? %>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
     <% @gujarati_shows.each do |show| %>
       <a href="<%= show_path(show) %>">
@@ -37,8 +48,13 @@
       </a>
     <% end %>
   </div>
+<% else %>
+  <h1 class="text-xl">No Gujarati shows currently running in theaters</h1>
+<% end %>
 
-  <h1 class="font-bold text-3xl my-5 underline">In sports/plays/events</h1>
+<h1 class="font-bold text-3xl my-5 underline">In sports/plays/events</h1>
+
+<% if @except_movies.present? %>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
     <% @except_movies.each do |show| %>
       <a href="<%= show_path(show) %>">
@@ -47,4 +63,8 @@
       </a>
     <% end %>
   </div>
+<% else %>
+  <h1 class="text-xl">currently there are not these type of shows currently running in theaters</h1>
+<% end %>
+
 </div>

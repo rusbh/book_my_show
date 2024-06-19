@@ -6,7 +6,9 @@
       <p class="text-xl mt-4"><%= show.description %></p>
 
       <% unless show.average_rating == 0 %>
-        <p class="mt-6 text-xl flex items-center gap-2">Ratings: ⭐ <span class="text-xl"><%= show.average_rating %>/10</span></p>
+        <%= turbo_frame_tag "rating_star" do %>
+          <p class="mt-6 text-xl flex items-center gap-2">Ratings: ⭐ <span class="text-xl"><%= show.average_rating %>/10</span></p>
+        <% end %>
       <% else %>
         <p class="mt-6 text-xl flex items-center gap-2">Not rated yet</span></p>
       <% end %>
