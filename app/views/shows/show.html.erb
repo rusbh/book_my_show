@@ -13,9 +13,11 @@
         <%= render "feedbacks/form", commentable: @show, feedback: @feedback %>
       <% end %>
     <% else %>
-      <p class="p-6 bg-slate-50 rounded-xl my-6">
-        You needs to have booked this show before you can leave a review here.
-      </p>
+      <% unless @user_has_feedback %>
+        <p class="p-6 bg-slate-50 rounded-xl my-6">
+          You needs to have booked this show before you can leave a review here.
+        </p>
+      <% end %>
     <% end %>
   </div>
   

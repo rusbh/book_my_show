@@ -34,10 +34,10 @@ class User < ApplicationRecord
   end
 
   def user_has_booked?(show)
-    bookings.joins(screening: :show).where(screenings: { show: show }).exists?
+    bookings.confirmed.joins(screening: :show).where(screenings: { show: show }).exists?
   end
 
   def has_booked_in_theater?(theater)
-    bookings.joins(screening: { screen: :theater }).where(screens: { theater: theater }).exists?
+    bookings.confirmed.joins(screening: { screen: :theater }).where(screens: { theater: theater }).exists?
   end
 end

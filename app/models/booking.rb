@@ -12,8 +12,9 @@ class Booking < ApplicationRecord
   validates :ticket, presence: true, inclusion: { in: 1..10, message: 'You can only book maximum 10 tickets' }
   validates :booking_date, presence: true
 
-  scope :past, -> { where('booking_date < ?', Time.current).where(status: :confirmed).includes(screening: [:show, :screen]) }
-  scope :upcoming, -> { where('booking_date >= ?', Time.current).where(status: :confirmed).includes(screening: [:show, :screen]) }
+  scope :confirmed, -> { where(status: :confirmed) }
+  scope :past, -> { where('booking_date < ?', Time.current).confirmed.includes(screening: [:show, :screen]) }
+  scope :upcoming, -> { where('booking_date >= ?', Time.current).confirmed.includes(screening: [:show, :screen]) }
   scope :cancelled, -> { where(status: :cancelled).includes(screening: [:show, :screen]) }
 
   def send_booking_confirmed_mail

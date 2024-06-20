@@ -30,9 +30,11 @@
         <%= render "feedbacks/form", commentable: @theater, feedback: @feedback %>
       <% end %>
     <% else %>
-      <p class="p-6 bg-slate-50 rounded-xl my-6">
-        You needs to have booked a show in this theater before you can leave a feedback here.
-      </p>
+      <% unless @user_has_feedback %>
+        <p class="p-6 bg-slate-50 rounded-xl my-6">
+          You needs to have booked a show in this theater before you can leave a feedback here.
+        </p>
+      <% end %>
     <% end %>
   </div>
   
