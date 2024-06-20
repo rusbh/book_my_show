@@ -8,7 +8,10 @@
   <% if @upcoming_bookings.exists? %>
     <div class="text-2xl my-3">
       <% @upcoming_bookings.each do |b| %>
-        <li><%= pluralize(b.ticket, "ticket") %> of <span class="font-medium"><%= b.screening.show.name %></span>, <%= b.screening.screen.theater.name %> on <%= format_datetime(b.show_timing.at_timeof) %></li>
+        <li class="my-5">
+          <%= pluralize(b.ticket, "ticket") %> of <span class="font-medium"><%= b.screening.show.name %></span>, <%= b.screening.screen.theater.name %> on <%= format_datetime(b.show_timing.at_timeof) %>
+          <%= button_to "Cancel Booking", cancel_booking_screening_booking_path(b.screening, b), method: :patch, data: { turbo_confirm: "Are you sure?" }, class: "mt-2 ml-8 rounded-lg py-3 px-5 bg-red-600 text-white text-sm" %>
+        </li>
       <% end %>
     </div>
   <% else %>
@@ -31,7 +34,7 @@
     <h1 class="text-2xl mt-10 underline">Cancelled bookings:</h1>
     <div class="text-2xl my-3">
       <% @cancelled_bookings.each do |b| %>
-        <li><span class="font-medium"><%= b.screening.show.name %></span>, <%= b.screening.screen.theater.name %> on  <%= format_datetime(b.show_timing.at_timeof) %></li>
+        <li><%= pluralize(b.ticket, "ticket") %> of <span class="font-medium"><%= b.screening.show.name %></span>, <%= b.screening.screen.theater.name %> on  <%= format_datetime(b.show_timing.at_timeof) %></li>
       <% end %>
     </div>
   <% end %>

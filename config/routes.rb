@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   end
 
   resources :screenings, only: [:index] do
-    resources :bookings, only: %i[create new]
+    resources :bookings, only: %i[create new] do
+      member do
+        patch :cancel_booking
+      end
+    end
   end
 
   resources :theaters, only: %i[index show] do

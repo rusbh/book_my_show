@@ -5,6 +5,7 @@ class Booking < ApplicationRecord
 
   after_create :decrement_seats
   before_create :seats_not_available, :show_time_in_past
+  before_destroy :booking_got_deleted
 
   enum status: { confirmed: 0, cancelled: 1 }
 
@@ -15,12 +16,25 @@ class Booking < ApplicationRecord
   scope :upcoming, -> { where('booking_date >= ?', Time.current).where(status: :confirmed).includes(screening: [:show, :screen]) }
   scope :cancelled, -> { where(status: :cancelled).includes(screening: [:show, :screen]) }
 
-  def send_booking_confirmed
+  def send_booking_confirmed_mail
     BookingMailer.booking_confirmation(self).deliver_later
+  end
+
+  def send_booking_cancelled_mail
+    BookingMailer.booking_cancelled(self).deliver_later
+  end
+
+  def booking_got_deleted
+    BookingMailer.booking_deleted_unexpected(self).deliver_now
   end
 
   def decrement_seats
     self.show_timing.seats -= self.ticket
+    self.show_timing.save
+  end
+
+  def increment_seats
+    self.show_timing.seats += self.ticket
     self.show_timing.save
   end
 

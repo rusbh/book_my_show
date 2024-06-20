@@ -1,0 +1,9 @@
+<h1>Book My Show</h1>
+
+<p>Hi <%= @booking.user.name %>, </p>
+
+<p>We are sorry to inform that due to unexpected reasons we have to cancel your booking of <span><%= @booking.screening.show.name %></span> at <span><%= @booking.screening.screen.theater.name %></span></p> dated on <span><%= @booking.booking_date.strftime("%d %B, %Y %A") %></span>.
+
+<p>You will be refunded of full amount in 7 working days.</p></p>
+
+<p>If any query then, drop us a reply mail</p>

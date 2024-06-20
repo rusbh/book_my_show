@@ -16,7 +16,12 @@
 
       <p class="mb-7 text-xl"><%= formatted_duration(show.duration) %> • <%= show.genre.capitalize %> • <%= format_date(show.release_date) %></p>
 
+    <% if show.screenings.exists? %>
       <%= link_to "Book tickets", show_book_now_path(show), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>
+    <% else %>
+      <%= button_to "Booking Unavailable", {}, disabled: true, class: "rounded-lg py-3 px-5 bg-slate-200 cursor-default font-medium" %>
+    <% end %>
+      
     </div>
 
   </div>

@@ -1,5 +1,5 @@
 <div class="nested-form-wrapper" data-new-record="<%= f.object.new_record? %>">
-   <%= f.time_field :at_timeof, min: Date.current, max: 3.months.from_now,
+   <%= f.time_field :at_timeof,
                     class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-3" %>
     
     <%= f.label :seats, "seats for that timing:" %>
