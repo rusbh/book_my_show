@@ -3,6 +3,7 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   get 'profile', to: 'users#index', as: :profile
   root 'home#index'
+  get 'search', to: 'search#index', as: :search
   ActiveAdmin.routes(self)
   mount Sidekiq::Web => '/sidekiq'
 

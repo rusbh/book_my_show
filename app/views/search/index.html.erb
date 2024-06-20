@@ -1,0 +1,29 @@
+<% if @shows.present? || @theaters.present? %>
+
+  <h1 class="text-2xl my-5">Search results in Shows/Movies/Events:</h1>
+  <% if @shows.present? %>
+    <% @shows.each do |show| %>
+      <a href="<%= show_path(show) %>">
+        <h1 class="text-2xl my-4 ml-2 font-semibold"><span class="flex gap-x-4"><img src="/movie.svg" alt="" height="25" width="25" ><%= show.name %></span></h1>
+      </a>
+    <% end %>
+  <% else %>
+    <p class="ml-2 text-xl">No results</p>
+  <% end %>
+
+  <h1 class="text-2xl my-5">Search results in Theaters:</h1>
+  <% if @theaters.present? %>
+    <% @theaters.each do |theater| %>
+    <a href="<%= theater_path(theater) %>">
+      <h1 class="text-2xl my-4 ml-2 font-semibold"><span class="flex gap-x-4"><img src="/location.svg" alt="" height="25" width="25" ><%= theater.name %></span></h1>
+    </a>
+    <% end %>
+  <% else %>
+    <p class="ml-2 text-xl">No results</p>
+  <% end %> 
+
+<% else %>
+  <h1 class="font-medium text-2xl my-5">No result matches your search in Shows/Movies or Theaters</h1>
+<% end %>
+
+<%= link_to 'Go back to home page', root_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

@@ -93,3 +93,5 @@ gem "groupdate", "~> 6.4"
 
 # background-jobs
 gem "sidekiq", "~> 7.2"
+
+gem "ransack", "~> 4.1"
