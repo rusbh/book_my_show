@@ -37,6 +37,11 @@ input[readonly] {
   pointer-events: none;
 }
 
+select {
+  border-radius: 7px;
+  cursor: pointer;
+}
+
 input[readonly]:focus {
   outline: none !important;
   border-color: transparent !important;

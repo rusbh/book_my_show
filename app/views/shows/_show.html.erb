@@ -3,7 +3,6 @@
     <%= image_tag url_for(show.poster.variant(:display)),class: "rounded-lg" if show.poster.attached? %>
     <div class="my-auto">
       <h1 class="font-bold text-4xl"><%= show.name.capitalize %></h1>
-      <p class="text-xl mt-4"><%= show.description %></p>
 
       <% unless show.average_rating == 0 %>
         <%= turbo_frame_tag "rating_star" do %>
@@ -26,6 +25,15 @@
 
   </div>
 
-  <h1 class="font-semibold mt-10 text-2xl">Cast:</h1>
-  <p class="text-xl"><%= show.cast %></p>
+  <aside class="flex gap-x-40">
+    <div>
+      <h1 class="font-semibold mt-10 mb-2 text-2xl">About the <%= show.category.capitalize %>:</h1>
+      <p class="prose prose-slate"><%= show.description %></p>
+    </div>
+    <div>
+      <h1 class="font-semibold mt-10 text-2xl">Cast:</h1>
+      <p class="text-xl"><%= show.cast %></p>
+    </div>
+  </aside>
+
 </div>

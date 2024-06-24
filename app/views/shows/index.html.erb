@@ -1,6 +1,20 @@
 <% content_for :title, "Shows" %>
 
-<h1 class="font-bold text-4xl mb-10">All Shows</h1>
+<section class="flex justify-between mb-10">
+  <h1 class="font-semibold text-3xl underline">Browse all</h1>
+  <div class="flex items-center gap-x-2">
+    <span class="text-xl">Filter By</span>
+
+    <%= search_form_for @q, url: shows_path, method: :get, class: "contents" do |f| %>
+      <%= f.select :language_eq, Show.languages, { include_blank: "Select Language" }, { onchange: "this.form.requestSubmit()" } %>
+      <%= f.select :genre_eq, Show.genres, { include_blank: "Select Genre" }, { onchange: "this.form.requestSubmit()" } %>
+      <%= f.select :category_eq, Show.categories, { include_blank: "Select Type" }, { onchange: "this.form.requestSubmit()" } %>
+
+      <%= link_to "Clear Filter", request.path, class: "rounded-lg font-medium hover:underline" %>
+    <% end %>
+
+  </div>
+</section>
 
 <% if @all_shows.present? %>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
@@ -12,7 +26,7 @@
     <% end %>
   </div>
 <% else %>
-  <h1 class="text-xl">No shows/movies currently running in theaters</h1>
+  <h1 class="text-xl">No Results</h1>
 <% end %>
 
 <h1 class="font-bold text-3xl my-5 underline">Movies</h1>
@@ -27,7 +41,7 @@
     <% end %>
   </div>
 <% else %>
-  <h1 class="text-xl">No movies currently running in theaters</h1>
+  <h1 class="text-xl">No Results</h1>
 <% end %>
 
 <h1 class="font-bold text-3xl my-5 underline">Plays</h1>
@@ -42,7 +56,7 @@
     <% end %>
   </div>
 <% else %>
-  <h1 class="text-xl">No plays currently running in theaters</h1>
+  <h1 class="text-xl">No Results</h1>
 <% end %>
 
 <h1 class="font-bold text-3xl my-5 underline">Sports</h1>
@@ -57,7 +71,7 @@
     <% end %>
   </div>
 <% else %>
-  <h1 class="text-xl">No sports programme currently running in theaters</h1>
+  <h1 class="text-xl">No Results</h1>
 <% end %>
 
 <h1 class="font-bold text-3xl my-5 underline">Events</h1>
@@ -72,6 +86,6 @@
     <% end %>
   </div>
 <% else %>
-  <h1 class="text-xl">No events currently running in theaters</h1>
+  <h1 class="text-xl">No Results</h1>
 <% end %>
 

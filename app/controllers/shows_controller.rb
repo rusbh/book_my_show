@@ -3,11 +3,13 @@ class ShowsController < ApplicationController
 
   # GET /shows or /shows.json
   def index
-    @all_shows = Show.active
-    @movies = Show.movies
-    @plays = Show.plays
-    @sports = Show.sports
-    @events = Show.events
+    @q = Show.active.ransack(params[:q])
+    @all_shows = @q.result(distinct: true)
+
+    @movies = @all_shows.movies
+    @plays = @all_shows.plays
+    @sports = @all_shows.sports
+    @events = @all_shows.events
   end 
 
   # GET /shows/1 or /shows/1.json

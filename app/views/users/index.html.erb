@@ -1,4 +1,4 @@
-<h1 class="font-semibold text-4xl"><%= current_user&.name %></h1>
+<h1 class="font-semibold text-4xl">Hi, <%= current_user&.name %></h1>
 
 <h1 class="mt-10 text-3xl font-semibold underline">Booking History:</h1>
 
@@ -10,7 +10,7 @@
       <% @upcoming_bookings.each do |b| %>
         <li class="my-5">
           <%= pluralize(b.ticket, "ticket") %> of <span class="font-medium"><%= b.screening.show.name %></span>, <%= b.screening.screen.theater.name %> on <%= format_datetime(b.show_timing.at_timeof) %>
-          <%= button_to "Cancel Booking", cancel_booking_screening_booking_path(b.screening, b), method: :patch, data: { turbo_confirm: "Are you sure?" }, class: "mt-2 ml-8 rounded-lg py-3 px-5 bg-red-600 text-white text-sm" %>
+          <%= button_to "Cancel Booking", cancel_booking_screening_booking_path(b.screening, b), method: :patch, data: { turbo_confirm: "Are you sure?" }, class: "mt-2 ml-8 rounded-lg py-3 px-5 bg-zinc-100 text-sm" %>
         </li>
       <% end %>
     </div>

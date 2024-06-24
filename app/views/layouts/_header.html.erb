@@ -1,19 +1,19 @@
-<header class="mx-auto flex w-full items-center justify-between px-5 py-5 sm:px-6 lg:px-8 bg-black">
+<header class="container mx-auto flex w-full items-center rounded-b-xl justify-between px-5 py-5 sm:px-6 lg:px-8">
   <div class="flex items-center">
-    <%= link_to "BookMyShow", root_path, class: "text-3xl font-bold text-white tracking-tight" %>
+    <%= link_to "BookMyShow", root_path, class: "text-3xl font-bold tracking-tight" %>
 
     <%= form_tag search_path, method: :get, class: "contents" do |f| %>
-      <%= search_field_tag :q, params[:q], placeholder: "Search for Shows, Movies and Theaters", autocomplete: "off", class: "search-bar rounded-md w-96 ml-7" %>
+      <%= search_field_tag :query, params[:query], placeholder: "Search for Shows, Movies and Theaters", autocomplete: "off", class: "search-bar rounded-md w-96 ml-7" %>
     <% end %>
 
-    <ul class="ml-7 hidden gap-x-6 lg:flex text-white text-xl">
+    <ul class="ml-7 hidden gap-x-6 lg:flex text-xl">
       <%= link_to "Theaters", theaters_path, class: "hover:underline" %>
       <%= link_to "Shows", shows_path, class: "hover:underline" %>
     </ul>
     
   </div>
 
-  <div class="flex items-center gap-x-8">
+  <div class="flex items-center gap-x-5">
     <% if current_user&.admin? %>
       <%= link_to "Go to Theater portal", admin_root_path, class: "rounded-lg py-3 px-5 bg-orange-300 text-black font-medium" %>
     <% end %>
@@ -21,26 +21,13 @@
     <% if user_signed_in? %>
       <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
       <% if !current_user&.admin? %>
-        <a href="/profile"><img src="/profile.svg" height="45" width="45"></a>
+        <a href="/profile"><img src="/profile.webp" height="45" width="45"></a>
       <% end %>
     <% else %>
-      <%= link_to "Sign up", new_user_registration_path, class: "rounded-lg py-3 px-5 bg-stone-300 text-black font-medium" %>
+      <%= link_to "Sign up", new_user_registration_path, class: "rounded-lg py-3 px-5 bg-zinc-200 font-medium" %>
       <%= link_to "Sign in", new_user_session_path, class: "rounded-lg py-3 px-5 bg-green-500 text-white font-medium" %>
     <% end %> 
     
   </div>
 </header>
-
-<script>
-  document.addEventListener('turbo:load', function() {
-    const searchInput = document.querySelector('.search-bar');
-    
-    if (searchInput) {
-      searchInput.addEventListener('search', function(event) {
-        if (!searchInput.value) {
-          window.location.href = '/';
-        }
-      });
-    }
-  });
-</script>
+<hr>
