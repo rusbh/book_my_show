@@ -2,8 +2,8 @@
   <div class="flex items-center">
     <%= link_to "BookMyShow", root_path, class: "text-3xl font-bold tracking-tight" %>
 
-    <%= form_tag search_path, method: :get, class: "contents" do |f| %>
-      <%= search_field_tag :query, params[:query], placeholder: "Search for Shows, Movies and Theaters", autocomplete: "off", class: "search-bar rounded-md w-96 ml-7" %>
+    <%= form_tag search_path, method: :get, data: { controller: "search-form" }, class: "contents" do |f| %>
+      <%= search_field_tag :query, params[:query], placeholder: "Search for Shows, Movies and Theaters", autocomplete: "off", class: "search-bar rounded-md w-96 ml-7 pl-8", data: { action: "input->search-form#search", search_form_target: "searchBar" } %>
     <% end %>
 
     <ul class="ml-7 hidden gap-x-6 lg:flex text-xl">
