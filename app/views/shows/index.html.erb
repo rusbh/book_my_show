@@ -8,7 +8,7 @@
     <%= search_form_for @q, url: shows_path, method: :get, class: "contents" do |f| %>
       <%= f.select :language_eq, Show.languages, { include_blank: "Select Language" }, { onchange: "this.form.requestSubmit()" } %>
       <%= f.select :genre_eq, Show.genres, { include_blank: "Select Genre" }, { onchange: "this.form.requestSubmit()" } %>
-      <%= f.select :category_eq, Show.categories, { include_blank: "Select Type" }, { onchange: "this.form.requestSubmit()" } %>
+      <%#= f.select :category_eq, Show.categories, { include_blank: "Select Type" }, { onchange: "this.form.requestSubmit()" } %>
 
       <%= link_to "Clear Filter", request.path, class: "rounded-lg font-medium hover:underline" %>
     <% end %>

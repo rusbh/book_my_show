@@ -29,6 +29,7 @@ class Admin::ScreensController < Admin::BaseController
 
   def create
     @screen = Screen.new(screen_params)
+    authorize @screen
 
     respond_to do |format|
       if @screen.save
@@ -44,6 +45,7 @@ class Admin::ScreensController < Admin::BaseController
   def edit; end
 
   def update
+    authorize @screen
     respond_to do |format|
       if @screen.update(screen_params)
         format.html { redirect_to admin_screen_url(@screen), notice: 'Screen was successfully updated.' }
@@ -56,6 +58,7 @@ class Admin::ScreensController < Admin::BaseController
   end
 
   def destroy
+    authorize @screen
     @screen.destroy!
 
     respond_to do |format|

@@ -15,6 +15,7 @@ class Admin::ScreeningsController < Admin::BaseController
 
   def create
     @screening = Screening.new(screening_params)
+    authorize @screening
 
     respond_to do |format|
       if @screening.save
@@ -33,6 +34,8 @@ class Admin::ScreeningsController < Admin::BaseController
   def edit; end
 
   def update
+    authorize @screening
+
     respond_to do |format|
       if @screening.update(screening_params)
         format.html do
@@ -52,6 +55,8 @@ class Admin::ScreeningsController < Admin::BaseController
 
 
   def destroy
+    authorize @screening
+    
     @screening.destroy!
     respond_to do |format|
       format.html { redirect_to admin_screen_screenings_url(@screen), notice: 'Screening was successfully destroyed.' }
