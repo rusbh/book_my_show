@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def full_title(page_title = "")
+    base_title = "BookMyShow"
+    page_title.empty? ? base_title : page_title + " | " + base_title
+  end
+
   def formatted_duration(time)
     hours = time / 60
     minutes = time % 60

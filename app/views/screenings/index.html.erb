@@ -1,3 +1,5 @@
+<% content_for :title, "Book Now" %>
+
 <% if @show_screenings.exists? %>
   <h1 class="text-3xl font-medium mb-10"><%= @show_screenings.first.show.name %>'s screenings in theaters</h1>
   <% @show_screenings.each do |ss| %>
