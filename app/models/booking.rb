@@ -13,9 +13,9 @@ class Booking < ApplicationRecord
   validates :booking_date, presence: true
 
   scope :confirmed, -> { where(status: :confirmed) }
-  scope :past, -> { where('booking_date < ?', Time.current).confirmed.includes(screening: [:show, :screen]) }
-  scope :upcoming, -> { where('booking_date >= ?', Time.current).confirmed.includes(screening: [:show, :screen]) }
-  scope :cancelled, -> { where(status: :cancelled).includes(screening: [:show, :screen]) }
+  scope :past, -> { where('booking_date < ?', Time.current).confirmed.includes(screening: [:show, { screen: :theater } ]) }
+  scope :upcoming, -> { where('booking_date >= ?', Time.current).confirmed.includes(screening: [:show, { screen: :theater } ]) }
+  scope :cancelled, -> { where(status: :cancelled).includes(screening: [:show, { screen: :theater } ]) }
 
   def send_booking_confirmed_mail
     BookingMailer.booking_confirmation(self).deliver_later

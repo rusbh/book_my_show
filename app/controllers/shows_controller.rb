@@ -4,7 +4,7 @@ class ShowsController < ApplicationController
   # GET /shows or /shows.json
   def index
     @q = Show.active.ransack(params[:q])
-    @all_shows = @q.result(distinct: true)
+    @all_shows = @q.result(distinct: true).includes(poster_attachment: :blob)
 
     @movies = @all_shows.movies
     @plays = @all_shows.plays
@@ -15,7 +15,7 @@ class ShowsController < ApplicationController
   # GET /shows/1 or /shows/1.json
   def show
     @feedback = @show.feedbacks.new
-    @show_feedbacks = @show.feedbacks.order(created_at: :desc)
+    @show_feedbacks = @show.feedbacks.order(created_at: :desc).includes(:user)
     @user_has_feedback = @show.feedbacks.find_by(user_id: current_user&.id)
     @user_has_booked = current_user&.user_has_booked?(@show)
   end

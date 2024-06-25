@@ -1,14 +1,10 @@
 <header class="container mx-auto flex w-full items-center justify-between px-5 py-5 sm:px-6 lg:px-8">
   <div class="flex items-center">
     <%= link_to "#{@theater.name} | Theater Portal", admin_root_path, class: "text-3xl font-bold tracking-tight" %>
-    <ul class="ml-14 hidden gap-x-4 lg:flex text-white text-xl">
-      <!--<li>Theaters</li>
-      <li>Shows</li>
-      <li>User Profile</li>-->
-    </ul>
   </div>
-  <div class="flex items-center gap-x-8">
+  <div class="flex gap-x-8">
     <% if user_signed_in? %>
+      <h1 class="text-xl flex items-center">Logged in as, <%= current_user&.name %><img src="/profile.webp" height="30" width="35"></h1>
       <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
     <% else %>
       <%= link_to "Sign in", new_user_session_path, class: "rounded-lg py-3 px-5 bg-green-500 text-white font-medium" %>
