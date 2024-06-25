@@ -18,17 +18,19 @@
   <div class="my-5" data-controller="counter">
     <%= f.label :ticket, "Tickets quantity (you can buy maximum upto 10 tickets)", class: "block text-gray-700 font-medium mb-2" %>
     <div class="flex items-center text-2xl">
-      <%= content_tag(:button, "-", type: "button", class: "bg-gray-200 text-black px-4 py-2 border border-r-0 border-gray-300 rounded-l-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400", data: { action: "click->counter#decrement" }) %>
+      <%= content_tag(:button, "-", type: "button", class: "bg-gray-200 text-black px-4 py-2 border border-r-0 border-gray-300 rounded-l-md  hover:bg-gray-300", data: { action: "click->counter#decrement" }) %>
       
-      <%= f.text_field :ticket, readonly: true, class: "block text-center text-2xl w-16 shadow-sm border-t border-b border-gray-300 outline-none px-3 py-2", data: { counter_target: "ticket" } %>
+      <%= f.text_field :ticket, readonly: true, class: "block text-center text-2xl w-16 shadow-sm border-t border-l-0 border-b border-gray-300 outline-none px-3 py-2", data: { counter_target: "ticket" } %>
 
-      <%= content_tag(:button, "+", type: "button", class: "bg-gray-200 text-black px-4 py-2 border border-l-0 border-gray-300 rounded-r-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400", data: { action: "click->counter#increment" }) %>
+      <%= content_tag(:button, "+", type: "button", class: "bg-gray-200 text-black px-4 py-2 border border-l-0 border-gray-300 rounded-r-md hover:bg-gray-300", data: { action: "click->counter#increment" }) %>
     </div>
   </div>
 
   <div class="my-5">
-    <%= f.label :show_timing_id, "Select show time" %>
-    <%= f.collection_select :show_timing_id, @screening.show_timings.order(at_timeof: :asc).select { |s| s.at_timeof > Time.current && s.seats > 0 }, :id, :formatted_time, {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= f.label :show_timing_id, "Select show time:" %>
+    <%= f.collection_radio_buttons :show_timing_id, @screening.show_timings.order(at_timeof: :asc).select { |s| s.at_timeof > Time.current && s.seats > 0 }, :id, :formatted_time, {}, class: "cursor-pointer mt-1 py-2.5 px-2.5" do |b| %>
+      <% b.label(class: "flex gap-x-2 text-2xl my-3") { b.radio_button + b.text } %>
+    <% end %>
   </div>
   
   <div class="my-5">
@@ -36,6 +38,6 @@
   </div>
 
   <div class="inline">
-    <%= f.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= f.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block mt-5 font-medium cursor-pointer" %>
   </div>
 <% end %>

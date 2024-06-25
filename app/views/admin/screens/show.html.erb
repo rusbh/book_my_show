@@ -1,17 +1,6 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
+<div class="mx-auto w-full flex flex-col md:flex-row gap-x-16">
+  <div>
     <%= render @screen %>
-
-  <strong class="block font-medium text-3xl mt-10 mb-2">Shows running or scheduled: </strong>
-  <div class="mb-5">
-    <% if @screen.screenings.present? %>
-      <% @screen.screenings.each do |ss| %>
-        <li class="ml-5 text-3xl"><%= ss.show.name %></li>
-      <% end %>
-    <% else %>
-      <p>No shows scheduled or Running currently</p>
-    <% end %>
-  </div>
 
     <%= link_to "Edit this screen's details", edit_admin_screen_path(@screen), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Back to Theater Portal", admin_root_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
@@ -19,6 +8,18 @@
       <%= button_to "Destroy this screen", @admin_screen, method: :delete, data: { turbo_confirm: "All screenings assigned to this screen will also be removed." }, class: "mt-2 rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
     </div>
 
-    <h1 class="mt-14"><%= link_to "Manage Assigned Shows", admin_screen_screenings_path(@screen, @screening), class: "mt-5 text-3xl rounded-lg bg-zinc-200 text-center py-10 px-5 inline-block font-medium w-full" %></h1>
+    <h1 class="mt-14"><%= link_to "Add/Manage Shows for this screen", admin_screen_screenings_path(@screen, @screening), class: "mt-5 text-2xl rounded-lg bg-gray-200 text-center py-10 px-5 inline-block font-medium w-full" %></h1>
+  </div>
+
+  <div class="mb-10">
+    <strong class="block font-medium text-2xl mt-5 mb-2">Shows running or scheduled: </strong>
+    
+    <% if @screen.screenings.present? %>
+      <% @screen.screenings.each do |ss| %>
+        <li class="ml-5 text-2xl"><%= ss.show.name %></li>
+      <% end %>
+    <% else %>
+      <p>No shows scheduled or Running currently</p>
+    <% end %>
   </div>
 </div>
