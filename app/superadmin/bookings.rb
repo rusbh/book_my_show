@@ -5,6 +5,7 @@
 #       f.input :screening
 #       f.input :ticket
 #       f.input :booking_date
+#       f.input :total_price
 #       f.input :status
 #     end
 #     f.actions

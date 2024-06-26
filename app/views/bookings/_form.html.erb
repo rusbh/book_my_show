@@ -28,7 +28,7 @@
 
   <div class="my-5">
     <%= f.label :show_timing_id, "Select show time:" %>
-    <%= f.collection_radio_buttons :show_timing_id, @screening.show_timings.order(at_timeof: :asc).select { |s| s.at_timeof > Time.current && s.seats > 0 }, :id, :formatted_time, {}, class: "cursor-pointer mt-1 py-2.5 px-2.5" do |b| %>
+    <%= f.collection_radio_buttons :show_timing_id, @show_timings, :id, :formatted_time, {}, class: "cursor-pointer mt-1 py-2.5 px-2.5" do |b| %>
       <% b.label(class: "flex gap-x-2 text-2xl my-3") { b.radio_button + b.text } %>
     <% end %>
   </div>

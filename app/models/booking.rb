@@ -10,7 +10,7 @@ class Booking < ApplicationRecord
   enum status: { confirmed: 0, cancelled: 1 }
 
   validates :ticket, presence: true, inclusion: { in: 1..10, message: 'You can only book maximum 10 tickets' }
-  validates :booking_date, presence: true
+  validates :booking_date, :total_price, presence: true
 
   scope :confirmed, -> { where(status: :confirmed) }
   scope :past, -> { where('booking_date < ?', Time.current).confirmed.includes(screening: [:show, { screen: :theater } ]) }
