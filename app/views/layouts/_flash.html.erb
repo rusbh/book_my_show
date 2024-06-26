@@ -1,10 +1,15 @@
 <% flash.each do |type, message| %>
-  <aside class="container mx-auto">
-    <% if type == "alert" %>
-      <div class="bg-red-500 px-2 py-4 font-sans font-medium text-center text-white"><%= message %></div>
-    <% end %>
-    <% if type == "notice" %>
-      <div class="bg-green-500 px-2 py-4 font-sans font-medium text-center text-white"><%= message %></div>
-    <% end %>
-  </aside>
+  <div data-controller="flash" data-flash-target="toast" class="fixed z-50 top-[10.2vh] right-5 border rounded-md p-3 shadow-lg opacity-100 translate-x-full transition-transform ease-in-out duration-300 transform <%= type == "alert" ? "bg-red-50 border-red-500/50 text-gray-800" : "bg-white border-gray-300/90 text-gray-800" %>">
+    <div class="flex items-center justify-between gap-3">
+      <% if type == "alert" %>
+        <%= image_tag "icons/outline/exclamation-circle.svg", height: "25", width: "25" %>
+      <% else %>
+        <%= image_tag "icons/outline/check.svg", height: "25", width: "25" %>
+      <% end %>
+      <span><%= message %></span>
+      <button type="button" data-action="click->flash#dismiss" class="p-1 hover:bg-gray-100/70 flex items-center justify-center rounded-md">
+        <%= image_tag "icons/outline/x-mark.svg", height: "20", width: "20" %>
+      </button>
+    </div>
+  </div>
 <% end %>

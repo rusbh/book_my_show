@@ -9,8 +9,8 @@ class BookingsController < ApplicationController
 
   def create
     @booking = @screening.bookings.new(booking_params)
-    @booking.user = current_user
     @booking.booking_date = @booking.show_timing.at_timeof
+    @booking.user = current_user
     authorize @booking
 
     if @booking.save
