@@ -8,9 +8,13 @@
     <%= search_form_for @q, url: shows_path, method: :get, class: "contents" do |f| %>
       <%= f.select :language_eq, Show.languages, { include_blank: "Select Language" }, { onchange: "this.form.requestSubmit()" } %>
       <%= f.select :genre_eq, Show.genres, { include_blank: "Select Genre" }, { onchange: "this.form.requestSubmit()" } %>
-      <%#= f.select :category_eq, Show.categories, { include_blank: "Select Type" }, { onchange: "this.form.requestSubmit()" } %>
+      <%#= f.select :category_eq, Show.categories, { include_blank: "Select Show Type" }, { onchange: "this.form.requestSubmit()" } %>
+      <div class="flex items-center gap-x-2 ml-2">
+        <%= check_box_tag :booking_available, '1', params[:booking_available] == '1', onchange: "this.form.requestSubmit()", class: "h-6 w-6 cursor-pointer rounded-md" %>
+        <%= label_tag :booking_available, "Bookings available", class: "cursor-pointer text-xl" %>
+      </div>
 
-      <%= link_to "Clear Filter", request.path, class: "rounded-lg font-medium hover:underline" %>
+      <%= link_to "Clear Filter", request.path, class: "ml-5 rounded-lg text-lg hover:underline" %>
     <% end %>
 
   </div>

@@ -9,10 +9,16 @@ class TheatersController < ApplicationController
   # GET /theaters/1 or /theaters/1.json
   def show
     @feedback = @theater.feedbacks.new
+    @feedbacks_count = @theater.feedbacks.count
     @theater_shows = @theater.shows.includes(poster_attachment: :blob)
     @theater_feedbacks = @theater.feedbacks.order(created_at: :desc).includes(:user)
     @user_has_feedback = @theater.feedbacks.find_by(user_id: current_user&.id)
     @user_has_booked_in_theater = current_user&.has_booked_in_theater?(@theater)
+
+    @show_screening_details = @theater_shows.map do |show|
+      screening = show.screenings.joins(:screen).find_by(screens: { theater_id: @theater.id })
+      { show: show, screening: screening }
+    end
   end
 
   private

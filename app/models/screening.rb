@@ -32,7 +32,7 @@ class Screening < ApplicationRecord
                                       .where('start_date < ? AND end_date > ?', self.end_date, self.start_date)
     
     if overlapping_screenings.exists?
-      errors.add(:base, 'This screen is already booked for the selected date range')
+      errors.add(:base, 'This screen is already assigned for the selected date range')
     end
   end
 

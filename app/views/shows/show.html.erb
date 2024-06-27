@@ -5,7 +5,7 @@
   
   <h2 class="text-2xl font-semibold mt-20">
     <%= turbo_frame_tag "count" do %>
-      <%= pluralize(@show.feedbacks.count, "Reviews") %>
+      <%= pluralize(@reviews_count, "Reviews") %>
     <% end %>
   </h2>
 

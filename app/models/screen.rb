@@ -8,8 +8,7 @@ class Screen < ApplicationRecord
   
   enum status: %i[idle running in_maintenance unavailable]
   
-  validates :screen_no, presence: true
-  validates :screen_no, numericality: { greater_than_or_equal_to: 0 }
+  validates_presence_of :screen_no, message: "/ name can't be blank"
 
   private
 

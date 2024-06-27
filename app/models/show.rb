@@ -26,18 +26,16 @@ class Show < ApplicationRecord
 
   scope :active, -> { where(status: :idle) }
 
-  scope :recommended, -> { order(created_at: :desc).active.includes(poster_attachment: :blob).take(5) }
-
   scope :movies, -> { where(category: :movie).active.includes(poster_attachment: :blob) }
   scope :plays, -> { where(category: :play).active.includes(poster_attachment: :blob) }
   scope :sports, -> { where(category: :sport).active.includes(poster_attachment: :blob) }
   scope :events, -> { where(category: :event).active.includes(poster_attachment: :blob) }
-
-  scope :gujarati, -> { where(language: :gujarati).active.includes(poster_attachment: :blob).take(5) }
-
+  
+  # home page
+  scope :recommended, -> { order(created_at: :desc).active.includes(poster_attachment: :blob).take(5) }
   scope :action, -> { where(genre: :action).active.includes(poster_attachment: :blob).take(5) }
-
-  scope :except_movies, -> { where.not(category: :movie).active.includes(poster_attachment: :blob) }
+  scope :gujarati, -> { where(language: :gujarati).active.includes(poster_attachment: :blob).take(5) }
+  scope :except_movies, -> { where.not(category: :movie).active.includes(poster_attachment: :blob).take(5) }
 
   def average_rating
     feedbacks.average(:rating).to_f.round(1)

@@ -6,15 +6,20 @@ class ShowsController < ApplicationController
     @q = Show.active.ransack(params[:q])
     @all_shows = @q.result(distinct: true).includes(poster_attachment: :blob)
 
+    if params[:booking_available] == '1'
+      @all_shows = @all_shows.joins(:screenings).distinct
+    end
+
     @movies = @all_shows.movies
     @plays = @all_shows.plays
     @sports = @all_shows.sports
     @events = @all_shows.events
-  end 
+  end
 
   # GET /shows/1 or /shows/1.json
   def show
     @feedback = @show.feedbacks.new
+    @reviews_count = @show.feedbacks.count
     @show_feedbacks = @show.feedbacks.order(created_at: :desc).includes(:user)
     @user_has_feedback = @show.feedbacks.find_by(user_id: current_user&.id)
     @user_has_booked = current_user&.user_has_booked?(@show)
