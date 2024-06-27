@@ -1,12 +1,12 @@
 <% content_for :title, "Book Now" %>
 
 <% if @show_screenings.exists? %>
-  <h1 class="text-3xl font-medium mb-10"><%= @show_screenings.first.show.name %>'s screenings in theaters</h1>
+  <h1 class="text-3xl font-medium mb-5"><%= @show_screenings.first.show.name %>'s screenings in theaters</h1>
   <% @show_screenings.each do |ss| %>
 
   <section class="my-5 flex justify-between items-center">
     <div>
-      <p class="text-2xl font-medium"><%= ss.screen.theater.name %>, <%= ss.screen.theater.city.name %></p>
+      <p class="text-2xl pt-2 font-medium"><%= ss.screen.theater.name %>, <%= ss.screen.theater.city.name %> - running on screen: <%= ss.screen.screen_no %></p>
       <p class="text-lg"><%= ss.screen.theater.address %></p>
     </div>
     <p class="text-xl"><%= format_date(ss.start_date) %> - <%= format_date(ss.end_date) %></p>

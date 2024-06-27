@@ -9,13 +9,15 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
       <% @show_screening_details.each do |details| %>
         <% show = details[:show] %>
-        <% screening = details[:screening] %>
-        <a href="<%= new_screening_booking_path(screening) %>">
-          <div class="my-5">
-            <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg" if show.poster.attached? %>
-            <h1 class="text-2xl my-4 font-semibold"><%= show.name.capitalize %> - ₹ <%= screening.price %></h1>
-          </div>
-        </a>
+        <% details[:screenings].each do |screening| %>
+          <a href="<%= new_screening_booking_path(screening) %>">
+            <div class="my-5">
+              <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg" if show.poster.attached? %>
+              <h1 class="text-2xl my-4 font-semibold"><%= show.name.capitalize %> - ₹ <%= screening.price %></h1>
+              <p class="text-xl">On Screen: <%= screening.screen.screen_no %></p>
+            </div>
+          </a>
+        <% end %>
       <% end %>
     </div>
   <% else %>

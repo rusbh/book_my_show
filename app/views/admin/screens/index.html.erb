@@ -20,14 +20,18 @@
 
   <h1 class="font-semibold text-3xl mt-20 mb-3">All Theater Shows</h1>
 
-  <% if @shows.exists? %>
+  <% if @screen_shows.exists? %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-      <% @shows.each do |show| %>
-        <div class="my-5">
-          <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg" if show.poster.attached? %>
-          <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
-        </div>
-      <% end %>
+      <% @screen_shows.each do |show| %>
+      <div class="my-5">
+        <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg" if show.poster.attached? %>
+        <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
+        <% show.screenings.joins(:screen).where(screens: { theater_id: @theater.id }).each do |screening| %>
+          <p class="text-xl">Screen: <%= screening.screen.screen_no %> - Price: ₹<%= screening.price %></p>
+          <p class="text-xl mb-3"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
+        <% end %>
+      </div>
+    <% end %>
     </div>
   <% else %>
    <p>No shows scheduled or Running currently</p>

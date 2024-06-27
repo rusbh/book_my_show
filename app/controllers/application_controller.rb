@@ -3,8 +3,9 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   include Pundit::Authorization
   
-  rescue_from ActiveRecord::RecordNotFound, with: :not_found_method
+  rescue_from ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid, with: :not_found_method
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from NoMethodError, with: :handle_no_method_error
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :store_user_location!, if: :storable_location?
@@ -32,6 +33,11 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     flash[:alert] = "You are not authorized to perform this action."
+    redirect_back(fallback_location: root_path)
+  end
+
+  def handle_no_method_error(exception)
+    flash[:alert] = "Oops! Something went wrong."
     redirect_back(fallback_location: root_path)
   end
 

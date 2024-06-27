@@ -16,6 +16,8 @@
           <a href="<%= admin_screen_screening_path(@screen, screening) %>">
             <%= image_tag url_for(screening.show.poster.variant(:display)), class: "block rounded-lg hover:scale-105 cursor-pointer transition" if screening.show.poster.attached? %>
           <h1 class="text-2xl mt-4 font-semibold"><%= screening.show.name %></h1>
+          <p class="text-xl">Price: ₹ <%= screening.price %></p>
+          <p class="text-xl mb-3"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
           </a>
         <% end %>
       </div>
