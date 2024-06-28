@@ -5,7 +5,7 @@ class Admin::ScreeningsController < Admin::BaseController
   before_action :set_show, only: %i[show edit update destroy]
 
   def index
-    @screenings = @screen.screenings
+    @screenings = @screen.screenings.joins(:show).where(shows: { status: :idle })
   end
 
   def new

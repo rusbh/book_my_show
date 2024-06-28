@@ -4,13 +4,12 @@ class BookingsController < ApplicationController
 
   def new
     @booking = @screening.bookings.new
-    @show_timings = @screening.show_timings.order(at_timeof: :asc).select { |s| s.at_timeof > Time.current && s.seats > 0 }
     authorize @booking
   end
 
   def create
     @booking = @screening.bookings.new(booking_params)
-    @booking.booking_date = @booking.show_timing.at_timeof
+    @booking.booking_date = @booking.show_timing&.at_timeof
     @booking.total_price = (@booking.ticket * @booking.screening.price).round(2)
     @booking.user = current_user
     authorize @booking

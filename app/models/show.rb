@@ -8,8 +8,11 @@ class Show < ApplicationRecord
 
   has_many :screenings, dependent: :destroy
   has_many :screens, through: :screenings
+  has_many :bookings, through: :screenings
 
   has_many :feedbacks, as: :commentable, dependent: :destroy
+
+  after_update :show_cancelled
 
   enum language: %i[hindi english gujarati tamil telugu]
   enum genre: %i[action adventure animation comedy crime documentary drama fantasy historical horror romance
@@ -25,6 +28,7 @@ class Show < ApplicationRecord
   validates :category, inclusion: { in: categories.keys }
 
   scope :active, -> { where(status: :idle) }
+  scope :can_book, -> { joins(:screenings).distinct }
 
   scope :movies, -> { where(category: :movie).active.includes(poster_attachment: :blob) }
   scope :plays, -> { where(category: :play).active.includes(poster_attachment: :blob) }
@@ -32,12 +36,20 @@ class Show < ApplicationRecord
   scope :events, -> { where(category: :event).active.includes(poster_attachment: :blob) }
   
   # home page
-  scope :recommended, -> { order(created_at: :desc).active.includes(poster_attachment: :blob).take(5) }
-  scope :action, -> { where(genre: :action).active.includes(poster_attachment: :blob).take(5) }
-  scope :gujarati, -> { where(language: :gujarati).active.includes(poster_attachment: :blob).take(5) }
-  scope :except_movies, -> { where.not(category: :movie).active.includes(poster_attachment: :blob).take(5) }
+  scope :recommended, -> { order(created_at: :desc).active.can_book.includes(poster_attachment: :blob).take(5) }
+  scope :action, -> { where(genre: :action).active.can_book.includes(poster_attachment: :blob).take(5) }
+  scope :gujarati, -> { where(language: :gujarati).active.can_book.includes(poster_attachment: :blob).take(5) }
+  scope :except_movies, -> { where.not(category: :movie).active.can_book.includes(poster_attachment: :blob).take(5) }
 
   def average_rating
     feedbacks.average(:rating).to_f.round(1)
+  end
+
+  private
+
+  def show_cancelled
+    if status_previously_changed? && status == "cancelled"
+      screenings.destroy_all
+    end
   end
 end
