@@ -1,10 +1,15 @@
 ActiveAdmin.register TheaterAdmin do
   form do |f|
     f.inputs do
-      f.input :theater
-      f.input :user, as: :select, collection: User.all.map { |user| [user.email, user.id] }
+      f.input :theater, label: 'Select Theater'
+      f.input :user, as: :select, collection: User.all.map { |user| [user.email, user.id] }, label: 'Select User'
     end
     f.actions
+
+    panel 'Note:' do
+      "Admin can only be assigned only one theater, So one admin can't have multiple theaters assigned.
+      However Theater can have multiple admins assigned to it."
+    end
   end
 
   show do
@@ -14,7 +19,7 @@ ActiveAdmin.register TheaterAdmin do
       row :created_at
       row :updated_at
     end
-    panel "Mail" do
+    panel 'Mail' do
       link_to 'Send Reset Password to Admin', send_reset_password_superadmin_theater_admin_path(resource), method: :put
     end
   end

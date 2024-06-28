@@ -1,3 +1,3 @@
-# ActiveAdmin.register City do
-#   permit_params :name, :state
-# end
+ActiveAdmin.register City do
+  permit_params :name, :state
+end

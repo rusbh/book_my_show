@@ -17,6 +17,11 @@ ActiveAdmin.register User do
       row :created_at
       row :updated_at
     end
+    if user.admin?
+      panel "Note:" do
+        "If you have to revoke admin role you have to remove Theater Admin entry associated with this user/admin."
+      end
+    end 
   end
 
   form do |f|
@@ -24,7 +29,7 @@ ActiveAdmin.register User do
       f.input :email
       if f.object.new_record?
         f.input :name
-        f.input :password
+        f.input :password, label: "Password (6 characters minimum)" 
         f.input :password_confirmation
       end
     end
