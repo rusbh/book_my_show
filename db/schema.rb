@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_26_104604) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_01_115547) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -154,7 +154,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_104604) do
     t.datetime "updated_at", null: false
     t.index ["theater_id"], name: "index_theater_admins_on_theater_id"
     t.index ["user_id", "theater_id"], name: "unique_pair_of_user_and_theater", unique: true
-    t.index ["user_id"], name: "unique_user", unique: true
+    t.index ["user_id"], name: "index_theater_admins_on_user_id"
   end
 
   create_table "theaters", force: :cascade do |t|

@@ -67,15 +67,28 @@ class Admin::ScreensController < Admin::BaseController
     end
   end
 
+  def switch_theater
+    theater = Theater.friendly.find(params[:theater_id])
+    if current_user.theaters.include?(theater)
+      session[:current_theater] = theater.id
+      redirect_to admin_root_path, notice: 'Switched theater successfully.'
+    else
+      redirect_to admin_root_path, alert: 'You do not have access to this theater.'
+    end
+  end
+
   private
 
   # getting admin's assigned theater
   def set_theater
-    @theater_admin = TheaterAdmin.where(user: current_user).first
-    if @theater_admin.nil?
-      redirect_to root_path, alert: 'You are not assigned to any theater'
+    if session[:current_theater]
+      @theater = current_user.theaters.find_by(id: session[:current_theater])
+      unless @theater
+        redirect_to root_path, alert: 'Selected theater not found or you do not have access.'
+      end
     else
-      @theater = @theater_admin.theater
+      @theater = current_user.theaters.first
+      session[:current_theater] = @theater.id if @theater
     end
   end
 

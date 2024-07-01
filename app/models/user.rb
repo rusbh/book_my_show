@@ -18,7 +18,7 @@ class User < ApplicationRecord
     self.reset_password_token = hashed
     self.reset_password_sent_at = Time.now.utc
     self.save
-    AdminMailer.invitation(self, token).deliver_later
+    AdminMailer.admin_invitation(self, token).deliver_later
   end
 
   def past_bookings

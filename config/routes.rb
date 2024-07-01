@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     resources :screens do
       resources :screenings
     end
+    post 'switch_theater', to: 'screens#switch_theater', as: :switch_theater
   end
 
   devise_for :users,

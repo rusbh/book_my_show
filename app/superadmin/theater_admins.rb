@@ -7,8 +7,7 @@ ActiveAdmin.register TheaterAdmin do
     f.actions
 
     panel 'Note:' do
-      "Admin can only be assigned only one theater, So one admin can't have multiple theaters assigned.
-      However Theater can have multiple admins assigned to it."
+      "Admin can be assigned to more than one theater and Theater can have multiple admins assigned to it."
     end
   end
 
