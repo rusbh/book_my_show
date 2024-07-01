@@ -10,13 +10,13 @@ class TheatersController < ApplicationController
   def show
     @feedback = @theater.feedbacks.new
     @feedbacks_count = @theater.feedbacks.count
-    @theater_shows = Show.active.joins(screenings: :screen).where(screens: { theater_id: @theater.id }).distinct.includes(poster_attachment: :blob)
+    @theater_shows = Show.active.joins(screenings: :screen).where(screens: { theater_id: @theater.id }).distinct
     @theater_feedbacks = @theater.feedbacks.order(created_at: :desc).includes(:user)
     @user_has_feedback = @theater.feedbacks.find_by(user_id: current_user&.id)
     @user_has_booked_in_theater = current_user&.has_booked_in_theater?(@theater)
 
     @show_screening_details = @theater_shows.map do |show|
-      screenings = show.screenings.includes(screen).joins(:screen).where(screens: { theater_id: @theater.id })
+      screenings = show.screenings.includes(:screen).joins(:screen).where(screens: { theater_id: @theater.id })
       { show:, screenings: }
     end
   end

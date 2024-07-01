@@ -3,7 +3,7 @@ class ShowsController < ApplicationController
 
   # GET /shows or /shows.json
   def index
-    @q = Show.includes(poster_attachment: :blob).active.ransack(params[:q])
+    @q = Show.active.ransack(params[:q])
     @all_shows = @q.result(distinct: true)
 
     if params[:booking_available] == '1'

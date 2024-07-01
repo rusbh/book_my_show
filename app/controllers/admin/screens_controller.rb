@@ -4,7 +4,7 @@ class Admin::ScreensController < Admin::BaseController
 
   def index
     @screens = @theater.screens.order(created_at: :asc)
-    @screen_shows = Show.active.joins(screenings: :screen).where(screens: { theater_id: @theater.id }).distinct.includes(poster_attachment: :blob)
+    @screen_shows = Show.active.joins(screenings: :screen).where(screens: { theater_id: @theater.id }).distinct
     @bookings = Booking.confirmed.joins(screening: :screen).where(screens: { theater_id: @theater.id })
     @feedbacks = @theater.feedbacks.includes([:user])
 
