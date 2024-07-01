@@ -27,19 +27,19 @@ class Show < ApplicationRecord
   validates :genre, inclusion: { in: genres.keys }
   validates :category, inclusion: { in: categories.keys }
 
-  scope :active, -> { where(status: :idle) }
+  scope :active, -> { where(status: :idle).includes(poster_attachment: :blob) }
   scope :can_book, -> { joins(:screenings).distinct }
 
-  scope :movies, -> { where(category: :movie).active.includes(poster_attachment: :blob) }
-  scope :plays, -> { where(category: :play).active.includes(poster_attachment: :blob) }
-  scope :sports, -> { where(category: :sport).active.includes(poster_attachment: :blob) }
-  scope :events, -> { where(category: :event).active.includes(poster_attachment: :blob) }
+  scope :movies, -> { where(category: :movie).active }
+  scope :plays, -> { where(category: :play).active }
+  scope :sports, -> { where(category: :sport).active}
+  scope :events, -> { where(category: :event).active }
   
   # home page
-  scope :recommended, -> { order(created_at: :desc).active.can_book.includes(poster_attachment: :blob).take(5) }
-  scope :action, -> { where(genre: :action).active.can_book.includes(poster_attachment: :blob).take(5) }
-  scope :gujarati, -> { where(language: :gujarati).active.can_book.includes(poster_attachment: :blob).take(5) }
-  scope :except_movies, -> { where.not(category: :movie).active.can_book.includes(poster_attachment: :blob).take(5) }
+  scope :recommended, -> { order(created_at: :desc).active.can_book.take(5) }
+  scope :action, -> { where(genre: :action).active.can_book.take(5) }
+  scope :gujarati, -> { where(language: :gujarati).active.can_book.take(5) }
+  scope :except_movies, -> { where.not(category: :movie).active.can_book.take(5) }
 
   def average_rating
     feedbacks.average(:rating).to_f.round(1)

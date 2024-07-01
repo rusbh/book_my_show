@@ -1,8 +1,8 @@
 <div class="w-full">
   <div class="flex justify-between mt-10 items-center">
-    <h1 class="font-semibold text-3xl">Manage Screens</h1> 
+    <h1 class="font-semibold text-3xl">Manage Screens</h1>
     <%= link_to "Add New Screen", new_admin_screen_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>
-  </div> 
+  </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
     <% if @screens.exists? %>
@@ -23,25 +23,25 @@
   <% if @screen_shows.exists? %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
       <% @screen_shows.each do |show| %>
-      <div class="my-5">
-        <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg" if show.poster.attached? %>
-        <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
-        <% show.screenings.joins(:screen).where(screens: { theater_id: @theater.id }).each do |screening| %>
-          <p class="text-xl">Screen: <%= screening.screen.screen_no %> - Price: ₹<%= screening.price %></p>
-          <p class="text-xl mb-3"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
-        <% end %>
-      </div>
-    <% end %>
+        <div class="my-5">
+          <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg" if show.poster.attached? %>
+          <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
+          <% show.screenings.joins(:screen).where(screens: { theater_id: @theater.id }).each do |screening| %>
+            <p class="text-xl">Screen: <%= screening.screen.screen_no %> - Price: ₹<%= screening.price %></p>
+            <p class="text-xl mb-3"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   <% else %>
-   <p>No shows scheduled or Running currently</p>
+    <p>No shows scheduled or Running currently</p>
   <% end %>
 
   <h1 class="mt-24 text-3xl font-bold">Total Bookings of Shows by Screen for Current Week</h1>
   <div class="my-6">
-    <% @library_options = { scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } } } %>
-    
-    <%= bar_chart @current_week_bookings_by_screen, xtitle: "Bookings of shows for current week", ytitle: "Screen No", download: true, library: @library_options %>
+    <% @bar_library_options = { scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } } } %>
+
+    <%= bar_chart @current_week_bookings_by_screen, xtitle: "Bookings of shows for current week", ytitle: "Screen No", download: true, library: @bar_library_options %>
   </div>
 
   <div class="flex justify-between mt-20">
@@ -54,12 +54,14 @@
     </div>
   </div>
 
+  <% @line_library_options = { scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } } %>
+
   <div id="week_chart" class="my-6">
-    <%= line_chart @bookings_by_week, xtitle: "Current Week", ytitle: "Bookings", download: true %>
+    <%= line_chart @bookings_by_week, xtitle: "Current Week", ytitle: "Bookings", download: true, library: @line_library_options %>
   </div>
 
   <div id="month_chart" class="my-6" style="display: none;">
-    <%= line_chart @bookings_by_month, xtitle: "Current Month", ytitle: "Bookings", download: true %>
+    <%= line_chart @bookings_by_month, xtitle: "Current Month", ytitle: "Bookings", download: true, library: @line_library_options %>
   </div>
 
   <h1 class="text-3xl font-bold mt-32">Most Popular Show Based on Booking</h1>
@@ -74,4 +76,3 @@
     <% end %>
   </ul>
 </div>
-

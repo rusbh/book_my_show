@@ -3,7 +3,7 @@ class TheatersController < ApplicationController
 
   # GET /theaters or /theaters.json
   def index
-    @theaters = Theater.all.includes(:city)
+    @theaters = Theater.includes(:city).all
   end
 
   # GET /theaters/1 or /theaters/1.json
@@ -16,7 +16,7 @@ class TheatersController < ApplicationController
     @user_has_booked_in_theater = current_user&.has_booked_in_theater?(@theater)
 
     @show_screening_details = @theater_shows.map do |show|
-      screenings = show.screenings.joins(:screen).where(screens: { theater_id: @theater.id })
+      screenings = show.screenings.includes(screen).joins(:screen).where(screens: { theater_id: @theater.id })
       { show:, screenings: }
     end
   end
