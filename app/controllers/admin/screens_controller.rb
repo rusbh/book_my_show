@@ -4,9 +4,15 @@ class Admin::ScreensController < Admin::BaseController
 
   def index
     @screens = @theater.screens.order(created_at: :asc)
+
     @screen_shows = Show.active.joins(screenings: :screen).where(screens: { theater_id: @theater.id }).distinct
+
+    @show_screening_details = @screen_shows.map do |show|
+      screenings = show.screenings.joins(:screen).where(screens: { theater_id: @theater.id }).includes(:screen)
+      { show:, screenings: }
+    end
+
     @bookings = Booking.confirmed.joins(screening: :screen).where(screens: { theater_id: @theater.id })
-    @feedbacks = @theater.feedbacks.includes([:user])
 
     @current_week_bookings_by_screen = @bookings.where(booking_date: Time.current.beginning_of_week..Time.current.end_of_week).joins(screening: :screen).group('screens.screen_no').count
 
@@ -19,9 +25,13 @@ class Admin::ScreensController < Admin::BaseController
                                   .count
 
     @popular_shows = @bookings.joins(screening: :show).group('shows.name').count
+
+    @feedbacks = @theater.feedbacks.includes([:user])
   end
 
-  def show; end
+  def show
+    @screen_screenings = @screen.screenings.includes(:show)
+  end
 
   def new
     @screen = Screen.new
@@ -83,9 +93,7 @@ class Admin::ScreensController < Admin::BaseController
   def set_theater
     if session[:current_theater]
       @theater = current_user.theaters.find_by(id: session[:current_theater])
-      unless @theater
-        redirect_to root_path, alert: 'Selected theater not found or you do not have access.'
-      end
+      redirect_to root_path, alert: 'Selected theater not found or you do not have access.' unless @theater
     else
       @theater = current_user.theaters.first
       session[:current_theater] = @theater.id if @theater

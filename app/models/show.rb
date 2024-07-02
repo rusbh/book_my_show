@@ -41,6 +41,8 @@ class Show < ApplicationRecord
   scope :gujarati, -> { where(language: :gujarati).active.can_book.take(5) }
   scope :except_movies, -> { where.not(category: :movie).active.can_book.take(5) }
 
+  scope :active_form, -> { where(status: :idle) } # for forms
+
   def average_rating
     feedbacks.average(:rating).to_f.round(1)
   end

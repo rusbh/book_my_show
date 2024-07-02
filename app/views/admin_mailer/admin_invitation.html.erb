@@ -1,5 +1,5 @@
 <h2>Hello, <%= @user.email %></h2>
 <p>You have received a invitation from BMS Theater Portal</p>
 <p>Click the link below to get started setting up password for your account. Upon which you will be directed to Theater Portal</p>
-<%= link_to 'Create a password', "http://192.168.31.221:3000" + "/auth/password/edit?reset_password_token=#{@token}" %>
+<%= link_to 'Create a password', "http://localhost:3000" + "/auth/password/edit?reset_password_token=#{@token}" %>
 <p>Thank you</p>

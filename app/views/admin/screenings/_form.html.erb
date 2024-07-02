@@ -16,7 +16,7 @@
 
   <div class="my-5">
     <%= f.label :show_id, "Pick a Show" %>
-    <%= f.collection_select :show_id, Show.active, :id, :name, {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= f.collection_select :show_id, Show.active_form, :id, :name, {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">

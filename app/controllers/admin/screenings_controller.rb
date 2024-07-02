@@ -5,7 +5,7 @@ class Admin::ScreeningsController < Admin::BaseController
   before_action :set_show, only: %i[show edit update destroy]
 
   def index
-    @screenings = @screen.screenings.joins(:show).where(shows: { status: :idle })
+    @screenings = @screen.screenings.joins(:show).where(shows: { status: :idle }).includes(show: [poster_attachment: :blob])
   end
 
   def new
@@ -53,10 +53,9 @@ class Admin::ScreeningsController < Admin::BaseController
     @show_timings = @screening.show_timings.order(at_timeof: :asc)
   end
 
-
   def destroy
     authorize @screening
-    
+
     @screening.destroy!
     respond_to do |format|
       format.html { redirect_to admin_screen_screenings_url(@screen), notice: 'Screening was successfully destroyed.' }

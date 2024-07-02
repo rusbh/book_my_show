@@ -2,7 +2,7 @@ class ScreeningsController < ApplicationController
   before_action :set_show
 
   def index
-    @show_screenings = @show.screenings.includes(screen: :theater)
+    @show_screenings = @show.screenings.includes(screen: [theater: :city])
   end
 
   private

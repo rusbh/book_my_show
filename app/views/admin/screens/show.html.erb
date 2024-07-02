@@ -14,8 +14,8 @@
   <div class="mb-10">
     <strong class="block font-medium text-2xl mt-5 mb-2">Shows running or scheduled: </strong>
     
-    <% if @screen.screenings.present? %>
-      <% @screen.screenings.each do |ss| %>
+    <% if @screen_screenings.present? %>
+      <% @screen_screenings.each do |ss| %>
         <li class="ml-5 text-2xl"><%= ss.show.name %></li>
       <% end %>
     <% else %>
