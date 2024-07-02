@@ -2,10 +2,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include ApplicationHelper
   include Pundit::Authorization
+  include Pagy::Backend
   
   rescue_from ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid, with: :not_found_method
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  rescue_from NoMethodError, with: :handle_no_method_error
+  # rescue_from NoMethodError, with: :handle_no_method_error
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :store_user_location!, if: :storable_location?

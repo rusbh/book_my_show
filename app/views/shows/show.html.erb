@@ -28,6 +28,8 @@
   <% else %>
     <h1 class="p-6 bg-slate-50 rounded-xl my-6">No reviews yet</h1>
   <% end %>
+
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
   
   <%= link_to "Back to shows", shows_path, class: "mt-5 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>

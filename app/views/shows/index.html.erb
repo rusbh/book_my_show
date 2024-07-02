@@ -8,7 +8,7 @@
     <%= search_form_for @q, url: shows_path, method: :get, class: "contents" do |f| %>
       <%= f.select :language_eq, Show.languages, { include_blank: "Select Language" }, { onchange: "this.form.requestSubmit()" } %>
       <%= f.select :genre_eq, Show.genres, { include_blank: "Select Genre" }, { onchange: "this.form.requestSubmit()" } %>
-      <%#= f.select :category_eq, Show.categories, { include_blank: "Select Show Type" }, { onchange: "this.form.requestSubmit()" } %>
+      <%= f.select :category_eq, Show.categories, { include_blank: "Select Show Type" }, { onchange: "this.form.requestSubmit()" } %>
       <div class="flex items-center gap-x-2 ml-2">
         <%= check_box_tag :booking_available, '1', params[:booking_available] == '1', onchange: "this.form.requestSubmit()", class: "h-6 w-6 cursor-pointer rounded-md" %>
         <%= label_tag :booking_available, "Bookings available", class: "cursor-pointer text-xl" %>
@@ -21,7 +21,7 @@
 </section>
 
 <% if @all_shows.present? %>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-10">
     <% @all_shows.each do |show| %>
       <a href="<%= show_path(show) %>">
         <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
@@ -30,66 +30,7 @@
     <% end %>
   </div>
 <% else %>
-  <h1 class="text-xl">No Results</h1>
+  <h1 class="text-center text-4xl mt-52 font-semibold">No Results</h1>
 <% end %>
 
-<h1 class="font-bold text-3xl my-5 underline">Movies</h1>
-
-<% if @movies.present? %>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-    <% @movies.each do |show| %>
-      <a href="<%= show_path(show) %>">
-        <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
-        <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
-      </a>
-    <% end %>
-  </div>
-<% else %>
-  <h1 class="text-xl">No Results</h1>
-<% end %>
-
-<h1 class="font-bold text-3xl my-5 underline">Plays</h1>
-
-<% if @plays.present? %>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-    <% @plays.each do |show| %>
-      <a href="<%= show_path(show) %>">
-        <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
-        <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
-      </a>
-    <% end %>
-  </div>
-<% else %>
-  <h1 class="text-xl">No Results</h1>
-<% end %>
-
-<h1 class="font-bold text-3xl my-5 underline">Sports</h1>
-
-<% if @sports.present? %>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-    <% @sports.each do |show| %>
-      <a href="<%= show_path(show) %>">
-        <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
-        <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
-      </a>
-    <% end %>
-  </div>
-<% else %>
-  <h1 class="text-xl">No Results</h1>
-<% end %>
-
-<h1 class="font-bold text-3xl my-5 underline">Events</h1>
-
-<% if @events.present? %>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-    <% @events.each do |show| %>
-      <a href="<%= show_path(show) %>">
-        <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
-        <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
-      </a>
-    <% end %>
-  </div>
-<% else %>
-  <h1 class="text-xl">No Results</h1>
-<% end %>
-
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>

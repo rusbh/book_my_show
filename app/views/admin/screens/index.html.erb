@@ -24,14 +24,14 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
       <% @show_screening_details.each do |details| %>
         <% show = details[:show] %>
-        <% details[:screenings].each do |screening| %>
           <div class="my-5">
             <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg" if show.poster.attached? %>
             <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
-            <p class="text-xl">Screen: <%= screening.screen.screen_no %> - Price: ₹<%= screening.price %></p>
-            <p class="text-xl mb-3"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
+            <% details[:screenings].each do |screening| %>
+              <p class="text-xl">Screen: <%= screening.screen.screen_no %> - Price: ₹<%= screening.price %></p>
+              <p class="text-xl mb-3"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
+            <% end %>
           </div>
-        <% end %>
       <% end %>
     </div>
   <% else %>

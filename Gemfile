@@ -94,4 +94,8 @@ gem "groupdate", "~> 6.4"
 # background-jobs
 gem "sidekiq", "~> 7.2"
 
+# search, filter
 gem "ransack", "~> 4.1"
+
+# pagination
+gem "pagy", "~> 8.6"

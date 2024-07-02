@@ -1,5 +1,5 @@
 Hello, <%= @user.email %>
 You have received a invitation from BMS Theater Portal
 Click the link below to get started setting up password for your account. Upon which you will be directed to Theater Portal
-<%= link_to 'Create a password', "http://localhost:3000" + "/auth/password/edit?reset_password_token=#{@token}" %>
+<%= link_to 'Create a password', Rails.application.credentials.dig(:development, :host_url) + "/auth/password/edit?reset_password_token=#{@token}" %>
 <p>Thank you</p>

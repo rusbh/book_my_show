@@ -19,7 +19,7 @@ ActiveAdmin.register User do
     end
     if user.admin?
       panel "Note:" do
-        "If you have to revoke admin role you have to remove Theater Admin entry associated with this user/admin."
+        "If you have to revoke admin role you have to remove admin checkbox tick on editing user page."
       end
     end 
   end
@@ -32,6 +32,7 @@ ActiveAdmin.register User do
         f.input :password, label: "Password (6 characters minimum)" 
         f.input :password_confirmation
       end
+      f.input :admin
     end
     f.actions
   end
