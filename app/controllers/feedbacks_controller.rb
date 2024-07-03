@@ -1,5 +1,5 @@
 class FeedbacksController < ApplicationController
-  include ActionView::RecordIdentifier 
+  include ActionView::RecordIdentifier
   before_action :authenticate_user!
   before_action :set_commentable
   before_action :set_feedback, only: %i[edit update destroy]
@@ -31,7 +31,10 @@ class FeedbacksController < ApplicationController
         format.html { redirect_to @commentable }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@feedback), partial: "feedbacks/form", locals: { commentable: @commentable, feedback: @feedback }) }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(dom_id(@feedback), partial: 'feedbacks/form',
+                                                                       locals: { commentable: @commentable, feedback: @feedback })
+        end
       end
     end
   end
@@ -53,17 +56,13 @@ class FeedbacksController < ApplicationController
   end
 
   def set_commentable
-    @commentable = find_commentable
-  end
-
-  def find_commentable
-    if params[:show_id]
-      Show.friendly.find(params[:show_id])
-    elsif params[:theater_id]
-      Theater.friendly.find(params[:theater_id])
-    else
-      raise 'Unsupported commentable'
-    end
+    @commentable = if params[:show_id]
+                     Show.friendly.find(params[:show_id])
+                   elsif params[:theater_id]
+                     Theater.friendly.find(params[:theater_id])
+                   else
+                     raise 'Unsupported commentable'
+                   end
   end
 
   def set_feedback

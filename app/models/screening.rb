@@ -4,14 +4,14 @@ class Screening < ApplicationRecord
 
   has_many :bookings, dependent: :destroy
   has_many :show_timings, dependent: :destroy
-  
+
   after_save :update_screen_status
   after_destroy :update_screen_status
   before_create :start_date_before_end_date
-  
+
   validates :price, :start_date, :end_date, presence: true
   validates :price, numericality: { greater_than: 0 }
-  
+
   validate :no_overlapping_screenings
   validate :prohibit_screening_by_screen_status
 
@@ -20,26 +20,26 @@ class Screening < ApplicationRecord
   private
 
   def start_date_before_end_date
-    if start_date > end_date
-      errors.add(:start_date, 'must be before the end date')
-      throw(:abort)
-    end
+    return unless start_date > end_date
+
+    errors.add(:start_date, 'must be before the end date')
+    throw(:abort)
   end
 
   def no_overlapping_screenings
-    overlapping_screenings = Screening.where(screen_id: self.screen_id)
-                                      .where.not(id: self.id)
-                                      .where('start_date < ? AND end_date > ?', self.end_date, self.start_date)
-    
-    if overlapping_screenings.exists?
-      errors.add(:base, 'This screen is already assigned for the selected date range')
-    end
+    overlapping_screenings = Screening.where(screen_id:)
+                                      .where.not(id:)
+                                      .where('start_date < ? AND end_date > ?', end_date, start_date)
+
+    return unless overlapping_screenings.exists?
+
+    errors.add(:base, 'This screen is already assigned for the selected date range')
   end
 
   def prohibit_screening_by_screen_status
-    if screen.in_maintenance? || screen.unavailable?
-      errors.add(:base, 'Screen is in maintenance or unavailable for new screenings')
-    end
+    return unless screen.in_maintenance? || screen.unavailable?
+
+    errors.add(:base, 'Screen is in maintenance or unavailable for new screenings')
   end
 
   def update_screen_status

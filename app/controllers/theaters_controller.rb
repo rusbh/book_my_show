@@ -9,12 +9,12 @@ class TheatersController < ApplicationController
   # GET /theaters/1 or /theaters/1.json
   def show
     @theater_shows = Show.active.joins(screenings: :screen).where(screens: { theater_id: @theater.id }).distinct
-    
+
     @show_screening_details = @theater_shows.map do |show|
       screenings = show.screenings.includes(:screen).joins(:screen).where(screens: { theater_id: @theater.id })
       { show:, screenings: }
     end
-    
+
     @feedback = @theater.feedbacks.new
 
     @feedbacks_count = @theater.feedbacks.count

@@ -41,7 +41,7 @@ class Booking < ApplicationRecord
 
   def seats_not_available
     if show_timing.seats < self.ticket
-      errors.add(:base, 'Not enough seats available on your selected time')
+      errors.add(:base, "Only #{show_timing.seats} seats available on your selected time")
       throw(:abort)
     end
   end

@@ -29,11 +29,6 @@ class Show < ApplicationRecord
 
   scope :active, -> { where(status: :idle).includes(poster_attachment: :blob) }
   scope :can_book, -> { joins(:screenings).distinct }
-
-  scope :movies, -> { where(category: :movie).active }
-  scope :plays, -> { where(category: :play).active }
-  scope :sports, -> { where(category: :sport).active}
-  scope :events, -> { where(category: :event).active }
   
   # home page
   scope :recommended, -> { order(created_at: :desc).active.can_book.take(5) }
