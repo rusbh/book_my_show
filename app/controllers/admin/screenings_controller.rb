@@ -5,7 +5,7 @@ class Admin::ScreeningsController < Admin::BaseController
   before_action :set_show, only: %i[show edit update destroy]
 
   def index
-    @screenings = @screen.screenings.joins(:show).where(shows: { status: :idle }).includes(show: [poster_attachment: :blob])
+    @screenings = @screen.screenings.includes(show: [poster_attachment: :blob]).where(shows: { status: :active })
   end
 
   def new
@@ -79,7 +79,7 @@ class Admin::ScreeningsController < Admin::BaseController
   end
 
   def set_show
-    @show = Show.friendly.find(@screening.show_id)
+    @show = Show.find(@screening.show_id)
   end
 
   def screening_params

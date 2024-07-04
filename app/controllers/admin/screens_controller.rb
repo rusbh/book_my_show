@@ -8,7 +8,7 @@ class Admin::ScreensController < Admin::BaseController
     @screen_shows = Show.active.joins(screenings: :screen).where(screens: { theater_id: @theater.id }).distinct
 
     @show_screening_details = @screen_shows.map do |show|
-      screenings = show.screenings.joins(:screen).where(screens: { theater_id: @theater.id }).includes(:screen)
+      screenings = show.screenings.includes(:screen).where(screens: { theater_id: @theater.id })
       { show:, screenings: }
     end
 

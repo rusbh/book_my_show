@@ -2,8 +2,8 @@
 
 <div class="w-full">
   <div class="flex justify-between mb-10 gap-x-5" data-turbo="false">
-    <a href="/shows/jhamkudi"><img src="/jhamkudi-banner.jpeg" alt="" height="450" width="700" class="rounded-xl"></a>
-    <a href="/shows/mr-mrs-mahi"><img src="/mr-and-mrs-mahi-banner.jpeg" alt="" height="450" width="700" class="rounded-xl"></a>
+    <a href="/shows/jhamkudi"><%= image_tag "jhamkudi-banner.jpeg", height: "450", width: "700", class: "rounded-xl" %></a>
+    <a href="/shows/mr-mrs-mahi"><%= image_tag "mr-and-mrs-mahi-banner.jpeg", height: "450", width: "700", class: "rounded-xl" %></a>
   </div>
 
   <div class="flex justify-between">
@@ -15,7 +15,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
       <% @recommended_shows.each do |show| %>
         <a href="<%= show_path(show) %>">
-          <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
+          <%= display_show_poster(show, hover: true) %>
           <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
         </a>
       <% end %>
@@ -30,7 +30,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
       <% @action_shows.each do |show| %>
         <a href="<%= show_path(show) %>">
-          <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
+          <%= display_show_poster(show, hover: true) %>
           <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
         </a>
       <% end %>
@@ -38,14 +38,14 @@
   <% else %>
     <h1 class="text-xl mb-10">No action shows currently running in theaters</h1>
   <% end %>
-  
+
   <h1 class="font-bold text-3xl my-5 underline">In Gujarati</h1>
 
   <% if @gujarati_shows.present? %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
       <% @gujarati_shows.each do |show| %>
         <a href="<%= show_path(show) %>">
-          <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
+          <%= display_show_poster(show, hover: true)  %>
           <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
         </a>
       <% end %>
@@ -60,7 +60,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
       <% @except_movies.each do |show| %>
         <a href="<%= show_path(show) %>">
-          <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg hover:scale-105 cursor-pointer transition" if show.poster.attached? %>
+          <%= display_show_poster(show, hover: true) %>
           <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
         </a>
       <% end %>

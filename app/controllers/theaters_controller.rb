@@ -11,7 +11,7 @@ class TheatersController < ApplicationController
     @theater_shows = Show.active.joins(screenings: :screen).where(screens: { theater_id: @theater.id }).distinct
 
     @show_screening_details = @theater_shows.map do |show|
-      screenings = show.screenings.includes(:screen).joins(:screen).where(screens: { theater_id: @theater.id })
+      screenings = show.screenings.includes(:screen).where(screens: { theater_id: @theater.id })
       { show:, screenings: }
     end
 

@@ -99,3 +99,5 @@ gem "ransack", "~> 4.1"
 
 # pagination
 gem "pagy", "~> 8.6"
+
+gem "active_storage_validations", "~> 1.1"

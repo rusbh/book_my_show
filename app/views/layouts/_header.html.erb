@@ -21,7 +21,7 @@
     <% if user_signed_in? %>
       <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
       <% if !current_user&.admin? %>
-        <a href="/profile"><img src="/profile.webp" height="45" width="45"></a>
+        <a href="/profile"><%= image_tag "icons/outline/profile.webp", height: "45", width: "45" %></a>
       <% end %>
     <% else %>
       <%= link_to "Sign up", new_user_registration_path, class: "rounded-lg py-3 px-5 bg-zinc-200 font-medium" %>

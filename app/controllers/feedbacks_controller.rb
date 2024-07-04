@@ -56,13 +56,7 @@ class FeedbacksController < ApplicationController
   end
 
   def set_commentable
-    @commentable = if params[:show_id]
-                     Show.friendly.find(params[:show_id])
-                   elsif params[:theater_id]
-                     Theater.friendly.find(params[:theater_id])
-                   else
-                     raise 'Unsupported commentable'
-                   end
+    @commentable = params[:show_id] ? Show.friendly.find(params[:show_id]) : Theater.friendly.find(params[:theater_id])
   end
 
   def set_feedback

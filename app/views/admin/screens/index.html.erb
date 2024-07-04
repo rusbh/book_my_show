@@ -25,7 +25,7 @@
       <% @show_screening_details.each do |details| %>
         <% show = details[:show] %>
           <div class="my-5">
-            <%= image_tag url_for(show.poster.variant(:display)), class: "rounded-lg" if show.poster.attached? %>
+            <%= display_show_poster(show) %>
             <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
             <% details[:screenings].each do |screening| %>
               <p class="text-xl">Screen: <%= screening.screen.screen_no %> - Price: ₹<%= screening.price %></p>
