@@ -14,7 +14,7 @@ class ScreensTest < ApplicationSystemTestCase
     visit screens_url
     click_on "New screen"
 
-    fill_in "Screen no", with: @screen.screen_no
+    fill_in "Screen no", with: @screen.screen_name
     fill_in "Seats", with: @screen.seats
     fill_in "Status", with: @screen.status
     fill_in "Theater", with: @screen.theater_id
@@ -28,7 +28,7 @@ class ScreensTest < ApplicationSystemTestCase
     visit screen_url(@screen)
     click_on "Edit this screen", match: :first
 
-    fill_in "Screen no", with: @screen.screen_no
+    fill_in "Screen no", with: @screen.screen_name
     fill_in "Seats", with: @screen.seats
     fill_in "Status", with: @screen.status
     fill_in "Theater", with: @screen.theater_id

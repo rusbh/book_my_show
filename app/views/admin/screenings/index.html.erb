@@ -2,7 +2,7 @@
   <% content_for :title, "Screenings" %>
 
   <div class="flex justify-between items-center">
-    <h1 class="font-semibold mb-4 text-4xl">Shows for this Screen - <%= @screen.screen_no %></h1>
+    <h1 class="font-semibold mb-4 text-4xl">Shows for this Screen - <%= @screen.screen_name %></h1>
     <% if @screen.idle? || @screen.running? %>
       <%= link_to "Add new show", new_admin_screen_screening_path(@screen), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>
     <% else %>

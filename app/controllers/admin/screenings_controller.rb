@@ -66,8 +66,13 @@ class Admin::ScreeningsController < Admin::BaseController
   private
 
   def set_theater
-    @theater_admin = TheaterAdmin.where(user: current_user).first
-    @theater = @theater_admin.theater
+    if session[:current_theater]
+      @theater = current_user.theaters.find_by(id: session[:current_theater])
+      redirect_to root_path, alert: 'Selected theater not found or you do not have access.' unless @theater
+    else
+      @theater = current_user.theaters.first
+      session[:current_theater] = @theater.id if @theater
+    end
   end
 
   def set_screen

@@ -11,9 +11,9 @@
       <% else %>
         <p class="mt-6 text-xl flex items-center gap-2">Not rated yet</span></p>
       <% end %>
-      <p class="my-3 text-lg"><%= show.language.capitalize %></p>
+      <p class="my-3 text-lg"><%= show.languages.map(&:capitalize).join(", ") %></p>
 
-      <p class="mb-7 text-xl"><%= formatted_duration(show.duration) %> • <%= show.genre.capitalize %> • <%= format_date(show.release_date) %></p>
+      <p class="mb-7 text-xl"><%= formatted_duration(show.duration) %> • <%= show.genres.map(&:capitalize).join(", ") %></p>
 
     <% if show.screenings.exists? %>
       <%= link_to "Book tickets", show_book_now_path(show), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>

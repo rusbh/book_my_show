@@ -9,7 +9,7 @@
       <% @screens.each do |screen| %>
         <div class="flex justify-center">
           <%= link_to admin_screen_path(screen), class: "w-full h-28 flex items-center justify-center rounded-lg bg-indigo-300 hover:bg-indigo-400 text-black font-medium text-center transition transform hover:scale-105" do %>
-            <span class="text-2xl"><%= screen.screen_no %></span>
+            <span class="text-2xl"><%= screen.screen_name %></span>
           <% end %>
         </div>
       <% end %>
@@ -28,7 +28,7 @@
             <%= display_show_poster(show) %>
             <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
             <% details[:screenings].each do |screening| %>
-              <p class="text-xl">Screen: <%= screening.screen.screen_no %> - Price: ₹<%= screening.price %></p>
+              <p class="text-xl">Screen: <%= screening.screen.screen_name %> - Price: ₹<%= screening.price %></p>
               <p class="text-xl mb-3"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
             <% end %>
           </div>
@@ -42,7 +42,7 @@
   <div class="my-6">
     <% @bar_library_options = { scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } } } %>
 
-    <%= bar_chart @current_week_bookings_by_screen, xtitle: "Bookings of shows for current week", ytitle: "Screen No", download: true, library: @bar_library_options %>
+    <%= bar_chart @current_week_bookings_by_screen, xtitle: "Bookings of shows for current week", ytitle: "Screen Name/No.", download: true, library: @bar_library_options %>
   </div>
 
   <div class="flex justify-between mt-20">

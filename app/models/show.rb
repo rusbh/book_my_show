@@ -5,25 +5,21 @@ class Show < ApplicationRecord
   has_many :screenings, dependent: :destroy
   has_many :screens, through: :screenings
   has_many :bookings, through: :screenings, dependent: :destroy
-
   has_many :feedbacks, as: :commentable, dependent: :destroy
 
-  after_update :show_cancelled
+  after_update :show_cancelled, if: -> { status_previously_changed? && status == 'cancelled' }
 
-  enum language: %i[hindi english gujarati tamil telugu]
-  enum genre: %i[action adventure animation comedy crime documentary drama fantasy historical horror romance
-                 science_fiction unspecified]
   enum category: %i[movie play sport event]
   enum status: %i[active cancelled]
 
-  validates :name, :description, :cast, :language, :genre, :category, :status, :duration,
+  validates :name, :description, :cast, :languages, :genres, :category, :status, :duration,
             :release_date, presence: true
-  validates :language, inclusion: { in: languages.keys }
-  validates :genre, inclusion: { in: genres.keys }
   validates :category, inclusion: { in: categories.keys }
   validates :duration,
             inclusion: { in: 30..1440,
                          message: 'enter a valid duration of minutes between 30(half hour) and 1440 minutes(24 hours)' }
+  validate :languages_must_be_valid
+  validate :genres_must_be_valid
 
   has_one_attached :poster, dependent: :destroy do |attachable|
     attachable.variant :display, resize_to_limit: [300, 350]
@@ -40,21 +36,46 @@ class Show < ApplicationRecord
 
   # home page
   scope :recommended, -> { order(created_at: :desc).active.can_book.take(5) }
-  scope :action, -> { where(genre: :action).active.can_book.take(5) }
-  scope :gujarati, -> { where(language: :gujarati).active.can_book.take(5) }
+  scope :action, -> { where("'action' = ANY (genres)").active.can_book.take(5) }
+  scope :gujarati, -> { where("'gujarati' = ANY (languages)").active.can_book.take(5) }
   scope :except_movies, -> { where.not(category: :movie).active.can_book.take(5) }
 
   scope :active_form, -> { where(status: :active) } # for forms
+
+  def self.languages
+    { 'hindi' => 'Hindi', 'english' => 'English', 'gujarati' => 'Gujarati', 'tamil' => 'Tamil', 'telugu' => 'Telugu' }
+  end
+
+  def languages=(values)
+    super(values.reject(&:blank?))
+  end
+
+  def self.genres
+    { 'action' => 'action', 'adventure' => 'adventure', 'animation' => 'animation', 'biography' => 'biography',
+      'comedy' => 'comedy', 'crime' => 'crime', 'documentary' => 'documentary', 'drama' => 'drama', 'fantasy' => 'fantasy', 'historical' => 'historical', 'horror' => 'horror', 'romance' => 'romance', 'science_fiction' => 'science_fiction', 'unspecified' => 'unspecified' }
+  end
+
+  def genres=(values)
+    super(values.reject(&:blank?))
+  end
 
   def average_rating
     feedbacks.average(:rating).to_f.round(1)
   end
 
+  def languages_must_be_valid
+    invalid_languages = languages - self.class.languages.keys
+    errors.add(:languages, 'contains invalid languages') if invalid_languages.any?
+  end
+
+  def genres_must_be_valid
+    invalid_genres = genres - self.class.genres.keys
+    errors.add(:genres, 'contains invalid genres') if invalid_genres.any?
+  end
+
   private
 
   def show_cancelled
-    return unless status_previously_changed? && status == 'cancelled'
-
     screenings.destroy_all
   end
 end

@@ -7,6 +7,7 @@ class ShowsController < ApplicationController
     @pagy, @all_shows = pagy(@q.result(distinct: true), items: 20)
 
     return unless params[:booking_available] == '1'
+
     @all_shows = @all_shows.joins(:screenings).distinct
   end
 
@@ -30,7 +31,7 @@ class ShowsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def show_params
-    params.require(:show).permit(:name, :description, :poster, :cast, :language, :genre, :category, :imdb_rating,
-                                 :price, :status, :duration, :release_date)
+    params.require(:show).permit(:name, :description, :poster, :cast, :category, :imdb_rating,
+                                 :price, :status, :duration, :release_date, languages: [], genres: [])
   end
 end

@@ -8,8 +8,8 @@ class Screen < ApplicationRecord
   
   enum status: %i[idle running in_maintenance unavailable]
   
-  validates :screen_no, presence: true
-  validates :screen_no, numericality: { greater_than_or_equal_to: 0 }
+  validates :screen_name, presence: true
+  validates :screen_name, format: { with: /\A([A-Za-z]+|[1-9]\d*)\z/, message: "/ no. is invalid" }
 
   private
 

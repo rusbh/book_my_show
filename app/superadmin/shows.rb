@@ -6,17 +6,19 @@ ActiveAdmin.register Show do
       row :name
       row :description
       row :poster do |p|
-        if p.poster.attached?
-          image_tag url_for(p.poster)
-        end
+        image_tag url_for(p.poster) if p.poster.attached?
       end
       row :cast
-      row :language
-      row :genre
+      row :languages do |show|
+        show.languages.join(', ')
+      end
+      row :genres do |show|
+        show.genres.join(', ')
+      end
       row :category
-      row :status
-      row :duration
+      row 'Duration of show (in Minutes)', &:duration
       row :release_date
+      row :status
     end
   end
 
@@ -25,19 +27,18 @@ ActiveAdmin.register Show do
       f.input :name
       f.input :description
       f.input :poster, as: :file
-      f.input :cast, label: "Cast: (add comma between entries)"
-      f.input :language
-      f.input :genre
+      f.input :cast, label: 'Cast: (add comma between entries)'
+      f.input :languages, as: :check_boxes, collection: Show.languages.keys.map { |lang| [lang.humanize, lang] }
+      f.input :genres, as: :check_boxes, collection: Show.genres.keys.map { |lang| [lang.humanize, lang] }
       f.input :category
-      f.input :status
       f.input :duration, label: 'Duration of show (in Minutes)'
       f.input :release_date
-      unless f.object.new_record?
-        f.input :slug, label: "name helper for url"
-      end
+      f.input :slug, label: 'name helper for url' unless f.object.new_record?
+      f.input :status
     end
     f.actions
   end
 
-  permit_params :name, :description, :poster, :cast, :language, :genre, :category, :status, :duration, :release_date,:slug
+  permit_params :name, :description, :poster, :cast, :category, :status, :duration, :release_date, :slug,
+                languages: [], genres: []
 end

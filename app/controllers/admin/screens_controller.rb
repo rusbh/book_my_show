@@ -14,7 +14,7 @@ class Admin::ScreensController < Admin::BaseController
 
     @bookings = Booking.confirmed.joins(screening: :screen).where(screens: { theater_id: @theater.id })
 
-    @current_week_bookings_by_screen = @bookings.where(booking_date: Time.current.beginning_of_week..Time.current.end_of_week).joins(screening: :screen).group('screens.screen_no').count
+    @current_week_bookings_by_screen = @bookings.where(booking_date: Time.current.beginning_of_week..Time.current.end_of_week).joins(screening: :screen).group('screens.screen_name').count
 
     @bookings_by_week = @bookings.where(booking_date: Time.current.beginning_of_week..Time.current.end_of_week)
                                  .group_by_day(:booking_date)
@@ -107,6 +107,6 @@ class Admin::ScreensController < Admin::BaseController
 
   # Only allow a list of trusted parameters through.
   def screen_params
-    params.require(:screen).permit(:screen_no, :status, :theater_id)
+    params.require(:screen).permit(:screen_name, :status, :theater_id)
   end
 end
