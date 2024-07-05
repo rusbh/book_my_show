@@ -1,5 +1,5 @@
 class ShowsController < ApplicationController
-  before_action :set_show, only: %i[show]
+  before_action :set_show, only: %i[show languages]
 
   # GET /shows or /shows.json
   def index
@@ -20,6 +20,10 @@ class ShowsController < ApplicationController
 
     @user_has_feedback = @show.feedbacks.find_by(user_id: current_user&.id)
     @user_has_booked = current_user&.user_has_booked?(@show)
+  end
+
+  def languages
+    render json: @show.languages
   end
 
   private

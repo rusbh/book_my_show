@@ -1,19 +1,20 @@
 <% content_for :title, "Book Now" %>
 
 <% if @show_screenings.present? %>
-  <h1 class="text-3xl font-medium mb-5"><%= @show_screenings.first.show.name %>'s screenings in theaters</h1>
+  <h1 class="text-3xl underline font-medium mb-7"><%= @show_screenings.first.show.name %>'s screenings in theaters</h1>
   <% @show_screenings.each_with_index do |ss, index| %>
     <% last_show_time = @last_show_times[index] %>
     
     <% if last_show_time && Time.now < last_show_time  %>
       <section class="my-5 flex justify-between items-center">
         <div>
-          <p class="text-2xl pt-2 font-medium"><%= ss.screen.theater.name %>, <%= ss.screen.theater.city.name %> - running on screen: <%= ss.screen.screen_name %></p>
+          <p class="text-2xl pt-2 font-medium"><%= ss.screen.theater.name %>, <%= ss.screen.theater.city.name %> - on screen: <%= ss.screen.screen_name %></p>
           <p class="text-lg"><%= ss.screen.theater.address %></p>
         </div>
         <p class="text-xl"><%= format_date(ss.start_date) %> - <%= format_date(ss.end_date) %></p>
       </section>
 
+      <p class="text-xl my-2">Langauge: <%= ss.language.capitalize %></p>
       <p class="text-xl mb-5">Price: ₹ <%= ss.price %></p>
       <%= link_to "Book now", new_screening_booking_path(ss), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>
     <% end %>

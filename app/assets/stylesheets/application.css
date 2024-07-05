@@ -20,6 +20,10 @@ input.datepicker[type='datetime-local'] {
   position: relative;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 input.datepicker[type='date']::-webkit-calendar-picker-indicator,
 input.datepicker[type='datetime-local']::-webkit-calendar-picker-indicator {
   position: absolute;

@@ -16,7 +16,7 @@
     
     <% if @screen_screenings.present? %>
       <% @screen_screenings.each do |ss| %>
-        <li class="ml-5 text-2xl"><%= ss.show.name %></li>
+        <li class="ml-5 text-2xl"><%= ss.show.name %> - <%= ss.language.capitalize %></li>
       <% end %>
     <% else %>
       <p>No shows scheduled or Running currently</p>

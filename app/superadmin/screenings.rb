@@ -3,6 +3,7 @@
 #     f.inputs do
 #       f.input :screen, as: :select, collection: Theater.first.screens.map { |s| [s.screen_name, s.id] }
 #       f.input :show
+#       f.input :language
 #       f.input :price
 #       f.input :start_date
 #       f.input :end_date

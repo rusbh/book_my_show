@@ -6,7 +6,7 @@ ActiveAdmin.register Show do
       row :name
       row :description
       row :poster do |p|
-        image_tag url_for(p.poster) if p.poster.attached?
+        display_show_poster(p)
       end
       row :cast
       row :languages do |show|

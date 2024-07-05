@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :shows, only: %i[index show] do
     get '/book-now', to: 'screenings#index'
     resources :feedbacks, only: %i[create update destroy edit]
+    member do
+      get :languages
+    end
   end
 
   resources :screenings, only: [:index] do

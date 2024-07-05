@@ -24,37 +24,24 @@
     <h1 class="text-xl mb-10">No shows are currently running in theaters</h1>
   <% end %>
 
-  <h1 class="font-bold text-3xl my-5 underline">Action packed</h1>
+  <% @shows_by_language.each do |language, shows| %>
+    <h1 class="font-bold text-3xl my-5 underline">In <%= language.capitalize %></h1>
 
-  <% if @action_shows.present? %>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-      <% @action_shows.each do |show| %>
-        <a href="<%= show_path(show) %>">
-          <%= display_show_poster(show, hover: true) %>
-          <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
-        </a>
-      <% end %>
-    </div>
-  <% else %>
-    <h1 class="text-xl mb-10">No action shows currently running in theaters</h1>
+    <% if shows.present? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <% shows.each do |show| %>
+          <a href="<%= show_path(show) %>">
+            <%= display_show_poster(show, hover: true) %>
+            <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
+          </a>
+        <% end %>
+      </div>
+    <% else %>
+      <h1 class="text-xl mb-10">No <%= language %> shows currently running in theaters</h1>
+    <% end %>
   <% end %>
 
-  <h1 class="font-bold text-3xl my-5 underline">In Gujarati</h1>
-
-  <% if @gujarati_shows.present? %>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-      <% @gujarati_shows.each do |show| %>
-        <a href="<%= show_path(show) %>">
-          <%= display_show_poster(show, hover: true)  %>
-          <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
-        </a>
-      <% end %>
-    </div>
-  <% else %>
-    <h1 class="text-xl mb-10">No Gujarati shows currently running in theaters</h1>
-  <% end %>
-
-  <h1 class="font-bold text-3xl my-5 underline">In sports/plays/events</h1>
+  <h1 class="font-bold text-3xl my-5 underline">In Sports/Plays/Events</h1>
 
   <% if @except_movies.present? %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
@@ -68,5 +55,4 @@
   <% else %>
     <h1 class="text-xl mb-10">currently there are not these type of shows currently running in theaters</h1>
   <% end %>
-
 </div>

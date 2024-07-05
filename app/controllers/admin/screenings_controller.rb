@@ -50,7 +50,7 @@ class Admin::ScreeningsController < Admin::BaseController
   end
 
   def show
-    @show_timings = @screening.show_timings.order(at_timeof: :asc)
+    @pagy, @show_timings = pagy(@screening.show_timings.order(at_timeof: :asc), items: 6)
   end
 
   def destroy
@@ -88,7 +88,7 @@ class Admin::ScreeningsController < Admin::BaseController
   end
 
   def screening_params
-    params.require(:screening).permit(:show_id, :screen_id, :price, :start_date, :end_date,
+    params.require(:screening).permit(:show_id, :screen_id, :language, :price, :start_date, :end_date,
                                       show_timings_attributes: %i[id at_timeof seats _destroy])
   end
 end

@@ -1,5 +1,5 @@
 <%= form_with(model: [:admin, @screen, @screening], data: {
-               controller: "nested-form",
+               controller: "nested-form field-fill",
                nested_form_wrapper_selector_value: ".nested-form-wrapper",
              }, class: "contents") do |f| %>
   <% if screening.errors.any? %>
@@ -16,16 +16,23 @@
 
   <div class="my-5">
     <%= f.label :show_id, "Pick a Show" %>
-    <%= f.collection_select :show_id, Show.active_form, :id, :name, {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= f.collection_select :show_id, Show.active_form, :id, :name, {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { field_fill_target: "showSelect" } %>
   </div>
 
-  <div class="my-5">
-    <%= f.hidden_field :screen_id, value: @screen.id %>
+  <div class="flex my-5 gap-x-10">
+    <div>
+      <%= f.label :language, "Choose language" %>
+      <%= f.select :language, [], {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-32", data: { field_fill_target: "languageSelect" } %>
+    </div>
+
+    <div>
+      <%= f.label :price, "Ticket Price in Rupees (₹)" %>
+      <%= f.number_field :price, class: "remove-arrow block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
   </div>
   
   <div class="my-5">
-    <%= f.label :price, "Ticket Price in Rupees (₹)" %>
-    <%= f.number_field :price, class: "remove-arrow block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= f.hidden_field :screen_id, value: @screen.id %>
   </div>
 
   <div class="flex my-5 gap-x-10">

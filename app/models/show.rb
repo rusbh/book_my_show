@@ -36,11 +36,12 @@ class Show < ApplicationRecord
 
   # home page
   scope :recommended, -> { order(created_at: :desc).active.can_book.take(5) }
-  scope :action, -> { where("'action' = ANY (genres)").active.can_book.take(5) }
-  scope :gujarati, -> { where("'gujarati' = ANY (languages)").active.can_book.take(5) }
+  scope :by_language, lambda { |language|
+                        where(':languages = ANY (languages)', languages: language).active.limit(5)
+                      }
   scope :except_movies, -> { where.not(category: :movie).active.can_book.take(5) }
 
-  scope :active_form, -> { where(status: :active) } # for forms
+  scope :active_form, -> { where(status: :active) } # for forms avoid eager loading
 
   def self.languages
     { 'hindi' => 'Hindi', 'english' => 'English', 'gujarati' => 'Gujarati', 'tamil' => 'Tamil', 'telugu' => 'Telugu' }
@@ -51,8 +52,8 @@ class Show < ApplicationRecord
   end
 
   def self.genres
-    { 'action' => 'action', 'adventure' => 'adventure', 'animation' => 'animation', 'biography' => 'biography',
-      'comedy' => 'comedy', 'crime' => 'crime', 'documentary' => 'documentary', 'drama' => 'drama', 'fantasy' => 'fantasy', 'historical' => 'historical', 'horror' => 'horror', 'romance' => 'romance', 'science_fiction' => 'science_fiction', 'unspecified' => 'unspecified' }
+    { 'action' => 'Action', 'adventure' => 'Adventure', 'animation' => 'Animation', 'biography' => 'Biography',
+      'comedy' => 'Comedy', 'crime' => 'Crime', 'documentary' => 'Documentary', 'drama' => 'Drama', 'fantasy' => 'Fantasy', 'historical' => 'Historical', 'horror' => 'Horror', 'mystery' => 'Mystery', 'romance' => 'Romance', 'science_fiction' => 'Science fiction', 'unspecified' => 'Unspecified' }
   end
 
   def genres=(values)

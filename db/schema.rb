@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_04_110318) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_05_111420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -109,6 +109,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_04_110318) do
     t.date "start_date"
     t.date "end_date"
     t.integer "price"
+    t.string "language"
     t.index ["screen_id"], name: "index_screenings_on_screen_id"
     t.index ["show_id"], name: "index_screenings_on_show_id"
   end

@@ -9,7 +9,7 @@ class Screening < ApplicationRecord
   after_destroy :update_screen_status
   before_create :start_date_before_end_date
 
-  validates :price, :start_date, :end_date, presence: true
+  validates :language, :price, :start_date, :end_date, presence: true
   validates :price, numericality: { greater_than: 0 }
 
   validate :no_overlapping_screenings

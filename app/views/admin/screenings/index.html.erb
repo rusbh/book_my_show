@@ -15,7 +15,7 @@
       <% @screenings.each do |screening| %>
         <a href="<%= admin_screen_screening_path(@screen, screening) %>">
           <%= display_show_poster(screening.show, hover: true) %>
-          <h1 class="text-2xl mt-4 font-semibold"><%= screening.show.name %></h1>
+          <h1 class="text-2xl mt-4 font-semibold"><%= screening.show.name %> - <%= screening.language.capitalize %></h1>
           <p class="text-xl">Price: ₹ <%= screening.price %></p>
           <p class="text-xl mb-3"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
         </a>
