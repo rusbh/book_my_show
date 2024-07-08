@@ -5,6 +5,7 @@
 #     f.inputs do
 #       f.input :theater, label: 'Select Theater'
 #       f.input :screen_name
+#       f.input :seats
 #       f.input :status
 #     end
 #     f.actions

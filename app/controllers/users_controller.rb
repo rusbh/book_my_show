@@ -28,6 +28,6 @@ class UsersController < ApplicationController
   end
 
   def valid_phone_no?(phone_no)
-    phone_no.match?(/\A\+?[0-9]{10,15}\z/)
+    phone_no.match?(/\A\+?[0-9]{10}\z/)
   end
 end

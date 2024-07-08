@@ -13,7 +13,7 @@ class RecurringScreeningsJob
         screening.show_timings.create(
           at_timeof: Time.zone.local(date.year, date.month, date.day, show_time[:at_timeof].hour,
                                      show_time[:at_timeof].min, show_time[:at_timeof].sec),
-          seats: show_time[:seats]
+          seats: screening.screen.seats
         )
       end
     end

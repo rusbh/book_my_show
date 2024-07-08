@@ -107,6 +107,6 @@ class Admin::ScreensController < Admin::BaseController
 
   # Only allow a list of trusted parameters through.
   def screen_params
-    params.require(:screen).permit(:screen_name, :status, :theater_id)
+    params.require(:screen).permit(:screen_name, :seats, :status, :theater_id)
   end
 end
