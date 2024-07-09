@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   include Pundit::Authorization
   include Pagy::Backend
-  
+
   rescue_from ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid, with: :not_found_method
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   # rescue_from NoMethodError, with: :handle_no_method_error
@@ -22,28 +22,28 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name status])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[name status])
   end
 
   private
-                                
+
   def active_admin_controller?
     self.class < ActiveAdmin::BaseController
   end
 
   def user_not_authorized
-    flash[:alert] = "You are not authorized to perform this action."
+    flash[:alert] = 'You are not authorized to perform this action.'
     redirect_back(fallback_location: root_path)
   end
 
-  def handle_no_method_error(exception)
-    flash[:alert] = "Oops! Something went wrong."
+  def handle_no_method_error(_exception)
+    flash[:alert] = 'Oops! Something went wrong.'
     redirect_back(fallback_location: root_path)
   end
 
   def storable_location?
-    request.get? && is_navigational_format? && !devise_controller? && !request.xhr? 
+    request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
   end
 
   def store_user_location!
@@ -51,11 +51,19 @@ class ApplicationController < ActionController::Base
   end
 
   # devise method for redirecting admin to theater portal after login
-  def after_sign_in_path_for(resource_or_scope)
-    if resource&.admin?
+  def after_sign_in_path_for(resource)
+    if resource&.admin? && resource&.active?
       admin_root_path
+    elsif resource&.admin? && resource&.inactive?
+      sign_out resource
+      flash[:error] = "You can't access Theater Admin Panel, Contact Support"
+      root_path
+    elsif resource&.inactive?
+      sign_out resource
+      flash[:error] = "You won't be able to access application, Contact Support"
+      root_path
     else
-      stored_location_for(resource_or_scope) || root_path
+      stored_location_for(resource) || root_path
     end
   end
 end

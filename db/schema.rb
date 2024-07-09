@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_08_055113) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_09_100521) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,6 +56,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_055113) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "admin_requests", force: :cascade do |t|
+    t.string "contact_email"
+    t.bigint "contact_no"
+    t.string "admin_emails"
+    t.string "theater_name"
+    t.text "theater_address"
+    t.integer "pincode"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "bookings", force: :cascade do |t|
     t.integer "ticket", default: 1
     t.date "booking_date"
@@ -69,13 +81,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_055113) do
     t.index ["screening_id"], name: "index_bookings_on_screening_id"
     t.index ["show_timing_id"], name: "index_bookings_on_show_timing_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
-  end
-
-  create_table "cities", force: :cascade do |t|
-    t.string "name"
-    t.string "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "feedbacks", force: :cascade do |t|
@@ -154,6 +159,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_055113) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.index ["theater_id"], name: "index_theater_admins_on_theater_id"
     t.index ["user_id", "theater_id"], name: "unique_pair_of_user_and_theater", unique: true
     t.index ["user_id"], name: "index_theater_admins_on_user_id"
@@ -162,11 +168,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_055113) do
   create_table "theaters", force: :cascade do |t|
     t.string "name"
     t.text "address"
-    t.bigint "city_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
-    t.index ["city_id"], name: "index_theaters_on_city_id"
+    t.integer "status", default: 0
+    t.integer "pincode"
     t.index ["slug"], name: "index_theaters_on_slug", unique: true
   end
 
@@ -180,6 +186,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_055113) do
     t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -196,5 +203,4 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_055113) do
   add_foreign_key "show_timings", "screenings"
   add_foreign_key "theater_admins", "theaters"
   add_foreign_key "theater_admins", "users"
-  add_foreign_key "theaters", "cities"
 end

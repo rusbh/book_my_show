@@ -12,6 +12,10 @@ class User < ApplicationRecord
 
   validates :name, presence: true
 
+  enum status: %i[active inactive]
+
+  scope :active, -> { where(status: :active) }
+
   def send_admin_invitation_email
     raw, hashed = Devise.token_generator.generate(User, :reset_password_token)
     token = raw

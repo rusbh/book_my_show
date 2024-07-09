@@ -26,7 +26,7 @@ ActiveAdmin.register Show do
     f.inputs do
       f.input :name
       f.input :description
-      f.input :poster, as: :file
+      f.input :poster, as: :file, input_html: { accept: 'image/jpeg, image/jpg, image/png' }
       f.input :cast, label: 'Cast: (add comma between entries)'
       f.input :languages, as: :check_boxes, collection: Show.languages.keys.map { |lang| [lang.humanize, lang] }
       f.input :genres, as: :check_boxes, collection: Show.genres.keys.map { |lang| [lang.humanize, lang] }

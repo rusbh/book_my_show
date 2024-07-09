@@ -62,6 +62,7 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
   gem 'bullet'
+  gem "letter_opener", "~> 1.10"
 
   gem "better_errors"
   gem "binding_of_caller"
@@ -83,9 +84,6 @@ gem "sass-rails", "~> 6.0"
 
 # better urls
 gem "friendly_id", "~> 5.5"
-
-# dev mailer
-gem "letter_opener", "~> 1.10"
 
 # charts
 gem "chartkick", "~> 5.0"

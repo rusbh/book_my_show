@@ -4,20 +4,13 @@
 
 <p>New theater admin request</p>
 
-<p>Customer name: <span><%= @admin_details[:user_name] %></span></p>
-<p>Customer Email: <span><%= @admin_details[:user_email] %></span></p>
-<p>Contact No: <span><%= @admin_details[:phone_no] %></span></p>
-<p>Theater Name: <span><%= @admin_details[:theater_name] %></span></p>
-<p>Theater Details: <span><%= @admin_details[:theater_details] %></span></p>
+<p>Customer Email: <span><%= @admin_request[:contact_email] %></span></p>
+<p>Contact No: <span><%= @admin_request[:contact_no] %></span></p>
 
 <h2>Instructions you have to follow</h2>
 
-<p>Contact user on above email.</p>
+<p>Verify all the details with Valid Documents Proofs about theater</p>
 
-<p>Verify all the details with Valid Documents Proofs about theater and user/users</p>
+<p>If all the details are valid then change the status to Approved from Pending on the admin request page</p>
 
-<p>Then Create new user/users on admin panel with discussed email ids and assign each a admin role</p>
-
-<p>Then in the Theater Admin panel assign that user/users to provided theater</p>
-
-<p>And Mail Password Reset instructions to newly becomed Admin to sign to their theater portal</p>
+<p>If there are falsify inforamtion then change status to Rejected</p>

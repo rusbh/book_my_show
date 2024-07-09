@@ -43,8 +43,8 @@ Rails.application.routes.draw do
                sign_up: 'signup'
              }
 
-  get '/theater-inquiry', to: 'users#theater_inquiry'
-  post '/theater-inquiry', to: 'users#theater_inquiry_details'
+  get '/admin_requests', to: 'admin_requests#new'
+  post '/admin_requests', to: 'admin_requests#create'
   get 'up' => 'rails/health#show', as: :rails_health_check
   match '*path', via: :all, to: 'application#not_found_method', constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'

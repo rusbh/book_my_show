@@ -1,0 +1,10 @@
+<% content_for :title, "Theater Request" %>
+
+<div class="mx-auto md:w-2/3 w-full">
+  <h1 class="font-semibold text-3xl">Fill this Form, We will verify details and contact you soon</h1>
+  <hr>
+
+  <%= render "form", admin_request: @admin_request %>
+
+  <%= link_to "Cancel", new_user_registration_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+</div>

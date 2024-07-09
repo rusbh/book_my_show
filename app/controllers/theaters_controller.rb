@@ -3,7 +3,7 @@ class TheatersController < ApplicationController
 
   # GET /theaters or /theaters.json
   def index
-    @pagy, @theaters = pagy(Theater.includes(:city).all)
+    @pagy, @theaters = pagy(Theater.active)
   end
 
   # GET /theaters/1 or /theaters/1.json
@@ -33,6 +33,6 @@ class TheatersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def theater_params
-    params.require(:theater).permit(:name, :address, :city_id)
+    params.require(:theater).permit(:name, :address)
   end
 end

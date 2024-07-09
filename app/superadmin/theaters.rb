@@ -3,10 +3,11 @@ ActiveAdmin.register Theater do
     f.inputs do
       f.input :name
       f.input :address
-      f.input :city_id, as: :select, collection: City.all.map { |c| [c.name, c.id] }
+      f.input :pincode
+      f.input :status
     end
     f.actions
   end
 
-  permit_params :name, :address, :city_id
+  permit_params :name, :address, :pincode, :status
 end

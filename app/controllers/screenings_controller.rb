@@ -2,7 +2,7 @@ class ScreeningsController < ApplicationController
   before_action :set_show
 
   def index
-    @show_screenings = @show.screenings.includes(screen: [theater: :city]).select do |screening|
+    @show_screenings = @show.screenings.includes(screen: :theater).select do |screening|
       last_show_timing = screening.show_timings.order(created_at: :asc).last
       last_show_timing && last_show_timing.seats > 0
     end

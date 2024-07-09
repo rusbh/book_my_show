@@ -1,6 +1,6 @@
 class AdminMailer < ApplicationMailer
-  def admin_request(admin_details)
-    @admin_details = admin_details
+  def admin_request(admin_request)
+    @admin_request = admin_request
     mail to: 'superadmin@bms.com', subject: "New admin request for BMS theater portal"
   end
 

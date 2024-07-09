@@ -2,7 +2,6 @@
   <h1 class="font-semibold text-3xl"><%= theater.name %></h1>
 
   <p class="ml-1 text-2xl mt-2"><%= theater.address %></p>
-  <p class="ml-1 text-xl my-2"><%= theater.city.name %>, <%= theater.city.state %></p>
 
   <% unless theater.average_rating == 0 %>
     <%= turbo_frame_tag "rating_star" do %>

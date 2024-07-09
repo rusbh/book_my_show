@@ -1,8 +1,7 @@
 # Preview all emails at http://localhost:3000/rails/mailers/admin_mailer
 class AdminMailerPreview < ActionMailer::Preview
   def admin_request
-    details = { user_name: 'Admin', user_email: 'admin@rajhans.com', phone_no: '1234567890',
-                theater_name: 'Rajhans Cinema, Vastral', theater_details: 'dsad' }
+    details = { contact_email: 'admin@rajhans.com', contact_no: '1234567890' }
     AdminMailer.admin_request(details)
   end
 
