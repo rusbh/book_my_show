@@ -9,8 +9,8 @@
 
 <h2>Instructions you have to follow</h2>
 
-<p>Verify all the details with Valid Documents Proofs about theater</p>
+<p>Verify all the details with Valid Documents Proofs about theater on <%= link_to "HERE", Rails.application.credentials.dig(:development, :host_url) + Rails.application.routes.url_helpers.superadmin_admin_request_path(@admin_request[:id]), target: "_blank" %></p>
 
-<p>If all the details are valid then change the status to Approved from Pending on the admin request page</p>
+<p>If all the details are valid then change the status to Approved from Pending on the admin request edit page</p>
 
 <p>If there are falsify inforamtion then change status to Rejected</p>

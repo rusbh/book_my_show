@@ -17,11 +17,9 @@ class User < ApplicationRecord
   scope :active, -> { where(status: :active) }
 
   def send_admin_invitation_email
-    raw, hashed = Devise.token_generator.generate(User, :reset_password_token)
-    token = raw
-    self.reset_password_token = hashed
-    self.reset_password_sent_at = Time.now.utc
-    self.save
+    token, hashed = Devise.token_generator.generate(User, :reset_password_token)
+    update!(reset_password_token: hashed, reset_password_sent_at: Time.now.utc)
+    save!
     AdminMailer.admin_invitation(self, token).deliver_later
   end
 
@@ -38,10 +36,10 @@ class User < ApplicationRecord
   end
 
   def user_has_booked?(show)
-    bookings.confirmed.joins(screening: :show).where(screenings: { show: show }).exists?
+    bookings.confirmed.joins(screening: :show).where(screenings: { show: }).exists?
   end
 
   def has_booked_in_theater?(theater)
-    bookings.confirmed.joins(screening: { screen: :theater }).where(screens: { theater: theater }).exists?
+    bookings.confirmed.joins(screening: { screen: :theater }).where(screens: { theater: }).exists?
   end
 end

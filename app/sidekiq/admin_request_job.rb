@@ -14,8 +14,8 @@ class AdminRequestJob
 
     # create user & theater admin
     admin_emails.each do |email|
-      user = User.create!(name: 'user', email:, password: SecureRandom.base36, role: :admin, status: :inactive)
-      TheaterAdmin.create!(theater:, user:, status: :inactive)
+      user = User.create!(name: 'admin', email:, password: SecureRandom.base36, admin: true, status: :inactive)
+      TheaterAdmin.create!(theater:, user:, status: :active)
     end
 
     AdminMailer.admin_request(admin_request).deliver_later

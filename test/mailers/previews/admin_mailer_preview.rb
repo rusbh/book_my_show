@@ -1,8 +1,17 @@
 # Preview all emails at http://localhost:3000/rails/mailers/admin_mailer
 class AdminMailerPreview < ActionMailer::Preview
   def admin_request
-    details = { contact_email: 'admin@rajhans.com', contact_no: '1234567890' }
-    AdminMailer.admin_request(details)
+    AdminMailer.admin_request(AdminRequest.last)
+  end
+
+  def admin_request_approved
+    contact_email = 'approved@rajhans.com'
+    AdminMailer.admin_request_approved(contact_email)
+  end
+
+  def admin_request_rejected
+    contact_email = 'rejected@rajhans.com'
+    AdminMailer.admin_request_rejected(contact_email)
   end
 
   def admin_invitation

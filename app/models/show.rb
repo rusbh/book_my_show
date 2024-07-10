@@ -10,7 +10,7 @@ class Show < ApplicationRecord
   after_update :show_cancelled, if: -> { status_previously_changed? && status == 'cancelled' }
 
   enum category: %i[movie play sport event]
-  enum status: %i[active cancelled]
+  enum status: %i[inactive active cancelled]
 
   validates :name, :description, :cast, :languages, :genres, :category, :status, :duration,
             :release_date, presence: true
@@ -22,7 +22,7 @@ class Show < ApplicationRecord
   validate :genres_must_be_valid
 
   has_one_attached :poster, dependent: :destroy do |attachable|
-    attachable.variant :display, resize_to_limit: [300, 350]
+    attachable.variant :display, resize_to_fit: [300, 350]
   end
 
   validates :poster, attached: true,
@@ -44,7 +44,7 @@ class Show < ApplicationRecord
   scope :active_form, -> { where(status: :active) } # for forms avoid eager loading
 
   def self.languages
-    { 'hindi' => 'Hindi', 'english' => 'English', 'gujarati' => 'Gujarati', 'tamil' => 'Tamil', 'telugu' => 'Telugu' }
+    { 'hindi' => 'hindi', 'english' => 'english', 'gujarati' => 'gujarati', 'tamil' => 'tamil', 'telugu' => 'telugu' }
   end
 
   def languages=(values)

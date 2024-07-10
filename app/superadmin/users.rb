@@ -20,11 +20,6 @@ ActiveAdmin.register User do
       row :created_at
       row :updated_at
     end
-    if user.admin?
-      panel 'Note:' do
-        'If you have to revoke admin role you have to remove admin checkbox tick on editing user page.'
-      end
-    end
   end
 
   form do |f|

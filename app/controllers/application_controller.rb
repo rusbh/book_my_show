@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   # rescue_from NoMethodError, with: :handle_no_method_error
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :store_user_location!, if: :storable_location?
 
   def not_found_method
     render file: Rails.public_path.join('404.html'), status: :not_found, layout: false
@@ -42,28 +41,20 @@ class ApplicationController < ActionController::Base
     redirect_back(fallback_location: root_path)
   end
 
-  def storable_location?
-    request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
-  end
-
-  def store_user_location!
-    store_location_for(:user, request.fullpath)
-  end
-
   # devise method for redirecting admin to theater portal after login
   def after_sign_in_path_for(resource)
-    if resource&.admin? && resource&.active?
+    if resource&.admin? && resource&.active? && TheaterAdmin.find_by(user: resource)&.active?
       admin_root_path
-    elsif resource&.admin? && resource&.inactive?
+    elsif resource&.admin? && TheaterAdmin.find_by(user: resource)&.inactive?
       sign_out resource
-      flash[:error] = "You can't access Theater Admin Panel, Contact Support"
+      flash[:error] = "Due to some reasons you can't access the Theater Admin Panel, Contact Support for details"
       root_path
     elsif resource&.inactive?
       sign_out resource
-      flash[:error] = "You won't be able to access application, Contact Support"
+      flash[:error] = 'Your account got de-activated due to some reasons, Contact Support for details'
       root_path
     else
-      stored_location_for(resource) || root_path
+      super
     end
   end
 end
