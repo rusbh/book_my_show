@@ -1,6 +1,27 @@
 ActiveAdmin.register Show do
   remove_filter :poster_attachment, :poster_blob, :cpics_attachments, :cpics_blobs
 
+  index do
+    selectable_column
+    id_column
+    column :name
+    column :description
+    column :poster do |s|
+      s.poster.filename
+    end
+    column :cast
+    column :category
+    column :duration
+    column :release_date
+    column :slug
+    column :languages
+    column :genres
+    column :status
+    column :created_at
+    column :updated_at
+    actions
+  end
+
   show do
     attributes_table do
       row :name

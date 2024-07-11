@@ -8,3 +8,6 @@ import 'Chart.bundle';
 
 import LocalTime from 'local-time';
 LocalTime.start();
+
+import * as ActiveStorage from '@rails/activestorage';
+ActiveStorage.start();

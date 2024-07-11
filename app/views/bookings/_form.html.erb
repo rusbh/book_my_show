@@ -38,6 +38,6 @@
   </div>
 
   <div class="inline">
-    <%= f.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block mt-5 font-medium cursor-pointer" %>
+    <%= f.submit data: { turbo_submits_with: "Saving..." }, class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block mt-5 font-medium cursor-pointer" %>
   </div>
 <% end %>
