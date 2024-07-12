@@ -10,7 +10,7 @@ class Show < ApplicationRecord
   after_update :show_cancelled, if: -> { status_previously_changed? && status == 'cancelled' }
 
   enum category: %i[movie play sport event]
-  enum status: %i[inactive active cancelled]
+  enum status: %i[inactive active pending cancelled]
 
   validates :name, :description, :cast, :languages, :genres, :category, :status, :duration,
             :release_date, presence: true
@@ -52,8 +52,8 @@ class Show < ApplicationRecord
   end
 
   def self.genres
-    { 'action' => 'Action', 'adventure' => 'Adventure', 'animation' => 'Animation', 'biography' => 'Biography',
-      'comedy' => 'Comedy', 'crime' => 'Crime', 'documentary' => 'Documentary', 'drama' => 'Drama', 'fantasy' => 'Fantasy', 'historical' => 'Historical', 'horror' => 'Horror', 'mystery' => 'Mystery', 'romance' => 'Romance', 'science_fiction' => 'Science fiction', 'unspecified' => 'Unspecified' }
+    { 'action' => 'action', 'adventure' => 'adventure', 'animation' => 'animation', 'biography' => 'biography',
+      'comedy' => 'comedy', 'crime' => 'crime', 'documentary' => 'documentary', 'drama' => 'drama', 'fantasy' => 'dantasy', 'historical' => 'historical', 'horror' => 'horror', 'mystery' => 'mystery', 'romance' => 'romance', 'science_fiction' => 'science fiction', 'unspecified' => 'unspecified' }
   end
 
   def genres=(values)

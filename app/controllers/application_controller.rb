@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     flash[:alert] = 'You are not authorized to perform this action.'
-    redirect_back(fallback_location: root_path)
+    redirect_to root_path
   end
 
   def handle_no_method_error(_exception)
@@ -47,11 +47,11 @@ class ApplicationController < ActionController::Base
       admin_root_path
     elsif resource&.admin? && TheaterAdmin.find_by(user: resource)&.inactive?
       sign_out resource
-      flash[:error] = "Due to some reasons you can't access the Theater Admin Panel, Contact Support for details"
+      flash[:error] = "You can't access the Theater Admin Panel, Contact Support for details"
       root_path
     elsif resource&.inactive?
       sign_out resource
-      flash[:error] = 'Your account got de-activated due to some reasons, Contact Support for details'
+      flash[:error] = "You can't login to application due to some reasons, Contact Support for details"
       root_path
     else
       super

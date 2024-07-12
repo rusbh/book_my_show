@@ -2,13 +2,17 @@
   <% content_for :title, "Theaters" %>
 
   <h1 class="font-bold text-4xl mb-10 underline">All Theaters</h1>
-  
+
   <div id="theaters" class="min-w-full">
-    <% @theaters.each do |theater| %>
-      <%= render theater %>
-      <p>
-        <%= link_to "Show this theater", theater, class: "mb-10 mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
+    <% if @theaters.present? %>
+      <% @theaters.each do |theater| %>
+        <%= render theater %>
+        <p>
+          <%= link_to "Show this theater", theater, class: "mb-10 mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        </p>
+      <% end %>
+    <% else %>
+      <p>No Theaters currently listed</p>
     <% end %>
   </div>
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>

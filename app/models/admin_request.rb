@@ -13,7 +13,7 @@ class AdminRequest < ApplicationRecord
   validates :contact_no, uniqueness: true, length: { is: 10 }
   validates :pincode, length: { is: 6 }
 
-  validate :theater_name_already_exists, :admin_emails_already_exists, on: :create
+  validate :theater_name_already_exists, on: :create
 
   enum status: %i[pending approved rejected]
 
@@ -41,22 +41,22 @@ class AdminRequest < ApplicationRecord
 
   def activate_theater_and_admins
     theater = Theater.find_by(name: theater_name)
-    theater.update!(status: :active)
+    theater&.update!(status: :active)
 
     admin_emails.split(',').map(&:strip).each do |email|
       user = User.find_by(email:)
-      user.update!(status: :active)
-      user.send_admin_invitation_email
+      user&.update!(status: :active)
+      user&.send_admin_invitation_email
     end
   end
 
   def destroy_resources
     theater = Theater.find_by(name: theater_name)
-    theater.destroy!
+    theater&.destroy!
 
     admin_emails.split(',').map(&:strip).each do |email|
       user = User.find_by(email:)
-      user.destroy!
+      user&.destroy!
     end
   end
 

@@ -1,10 +1,13 @@
 <% content_for :title, "Book Now" %>
 
 <% if @show_screenings.present? %>
-  <h1 class="text-3xl underline font-medium mb-7"><%= @show_screenings.first.show.name %>'s screenings in theaters</h1>
+  <div class="flex items-center gap-x-5">
+    <%= link_to '←', show_path(@show_screenings.first.show), class: "text-2xl inline-block font-medium hover:scale-105" %>
+    <h1 class="text-3xl font-medium"><%= @show_screenings.first.show.name %>'s screenings in theaters</h1>
+  </div>
   <% @show_screenings.each_with_index do |ss, index| %>
     <% last_show_time = @last_show_times[index] %>
-    
+
     <% if last_show_time && Time.now < last_show_time  %>
       <section class="my-5 flex justify-between items-center">
         <div>

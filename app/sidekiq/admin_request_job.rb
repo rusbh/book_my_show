@@ -14,7 +14,12 @@ class AdminRequestJob
 
     # create user & theater admin
     admin_emails.each do |email|
-      user = User.create!(name: 'admin', email:, password: SecureRandom.base36, admin: true, status: :inactive)
+      user = User.find_by(email:)
+      if user.present?
+        user.update!(admin: true, status: :inactive)
+      else
+        user = User.create!(name: 'admin', email:, password: SecureRandom.base36, admin: true, status: :inactive)
+      end
       TheaterAdmin.create!(theater:, user:, status: :active)
     end
 
