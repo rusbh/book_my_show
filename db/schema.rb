@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_09_100521) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_21_101908) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,6 +81,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_09_100521) do
     t.index ["screening_id"], name: "index_bookings_on_screening_id"
     t.index ["show_timing_id"], name: "index_bookings_on_show_timing_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "event_requests", force: :cascade do |t|
+    t.bigint "theater_id", null: false
+    t.string "name"
+    t.text "description"
+    t.string "cast"
+    t.string "languages", default: [], array: true
+    t.string "genres", default: [], array: true
+    t.integer "category"
+    t.integer "duration", default: 120
+    t.date "release_date"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["theater_id"], name: "index_event_requests_on_theater_id"
   end
 
   create_table "feedbacks", force: :cascade do |t|
@@ -196,6 +212,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_09_100521) do
   add_foreign_key "bookings", "screenings"
   add_foreign_key "bookings", "show_timings"
   add_foreign_key "bookings", "users"
+  add_foreign_key "event_requests", "theaters"
   add_foreign_key "feedbacks", "users"
   add_foreign_key "screenings", "screens"
   add_foreign_key "screenings", "shows"

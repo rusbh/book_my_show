@@ -23,7 +23,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :event_requests, only: %i[index]
   resources :theaters, only: %i[index show] do
+    member do
+      get "event-request", to: "event_requests#new", as: :event_request
+    end
     resources :feedbacks, only: %i[create update destroy edit]
   end
 
@@ -43,8 +47,8 @@ Rails.application.routes.draw do
                sign_up: 'signup'
              }
 
-  get '/admin_requests', to: 'admin_requests#new'
-  post '/admin_requests', to: 'admin_requests#create'
+  get '/admin-requests', to: 'admin_requests#new'
+  post '/admin-requests', to: 'admin_requests#create'
   get 'up' => 'rails/health#show', as: :rails_health_check
   match '*path', via: :all, to: 'application#not_found_method', constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'
