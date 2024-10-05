@@ -1,12 +1,10 @@
 class TheatersController < ApplicationController
   before_action :set_theater, only: %i[show]
 
-  # GET /theaters or /theaters.json
   def index
     @pagy, @theaters = pagy(Theater.active)
   end
 
-  # GET /theaters/1 or /theaters/1.json
   def show
     @theater_shows = Show.active.joins(screenings: :screen).where(screens: { theater_id: @theater.id }).distinct
 
@@ -26,12 +24,10 @@ class TheatersController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_theater
     @theater = Theater.friendly.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def theater_params
     params.require(:theater).permit(:name, :address)
   end

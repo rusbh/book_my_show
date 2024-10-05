@@ -100,12 +100,10 @@ class Admin::ScreensController < Admin::BaseController
     end
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_screen
     @screen = Screen.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def screen_params
     params.require(:screen).permit(:screen_name, :seats, :status, :theater_id)
   end
