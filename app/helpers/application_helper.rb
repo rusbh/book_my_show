@@ -22,6 +22,10 @@ module ApplicationHelper
     date.strftime("%d %B, %Y")
   end
 
+  def format_time(time)
+    time.strftime("%I:%M %p")
+  end
+
   def format_datetime(datetime)
     datetime.strftime("%d %B, %y at %I:%M %p")
   end

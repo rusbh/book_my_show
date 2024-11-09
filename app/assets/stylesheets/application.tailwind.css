@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* slim - multiple select */
+@import url('https://unpkg.com/slim-select@latest/dist/slimselect.css');
+
 /* Pagy nav styles */
 .pagy {
   @apply flex space-x-1 font-semibold text-sm text-gray-500;

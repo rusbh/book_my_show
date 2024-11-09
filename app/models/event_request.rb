@@ -1,21 +1,17 @@
-class Show < ApplicationRecord
-  extend FriendlyId
-  friendly_id :name, use: :slugged
+class EventRequest < ApplicationRecord
+  after_update :handle_status_change, if: -> { status_previously_changed?(from: :pending) }
+  before_create :release_date_before_end_date
 
-  belongs_to :event_request, optional: true
+  belongs_to :theater
+  belongs_to :user
 
-  has_many :screenings, dependent: :destroy
-  has_many :screens, through: :screenings
-  has_many :bookings, through: :screenings, dependent: :destroy
-  has_many :feedbacks, as: :commentable, dependent: :destroy
-
-  after_update :show_cancelled, if: -> { status_previously_changed? && status == 'cancelled' }
+  has_one :show
 
   enum category: %i[movie play sport event]
-  enum status: %i[inactive active pending cancelled]
+  enum status: %i[pending approved rejected]
 
   validates :name, :description, :cast, :languages, :genres, :category, :status, :duration,
-            :release_date, presence: true
+            :release_date, :end_date, :at_timeof, presence: true
   validates :category, inclusion: { in: categories.keys }
   validates :duration,
             inclusion: { in: 30..1440,
@@ -26,6 +22,7 @@ class Show < ApplicationRecord
   has_one_attached :poster, dependent: :destroy do |attachable|
     attachable.variant :display, resize_to_fit: [300, 350]
   end
+  has_one_attached :permit, dependent: :destroy
 
   validates :poster, attached: true,
                      content_type: { in: %w[image/jpeg image/jpg image/png], message: 'must be valid image format' },
@@ -33,20 +30,13 @@ class Show < ApplicationRecord
                      dimension: { width: { min: 200, max: 600 },
                                   height: { min: 200, max: 600 } }
 
-  scope :active, -> { where(status: :active).includes(poster_attachment: :blob) }
-  scope :can_book, -> { joins(:screenings).distinct }
-  scope :active_forms, -> { where(status: :active) } # when using in forms avoid eager loading
-  scope :available, -> { active_forms.where.missing(:event_request) }
-
-  # home page
-  scope :recommended, -> { order(created_at: :desc).active.can_book.take(5) }
-  scope :by_language, lambda { |language|
-                        where(':languages = ANY (languages)', languages: language).active.limit(5)
-                      }
-  scope :except_movies, -> { where.not(category: :movie).active.can_book.take(5) }
+  validates :permit, attached: true,
+                     content_type: { in: %w[application/pdf], message: 'must be valid pdf format' },
+                     size: { between: 1.kilobyte..10.megabytes, message: 'should be less than 10 MB' }
 
   def self.languages
-    { 'hindi' => 'hindi', 'english' => 'english', 'gujarati' => 'gujarati', 'tamil' => 'tamil', 'telugu' => 'telugu' }
+    { 'hindi' => 'hindi', 'english' => 'english', 'gujarati' => 'gujarati',
+      'tamil' => 'tamil', 'telugu' => 'telugu' }
   end
 
   def languages=(values)
@@ -62,10 +52,6 @@ class Show < ApplicationRecord
     super(values.reject(&:blank?))
   end
 
-  def average_rating
-    feedbacks.average(:rating).to_f.round(1)
-  end
-
   def languages_must_be_valid
     invalid_languages = languages - self.class.languages.keys
     errors.add(:languages, 'contains invalid languages') if invalid_languages.any?
@@ -78,7 +64,31 @@ class Show < ApplicationRecord
 
   private
 
-  def show_cancelled
-    screenings.destroy_all
+  def handle_status_change
+    if approved?
+      activate_show_amd_inform_admins
+      EventRequestMailer.event_request_approved(self).deliver_later
+    elsif rejected?
+      reject_show_request
+    end
+  end
+
+  def activate_show_amd_inform_admins
+    show = Show.find_by(name:)
+    show&.update!(status: :active)
+    EventRequestMailer.theater_event_request(self).deliver_later
+  end
+
+  def reject_show_request
+    show = Show.find_by(name:)
+    show&.destroy!
+    EventRequestMailer.event_request_rejected(self).deliver_later
+  end
+
+  def release_date_before_end_date
+    return unless release_date > end_date
+
+    errors.add(:release_date, 'must be before the end date')
+    throw(:abort)
   end
 end

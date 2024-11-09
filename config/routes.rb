@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   resources :theaters, only: %i[index show] do
     resources :feedbacks, only: %i[create update destroy edit]
+    resources :event_requests, only: %i[create new]
   end
 
   namespace :admin do
@@ -43,8 +44,8 @@ Rails.application.routes.draw do
                sign_up: 'signup'
              }
 
-  get '/admin_requests', to: 'admin_requests#new'
-  post '/admin_requests', to: 'admin_requests#create'
+  get '/admin-requests', to: 'admin_requests#new'
+  post '/admin-requests', to: 'admin_requests#create'
   get 'up' => 'rails/health#show', as: :rails_health_check
   match '*path', via: :all, to: 'application#not_found_method', constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'

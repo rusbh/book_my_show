@@ -39,3 +39,6 @@
 
 # sidekiq
 dump.rdb
+
+# Ignore rbenv gemset name
+.rbenv-gemsets
