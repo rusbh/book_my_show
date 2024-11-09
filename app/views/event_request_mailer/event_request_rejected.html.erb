@@ -1,0 +1,9 @@
+<h1>Book My Show Theater Portal</h1>
+
+<h2>Hello, <%= @event_request.user.email %></h2>
+
+<p>We regret to inform you, We have rejected your event request for <%= link_to @event_request.theater.name.humanize, Rails.application.credentials.dig(:development, :host_url) + Rails.application.routes.url_helpers.theater_path(@event_request.theater), target: "_blank" %></p>
+
+<p>You could not provide valid information or documents to provide permits hence we have rejected your request</p>
+
+<p>If any query then, drop us a reply mail</p>

@@ -2,6 +2,8 @@ class Show < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  belongs_to :event_request, optional: true
+
   has_many :screenings, dependent: :destroy
   has_many :screens, through: :screenings
   has_many :bookings, through: :screenings, dependent: :destroy
@@ -33,6 +35,8 @@ class Show < ApplicationRecord
 
   scope :active, -> { where(status: :active).includes(poster_attachment: :blob) }
   scope :can_book, -> { joins(:screenings).distinct }
+  scope :active_forms, -> { where(status: :active) } # when using in forms avoid eager loading
+  scope :available, -> { active_forms.where.missing(:event_request) }
 
   # home page
   scope :recommended, -> { order(created_at: :desc).active.can_book.take(5) }
@@ -40,8 +44,6 @@ class Show < ApplicationRecord
                         where(':languages = ANY (languages)', languages: language).active.limit(5)
                       }
   scope :except_movies, -> { where.not(category: :movie).active.can_book.take(5) }
-
-  scope :active_form, -> { where(status: :active) } # for forms avoid eager loading
 
   def self.languages
     { 'hindi' => 'hindi', 'english' => 'english', 'gujarati' => 'gujarati', 'tamil' => 'tamil', 'telugu' => 'telugu' }

@@ -11,6 +11,9 @@ class Admin::ScreeningsController < Admin::BaseController
   def new
     @screening = Screening.new
     @screening.show_timings.build
+    event_requested_shows = EventRequest.where(theater: @theater).pluck(:name)
+    shows = Show.where(name: event_requested_shows)
+    @available_shows = Show.available + shows
   end
 
   def create

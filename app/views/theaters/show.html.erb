@@ -24,7 +24,7 @@
     <h1 class="text-xl">No shows currently running in this theater</h1>
   <% end %>
 
-  <h1 class="text-2xl my-10">List your show/event for this theater <%= link_to "here", event_request_theater_path, class: "underline text-blue-500" %></h1>
+  <h1 class="text-2xl my-10">Request your show/event in this theater <%= link_to "here", new_theater_event_request_path(@theater), class: "underline text-blue-500" %></h1>
   
   <h2 class="text-2xl font-semibold mt-10">
     <%= turbo_frame_tag "count" do %>

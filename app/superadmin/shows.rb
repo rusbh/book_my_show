@@ -16,6 +16,7 @@ ActiveAdmin.register Show do
     column :slug
     column :languages
     column :genres
+    column :event_request
     column :status
     column :created_at
     column :updated_at
@@ -39,6 +40,7 @@ ActiveAdmin.register Show do
       row :category
       row 'Duration of show (in Minutes)', &:duration
       row :release_date
+      row :event_request
       row :status
     end
   end
@@ -54,12 +56,13 @@ ActiveAdmin.register Show do
       f.input :category
       f.input :duration, label: 'Duration of show (in Minutes)'
       f.input :release_date
+      f.input :event_request
       f.input :slug, label: 'name helper for url' unless f.object.new_record?
       f.input :status
     end
     f.actions
   end
 
-  permit_params :name, :description, :poster, :cast, :category, :status, :duration, :release_date, :slug,
+  permit_params :name, :description, :poster, :cast, :category, :status, :duration, :release_date, :slug, :event_request,
                 languages: [], genres: []
 end

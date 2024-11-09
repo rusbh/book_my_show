@@ -1,5 +1,34 @@
 ActiveAdmin.register EventRequest do
-  remove_filter :poster_attachment, :poster_blob, :permits_attachments, :permits_blobs, :cpics_attachments, :cpics_blobs
+  remove_filter :poster_attachment, :poster_blob, :permit_attachment, :permit_blob, :cpics_attachments, :cpics_blobs
+
+  index do
+    selectable_column
+    id_column
+    column :theater
+    column :user do |t|
+      link_to t.user.email, superadmin_user_path(t.user)
+    end
+    column :name
+    column :description
+    column :poster do |s|
+      s.poster.filename
+    end
+    column :cast
+    column :category
+    column :duration
+    column :release_date
+    column :end_date
+    column :at_timeof
+    column :languages
+    column :genres
+    column :permit do |s|
+      s.permit.filename
+    end
+    column :status
+    column :created_at
+    column :updated_at
+    actions
+  end
 
   show do
     attributes_table do
@@ -19,10 +48,12 @@ ActiveAdmin.register EventRequest do
       row :category
       row 'Duration of show (in Minutes)', &:duration
       row :release_date
-      row :permits do |p|
-        p.permits.each do |i|
-          image_tag url_for(p)
-        end
+      row :end_date
+      row :at_timeof
+      row :permit do |p|
+        permit_preview = image_tag url_for(p.permit.representation(resize: '500x500'))
+        permit_link = link_to "#{p.permit.filename} - Download", rails_blob_path(p.permit, disposition: 'attachment')
+        raw("#{permit_preview} #{permit_link}")
       end
       row :status
     end
@@ -40,12 +71,14 @@ ActiveAdmin.register EventRequest do
       f.input :category
       f.input :duration, label: 'Duration of show (in Minutes)'
       f.input :release_date
-      f.input :permits, as: :file, input_html: { accept: 'image/jpeg, image/jpg, image/png', multiple: true }
+      f.input :end_date
+      f.input :at_timeof
+      f.input :permit, as: :file
       f.input :status
     end
     f.actions
   end
 
-  permit_params :theater_id, :name, :description, :poster, :cast, :category, :duration, :release_date, :status,
-                languages: [], genres: [], permits: []
+  permit_params :theater_id, :name, :description, :poster, :cast, :category, :duration, :release_date, :end_date, :at_timeof, :status,
+                :permit, languages: [], genres: []
 end

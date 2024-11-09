@@ -1,15 +1,15 @@
 <% content_for :title, "Shows" %>
 
 <section class="flex justify-between mb-10">
-  <h1 class="font-semibold text-3xl underline">Browse all</h1>
+  <h1 class="text-3xl font-semibold underline">Browse all</h1>
   <div class="flex items-center gap-x-2">
-    <span class="text-xl">Filter By</span>
+    <span class="text-md">Filter By</span>
 
     <%= search_form_for @q, url: shows_path, method: :get, class: "contents" do |f| %>
       <%= f.select :languages_array_contains, Show.pluck(:languages).flatten.uniq, { include_blank: "Select Language" }, { onchange: "this.form.requestSubmit()" } %>
       <%= f.select :genres_array_contains, Show.pluck(:genres).flatten.uniq, { include_blank: "Select Genre" }, { onchange: "this.form.requestSubmit()" } %>
       <%= f.select :category_eq, Show.categories, { include_blank: "Select Show Type" }, { onchange: "this.form.requestSubmit()" } %>
-      <div class="flex items-center gap-x-2 ml-2">
+      <div class="flex items-center ml-2 gap-x-2">
         <%= check_box_tag :booking_available, '1', params[:booking_available] == '1', onchange: "this.form.requestSubmit()", class: "h-6 w-6 cursor-pointer rounded-md" %>
         <%= label_tag :booking_available, "Bookings available", class: "cursor-pointer text-xl" %>
       </div>
@@ -21,16 +21,16 @@
 </section>
 
 <% if @all_shows.present? %>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-10">
+  <div class="grid grid-cols-1 gap-4 mb-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
     <% @all_shows.each do |show| %>
       <a href="<%= show_path(show) %>">
         <%= display_show_poster(show, hover: true) %>
-        <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
+        <h1 class="my-4 text-2xl font-semibold"><%= show.name %></h1>
       </a>
     <% end %>
   </div>
 <% else %>
-  <h1 class="text-center text-4xl mt-52 font-semibold">No Results</h1>
+  <h1 class="text-4xl font-semibold text-center mt-52">No Results</h1>
 <% end %>
 
 <%== pagy_nav(@pagy) if @pagy.pages > 1 %>

@@ -23,12 +23,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :event_requests, only: %i[index]
   resources :theaters, only: %i[index show] do
-    member do
-      get "event-request", to: "event_requests#new", as: :event_request
-    end
     resources :feedbacks, only: %i[create update destroy edit]
+    resources :event_requests, only: %i[create new]
   end
 
   namespace :admin do

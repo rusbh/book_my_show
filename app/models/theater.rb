@@ -8,7 +8,7 @@ class Theater < ApplicationRecord
 
   has_many :theater_admins, dependent: :destroy
   has_many :admins, through: :theater_admins, source: :user
-  has_many :event_requests
+  has_many :event_requests, dependent: :destroy
 
   enum status: %i[inactive active]
 

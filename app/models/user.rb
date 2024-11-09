@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_many :bookings, dependent: :destroy
   has_many :feedbacks, dependent: :destroy
+  has_many :event_requests, dependent: :destroy
 
   validates :name, presence: true
 

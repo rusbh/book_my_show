@@ -1,8 +1,8 @@
 <div class="w-full">
   <% content_for :title, "Screenings" %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-semibold mb-4 text-4xl">Shows for this Screen - <%= @screen.screen_name %></h1>
+  <div class="flex items-center justify-between">
+    <h1 class="mb-4 text-4xl font-semibold">Shows for this Screen - <%= @screen.screen_name %></h1>
     <% if @screen.idle? || @screen.running? %>
       <%= link_to "Add new show", new_admin_screen_screening_path(@screen), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>
     <% else %>
@@ -11,21 +11,21 @@
   </div>
 
   <% if @screenings.exists? %>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mt-5">
+    <div class="grid grid-cols-1 gap-4 mt-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
       <% @screenings.each do |screening| %>
         <a href="<%= admin_screen_screening_path(@screen, screening) %>">
           <%= display_show_poster(screening.show, hover: true) %>
-          <h1 class="text-2xl mt-4 font-semibold"><%= screening.show.name %> - <%= screening.language.capitalize %></h1>
+          <h1 class="mt-4 text-2xl font-semibold"><%= screening.show.name %> - <%= screening.language.capitalize %></h1>
           <p class="text-xl">Price: ₹ <%= screening.price %></p>
-          <p class="text-xl mb-3"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
+          <p class="mb-3 text-xl"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
         </a>
       <% end %>
     </div>
   <% else %>
     <% unless @screen.idle? || @screen.running? %>
-      <p class="text-3xl font-semibold text-center mt-32">This Screen is in Maintenance / Unavailable</p>
+      <p class="mt-32 text-3xl font-semibold text-center">This Screen is in Maintenance / Unavailable</p>
     <% else %>
-      <p class="text-3xl font-semibold text-center mt-32">No shows scheduled or Running currently for this screen</p>
+      <p class="mt-32 text-3xl font-semibold text-center">No shows scheduled or Running currently for this screen</p>
     <% end %>
   <% end %>
 
