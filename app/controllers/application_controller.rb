@@ -36,14 +36,14 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
-  def handle_no_method_error(_exception)
-    flash[:alert] = 'Oops! Something went wrong.'
+  def handle_no_method_error(exception)
+    flash[:alert] = exception.message || 'Oops! Something went wrong.'
     redirect_back(fallback_location: root_path)
   end
 
   # devise method for redirecting admin to theater portal after login
   def after_sign_in_path_for(resource)
-    if resource&.admin? && resource&.active? && TheaterAdmin.find_by(user: resource)&.active?
+    if resource&.admin? && resource.active? && TheaterAdmin.find_by(user: resource)&.active?
       admin_root_path
     elsif resource&.admin? && TheaterAdmin.find_by(user: resource)&.inactive?
       sign_out resource

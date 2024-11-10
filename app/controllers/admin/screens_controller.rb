@@ -3,7 +3,7 @@ class Admin::ScreensController < Admin::BaseController
   before_action :set_screen, only: %i[show edit update destroy]
 
   def index
-    @screens = @theater.screens.order(created_at: :asc)
+    @screens = @theater.screens
 
     @screen_shows = Show.active.joins(screenings: :screen).where(screens: { theater_id: @theater.id }).distinct
 
@@ -66,7 +66,7 @@ class Admin::ScreensController < Admin::BaseController
   end
 
   def switch_theater
-    theater = Theater.friendly.find(params[:theater_id])
+    theater = Theater.find(params[:theater_id])
     if current_user.theaters.include?(theater)
       session[:current_theater] = theater.id
       redirect_to admin_root_path, notice: 'Switched theater successfully.'
@@ -93,6 +93,6 @@ class Admin::ScreensController < Admin::BaseController
   end
 
   def screen_params
-    params.require(:screen).permit(:screen_name, :seats, :status, :theater_id)
+    params.require(:screen).permit(:screen_name, :seats, :status).merge(theater: @theater)
   end
 end

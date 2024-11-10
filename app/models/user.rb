@@ -36,7 +36,7 @@ class User < ApplicationRecord
     bookings.cancelled
   end
 
-  def user_has_booked?(show)
+  def has_booked?(show)
     bookings.confirmed.joins(screening: :show).where(screenings: { show: }).exists?
   end
 

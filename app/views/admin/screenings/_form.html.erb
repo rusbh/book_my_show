@@ -16,7 +16,7 @@
 
   <div class="my-5">
     <%= f.label :show_id, "Pick a Show" %>
-    <%= f.collection_select :show_id, @available_shows, :id, :name, {}, data: { controller: 'slim-select', field_fill_target: "showSelect" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= f.collection_select :show_id, @available_shows || [], :id, :name, {}, data: { controller: 'slim-select', field_fill_target: "showSelect" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="flex my-5 gap-x-10">
@@ -29,9 +29,6 @@
       <%= f.label :price, "Ticket Price in Rupees (₹)" %>
       <%= f.number_field :price, placeholder: "Price (₹)", class: "remove-arrow block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-48" %>
     </div>
-  </div>
-  <div class="my-5">
-    <%= f.hidden_field :screen_id, value: @screen.id %>
   </div>
 
   <div class="flex my-5 gap-x-10">

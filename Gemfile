@@ -63,9 +63,6 @@ group :development do
   # gem "spring"
   gem 'bullet'
   gem "letter_opener", "~> 1.10"
-
-  gem "better_errors"
-  gem "binding_of_caller"
 end
 
 group :test do

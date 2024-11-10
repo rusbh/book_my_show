@@ -11,7 +11,6 @@ class BookingsController < ApplicationController
     @booking = @screening.bookings.new(booking_params)
     @booking.booking_date = @booking.show_timing&.at_timeof
     @booking.total_price = (@booking.ticket * @booking.screening.price).round(2)
-    @booking.user = current_user
     authorize @booking
 
     if @booking.save
@@ -41,6 +40,8 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:ticket, :booking_date, :total_price, :show_timing_id, :status, :screening_id)
+    params.require(:booking).permit(:ticket, :booking_date, :total_price, :show_timing_id, :status).merge(
+      user: current_user
+    )
   end
 end

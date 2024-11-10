@@ -6,7 +6,6 @@ class FeedbacksController < ApplicationController
 
   def create
     @feedback = @commentable.feedbacks.new(feedback_params)
-    @feedback.user = current_user
     authorize @feedback
 
     if @feedback.save
@@ -50,7 +49,7 @@ class FeedbacksController < ApplicationController
   private
 
   def feedback_params
-    params.require(:feedback).permit(:comment, :rating, :commentable_id, :commentable_type)
+    params.require(:feedback).permit(:comment, :rating, :commentable_id, :commentable_type).merge(user: current_user)
   end
 
   def set_commentable

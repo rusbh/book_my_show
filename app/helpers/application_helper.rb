@@ -6,6 +6,11 @@ module ApplicationHelper
     page_title.empty? ? base_title : page_title + " | " + base_title
   end
 
+  def admin_portal_title(page_title = "")
+    base_title = "Theater Portal"
+    page_title.empty? ? base_title : page_title + " | " + base_title
+  end
+
   def formatted_duration(time)
     hours = time / 60
     minutes = time % 60

@@ -14,10 +14,10 @@ class ShowsController < ApplicationController
     @feedback = @show.feedbacks.new
 
     @reviews_count = @show.feedbacks.count
-    @pagy, @show_feedbacks = pagy(@show.feedbacks.order(created_at: :desc).includes(:user))
+    @pagy, @show_feedbacks = pagy(@show.feedbacks.includes(:user).order(created_at: :desc))
 
     @user_has_feedback = @show.feedbacks.find_by(user_id: current_user&.id)
-    @user_has_booked = current_user&.user_has_booked?(@show)
+    @user_has_booked = current_user&.has_booked?(@show)
   end
 
   def languages

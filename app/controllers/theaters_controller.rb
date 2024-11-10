@@ -16,7 +16,7 @@ class TheatersController < ApplicationController
     @feedback = @theater.feedbacks.new
 
     @feedbacks_count = @theater.feedbacks.count
-    @pagy, @theater_feedbacks = pagy(@theater.feedbacks.order(created_at: :desc).includes(:user))
+    @pagy, @theater_feedbacks = pagy(@theater.feedbacks.includes(:user).order(created_at: :desc))
 
     @user_has_booked_in_theater = current_user&.has_booked_in_theater?(@theater)
     @user_has_feedback = @theater.feedbacks.find_by(user_id: current_user&.id)

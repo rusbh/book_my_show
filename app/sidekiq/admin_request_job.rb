@@ -10,17 +10,19 @@ class AdminRequestJob
     admin_emails = admin_request.admin_emails.split(',').map(&:strip)
 
     # create theatre
-    theater = Theater.create!(name: theater_name, address: theater_address, pincode: theater_pincode, status: :inactive)
+    ActiveRecord::Base.transaction do
+      theater = Theater.create!(name: theater_name, address: theater_address, pincode: theater_pincode,
+                                status: :inactive)
 
-    # create user & theater admin
-    admin_emails.each do |email|
-      user = User.find_by(email:)
-      if user.present?
-        user.update!(admin: true, status: :inactive)
-      else
-        user = User.create!(name: 'admin', email:, password: SecureRandom.base36, admin: true, status: :inactive)
+      admin_emails.each do |email|
+        user = User.find_by(email:)
+        if user.present?
+          user.update!(admin: true, status: :inactive)
+        else
+          user = User.create!(name: 'admin', email:, password: SecureRandom.base36, admin: true, status: :inactive)
+        end
+        TheaterAdmin.create!(theater:, user:, status: :active)
       end
-      TheaterAdmin.create!(theater:, user:, status: :active)
     end
 
     AdminMailer.admin_request(admin_request).deliver_later

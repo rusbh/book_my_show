@@ -40,8 +40,10 @@ class AdminRequest < ApplicationRecord
   end
 
   def activate_theater_and_admins
-    theater = Theater.find_by(name: theater_name)
-    theater&.update!(status: :active)
+    ActiveRecord::Base.transaction do
+      theater = Theater.find_by(name: theater_name)
+      theater&.update!(status: :active)
+    end
 
     admin_emails.split(',').map(&:strip).each do |email|
       user = User.find_by(email:)
@@ -62,11 +64,5 @@ class AdminRequest < ApplicationRecord
 
   def theater_name_already_exists
     errors.add(:theater_name, 'with this name already exists') if Theater.find_by(name: theater_name).present?
-  end
-
-  def admin_emails_already_exists
-    admin_emails.split(',').map(&:strip).each do |email|
-      errors.add(:admin_emails, "#{email} is already a registered user") if User.find_by(email:).present?
-    end
   end
 end

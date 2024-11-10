@@ -43,7 +43,7 @@ class Screening < ApplicationRecord
   end
 
   def update_screen_status
-    if screen.screenings.where('start_date <= ? AND end_date >= ?', Time.current, Time.current).exists?
+    if screen.screenings.where('start_date <= :current_time AND end_date >= :current_time', current_time: Time.current).exists?
       screen.update(status: :running)
     else
       screen.update(status: :idle)

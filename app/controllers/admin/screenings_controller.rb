@@ -3,6 +3,7 @@ class Admin::ScreeningsController < Admin::BaseController
   before_action :set_screen
   before_action :set_screening, only: %i[show edit update destroy]
   before_action :set_show, only: %i[show edit update destroy]
+  before_action :get_event_requested_shows, only: %i[new edit]
 
   def index
     @screenings = @screen.screenings.includes(show: [poster_attachment: :blob]).where(shows: { status: :active })
@@ -11,9 +12,6 @@ class Admin::ScreeningsController < Admin::BaseController
   def new
     @screening = Screening.new
     @screening.show_timings.build
-    event_requested_shows = EventRequest.where(theater: @theater).pluck(:name)
-    shows = Show.where(name: event_requested_shows)
-    @available_shows = Show.available + shows
   end
 
   def create
@@ -41,7 +39,7 @@ class Admin::ScreeningsController < Admin::BaseController
   end
 
   def show
-    @pagy, @show_timings = pagy(@screening.show_timings.order(at_timeof: :asc), items: 6)
+    @pagy, @show_timings = pagy(@screening.show_timings, items: 6)
   end
 
   def destroy
@@ -52,6 +50,12 @@ class Admin::ScreeningsController < Admin::BaseController
   end
 
   private
+
+  def get_event_requested_shows
+    event_requested_shows = EventRequest.where(theater: @theater).pluck(:name)
+    shows = Show.where(name: event_requested_shows)
+    @available_shows = Show.available + shows
+  end
 
   def set_theater
     if session[:current_theater]
@@ -76,7 +80,7 @@ class Admin::ScreeningsController < Admin::BaseController
   end
 
   def screening_params
-    params.require(:screening).permit(:show_id, :screen_id, :language, :price, :start_date, :end_date,
-                                      show_timings_attributes: %i[id at_timeof seats _destroy])
+    params.require(:screening).permit(:show_id, :language, :price, :start_date, :end_date,
+                                      show_timings_attributes: %i[id at_timeof seats _destroy]).merge(screen: @screen)
   end
 end

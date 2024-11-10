@@ -1,6 +1,6 @@
-<div class="w-full">
-  <% content_for :title, "Screenings" %>
+<% content_for :title, "Screenings" %>
 
+<div class="w-full">
   <div class="flex items-center justify-between">
     <h1 class="mb-4 text-4xl font-semibold">Shows for this Screen - <%= @screen.screen_name %></h1>
     <% if @screen.idle? || @screen.running? %>
