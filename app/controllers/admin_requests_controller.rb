@@ -6,17 +6,11 @@ class AdminRequestsController < ApplicationController
   def create
     @admin_request = AdminRequest.new(admin_request_params)
 
-    respond_to do |format|
-      if @admin_request.save
-        AdminRequestJob.perform_async(@admin_request.id)
-        format.html do
-          redirect_to root_path, notice: 'Thank you for submitting the form, We will contact you details soon'
-        end
-        format.json { render :show, status: :created, location: @admin_request }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @admin_request.errors, status: :unprocessable_entity }
-      end
+    if @admin_request.save
+      AdminRequestJob.perform_async(@admin_request.id)
+      redirect_to root_path, notice: 'Thank you for submitting the form, We will contact you details soon'
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 

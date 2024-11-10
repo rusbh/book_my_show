@@ -41,14 +41,10 @@ class Admin::ScreensController < Admin::BaseController
     @screen = Screen.new(screen_params)
     authorize @screen
 
-    respond_to do |format|
-      if @screen.save
-        format.html { redirect_to admin_screen_url(@screen), notice: 'Screen was successfully created.' }
-        format.json { render :show, status: :created, location: @screen }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @screen.errors, status: :unprocessable_entity }
-      end
+    if @screen.save
+      redirect_to admin_screen_url(@screen), notice: 'Screen was successfully created.'
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -56,25 +52,17 @@ class Admin::ScreensController < Admin::BaseController
 
   def update
     authorize @screen
-    respond_to do |format|
-      if @screen.update(screen_params)
-        format.html { redirect_to admin_screen_url(@screen), notice: 'Screen was successfully updated.' }
-        format.json { render :show, status: :ok, location: @screen }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @screen.errors, status: :unprocessable_entity }
-      end
+    if @screen.update(screen_params)
+      redirect_to admin_screen_url(@screen), notice: 'Screen was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     authorize @screen
     @screen.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to admin_root_url, notice: 'Screen was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to admin_root_url, notice: 'Screen was successfully destroyed.'
   end
 
   def switch_theater

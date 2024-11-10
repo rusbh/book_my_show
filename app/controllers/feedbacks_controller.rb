@@ -9,13 +9,11 @@ class FeedbacksController < ApplicationController
     @feedback.user = current_user
     authorize @feedback
 
-    respond_to do |format|
-      if @feedback.save
-        format.html { redirect_to @commentable }
-      else
-        flash[:alert] = 'All fields are required'
-        format.html { render @commentable, status: :unprocessable_entity }
-      end
+    if @feedback.save
+      redirect_to @commentable
+    else
+      flash[:alert] = 'All fields are required'
+      render @commentable, status: :unprocessable_entity
     end
   end
 

@@ -20,17 +20,11 @@ class Admin::ScreeningsController < Admin::BaseController
     @screening = Screening.new(screening_params)
     authorize @screening
 
-    respond_to do |format|
-      if @screening.save
-        RecurringScreeningsJob.perform_async(@screening.id)
-        format.html do
-          redirect_to admin_screen_screenings_path(@screen), notice: 'Screening was successfully created.'
-        end
-        format.json { render :screening, status: :created, location: @screening }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @screening.errors, status: :unprocessable_entity }
-      end
+    if @screening.save
+      RecurringScreeningsJob.perform_async(@screening.id)
+      redirect_to admin_screen_screenings_path(@screen), notice: 'Screening was successfully created.'
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -39,16 +33,10 @@ class Admin::ScreeningsController < Admin::BaseController
   def update
     authorize @screening
 
-    respond_to do |format|
-      if @screening.update(screening_params)
-        format.html do
-          redirect_to admin_screen_screening_url(@screen, @screening), notice: 'Screening was successfully updated.'
-        end
-        format.json { render :screening, status: :ok, location: @screening }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @screening.errors, status: :unprocessable_entity }
-      end
+    if @screening.update(screening_params)
+      redirect_to admin_screen_screening_url(@screen, @screening), notice: 'Screening was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -60,10 +48,7 @@ class Admin::ScreeningsController < Admin::BaseController
     authorize @screening
 
     @screening.destroy!
-    respond_to do |format|
-      format.html { redirect_to admin_screen_screenings_url(@screen), notice: 'Screening was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to admin_screen_screenings_url(@screen), notice: 'Screening was successfully destroyed.'
   end
 
   private

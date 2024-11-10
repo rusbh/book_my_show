@@ -12,15 +12,11 @@ class EventRequestsController < ApplicationController
     @event_request.theater = @theater
     @event_request.user = current_user
 
-    respond_to do |format|
-      if @event_request.save
-        EventRequestJob.perform_async(@event_request.id)
-        format.html { redirect_to theater_url(@theater), notice: 'Event request was successfully submitted.' }
-        format.json { render :show, status: :created, location: @event_request }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @event_request.errors, status: :unprocessable_entity }
-      end
+    if @event_request.save
+      EventRequestJob.perform_async(@event_request.id)
+      redirect_to theater_url(@theater), notice: 'Event request was successfully submitted.'
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
