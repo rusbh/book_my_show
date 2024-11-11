@@ -93,6 +93,6 @@ class Admin::ScreensController < Admin::BaseController
   end
 
   def screen_params
-    params.require(:screen).permit(:screen_name, :seats, :status).merge(theater: @theater)
+    params.require(:screen).permit(:screen_name, :seats, :status).merge(theater_id: @theater.id)
   end
 end

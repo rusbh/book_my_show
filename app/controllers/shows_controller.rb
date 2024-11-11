@@ -3,11 +3,10 @@ class ShowsController < ApplicationController
 
   def index
     @q = Show.active.ransack(params[:q])
-    @pagy, @all_shows = pagy(@q.result(distinct: true), items: 20)
+    shows = @q.result(distinct: true)
 
-    return unless params[:booking_available] == '1'
-
-    @all_shows = @all_shows.joins(:screenings).distinct
+    shows = shows.joins(:screenings).distinct if params[:booking_available] == '1'
+    @pagy, @all_shows = pagy(shows, items: 20)
   end
 
   def show

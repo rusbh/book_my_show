@@ -55,7 +55,9 @@ input[readonly]:focus {
 }
 
 .remove-arrow {
-  -moz-appearance: textfield;
+  -moz-appearance: textfield; /* Firefox */
+  -webkit-appearance: none; /* Chrome, Safari, Edge */
+  appearance: none; /* Standard */
 }
 
 .search-bar {
@@ -82,5 +84,5 @@ input[readonly]:focus {
   }
 }
 .feedback-highlight {
-  animation: feedback-highlight 1s;
+  animation: feedback-highlight 0.5s;
 }

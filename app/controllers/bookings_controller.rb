@@ -41,7 +41,7 @@ class BookingsController < ApplicationController
 
   def booking_params
     params.require(:booking).permit(:ticket, :booking_date, :total_price, :show_timing_id, :status).merge(
-      user: current_user
+      user_id: current_user&.id
     )
   end
 end

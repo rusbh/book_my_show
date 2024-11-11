@@ -20,7 +20,7 @@ class EventRequest < ApplicationRecord
   validate :genres_must_be_valid
 
   has_one_attached :poster, dependent: :destroy do |attachable|
-    attachable.variant :display, resize_to_fit: [300, 350]
+    attachable.variant :display, resize_to_fit: [300, 350], preprocessed: true
   end
   has_one_attached :permit, dependent: :destroy
 
