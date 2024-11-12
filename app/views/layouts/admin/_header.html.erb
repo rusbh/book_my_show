@@ -4,7 +4,7 @@
   </div>
   <div class="flex gap-x-8 items-center">
     <% if current_user.theaters.count > 1 %>
-      <%= form_with url: admin_switch_theater_path, method: :post, local: true do %>
+      <%= form_with url: switch_theater_admin_screens_path, method: :post, local: true do %>
         <%= label_tag :theater_id, "Change Theater", class: "text-xl" %>
         <%= select_tag :theater_id, options_from_collection_for_select(current_user.theaters, :id, :name, session[:current_theater]), onchange: "this.form.requestSubmit();" %>
       <% end %>

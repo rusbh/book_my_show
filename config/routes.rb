@@ -1,11 +1,26 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  get 'profile', to: 'users#index', as: :profile
   root 'home#index'
-  get 'search', to: 'search#index', as: :search
+
+  devise_for :users,
+             path: '/',
+             path_names: {
+               sign_in: 'login',
+               sign_out: 'logout',
+               sign_up: 'signup'
+             }
+
   ActiveAdmin.routes(self)
   mount Sidekiq::Web => '/sidekiq'
+
+  namespace :admin do
+    root 'screens#index'
+    resources :screens do
+      resources :screenings
+      post 'switch_theater', on: :collection, as: :switch_theater
+    end
+  end
 
   resources :shows, only: %i[index show] do
     get '/book-now', to: 'screenings#index'
@@ -28,25 +43,13 @@ Rails.application.routes.draw do
     resources :event_requests, only: %i[create new]
   end
 
-  namespace :admin do
-    root 'screens#index'
-    resources :screens do
-      resources :screenings
-    end
-    post 'switch_theater', to: 'screens#switch_theater', as: :switch_theater
-  end
-
-  devise_for :users,
-             path: 'auth',
-             path_names: {
-               sign_in: 'login',
-               sign_out: 'logout',
-               sign_up: 'signup'
-             }
+  get 'search', to: 'search#index', as: :search
+  get 'profile', to: 'users#index', as: :profile
 
   get '/admin-requests', to: 'admin_requests#new'
   post '/admin-requests', to: 'admin_requests#create'
   get 'up' => 'rails/health#show', as: :rails_health_check
+
   match '*path', via: :all, to: 'application#not_found_method', constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'
   }
