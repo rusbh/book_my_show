@@ -3,21 +3,21 @@ class Booking < ApplicationRecord
   belongs_to :screening
   belongs_to :show_timing
 
-  after_create :decrement_seats
   before_create :seats_not_available, :show_time_in_past
+  after_create :decrement_seats
   before_destroy :booking_got_deleted
 
-  enum status: %i[confirmed cancelled]
+  enum :status, { confirmed: 0, cancelled: 1 }
 
   validates :ticket, presence: true, inclusion: { in: 1..10, message: 'You can only book maximum 10 tickets' }
   validates :booking_date, :total_price, presence: true
 
   scope :confirmed, -> { where(status: :confirmed) }
   scope :past, lambda {
-                 where('booking_date < ?', Time.current).confirmed.includes(screening: [:show, { screen: :theater }])
+                 where(booking_date: ...Time.current).confirmed.includes(screening: [:show, { screen: :theater }])
                }
   scope :upcoming, lambda {
-                     where('booking_date >= ?', Time.current).confirmed.includes(screening: [:show, { screen: :theater }])
+                     where(booking_date: Time.current..).confirmed.includes(screening: [:show, { screen: :theater }])
                    }
   scope :cancelled, -> { where(status: :cancelled).includes(screening: [:show, { screen: :theater }]) }
 

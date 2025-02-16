@@ -1,14 +1,14 @@
 class EventRequest < ApplicationRecord
-  after_update :handle_status_change, if: -> { status_previously_changed?(from: :pending) }
   before_create :release_date_before_end_date
+  after_update :handle_status_change, if: -> { status_previously_changed?(from: :pending) }
 
   belongs_to :theater
   belongs_to :user
 
-  has_one :show
+  has_one :show, dependent: :nullify
 
-  enum category: %i[movie play sport event]
-  enum status: %i[pending approved rejected]
+  enum :category, { movie: 0, play: 1, sport: 2, event: 3 }
+  enum :status, { pending: 0, approved: 1, rejected: 2 }
 
   validates :name, :description, :cast, :languages, :genres, :category, :status, :duration,
             :release_date, :end_date, :at_timeof, presence: true
@@ -26,13 +26,13 @@ class EventRequest < ApplicationRecord
 
   validates :poster, attached: true,
                      content_type: { in: %w[image/jpeg image/jpg image/png], message: 'must be valid image format' },
-                     size: { between: 1.kilobyte..5.megabytes, message: 'should be less than 5 MB' },
+                     size: { between: (1.kilobyte)..(5.megabytes), message: 'should be less than 5 MB' },
                      dimension: { width: { min: 200, max: 600 },
                                   height: { min: 200, max: 600 } }
 
   validates :permit, attached: true,
                      content_type: { in: %w[application/pdf], message: 'must be valid pdf format' },
-                     size: { between: 1.kilobyte..10.megabytes, message: 'should be less than 10 MB' }
+                     size: { between: (1.kilobyte)..(10.megabytes), message: 'should be less than 10 MB' }
 
   def self.languages
     { 'hindi' => 'hindi', 'english' => 'english', 'gujarati' => 'gujarati',
@@ -40,7 +40,7 @@ class EventRequest < ApplicationRecord
   end
 
   def languages=(values)
-    super(values.reject(&:blank?))
+    super(values.compact_blank)
   end
 
   def self.genres
@@ -49,7 +49,7 @@ class EventRequest < ApplicationRecord
   end
 
   def genres=(values)
-    super(values.reject(&:blank?))
+    super(values.compact_blank)
   end
 
   def languages_must_be_valid

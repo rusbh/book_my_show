@@ -2,7 +2,7 @@
 
 <h2>Hello, <%= @event_request.user.email %></h2>
 
-<p>Congratulations, we have accepted your event request for <%= link_to @event_request.theater.name.humanize, Rails.application.credentials.dig(:development, :host_url) + Rails.application.routes.url_helpers.theater_path(@event_request.theater), target: "_blank" %></p>
+<p>Congratulations, we have accepted your event request for <%= link_to @event_request.theater.name.humanize, ENV['HOST_URL'] + Rails.application.routes.url_helpers.theater_path(@event_request.theater), target: "_blank" %></p>
 
 <p>All Theater personals are informed about the show/event</p>
 

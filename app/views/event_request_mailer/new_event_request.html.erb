@@ -2,12 +2,12 @@
 
 <h2>Hi Superadmin, </h2>
 
-<p>New event request for <%= link_to @event_request.theater.name.humanize, Rails.application.credentials.dig(:development, :host_url) + Rails.application.routes.url_helpers.superadmin_theater_path(@event_request.theater.id), target: "_blank" %></p>
+<p>New event request for <%= link_to @event_request.theater.name.humanize, ENV['HOST_URL'] + Rails.application.routes.url_helpers.superadmin_theater_path(@event_request.theater.id), target: "_blank" %></p>
 <p>Reuqested By Contact No: <span><%= @event_request.user.email %></span></p>
 
 <h2>Instructions you have to follow</h2>
 
-<p>Verify all the details with Valid Documents Proofs about theater on <%= link_to "HERE", Rails.application.credentials.dig(:development, :host_url) + Rails.application.routes.url_helpers.superadmin_event_request_path(@event_request[:id]), target: "_blank" %></p>
+<p>Verify all the details with Valid Documents Proofs about theater on <%= link_to "HERE", ENV['HOST_URL'] + Rails.application.routes.url_helpers.superadmin_event_request_path(@event_request[:id]), target: "_blank" %></p>
 
 <p>If all the details are valid then change the status to Approved from Pending on the event request edit page</p>
 

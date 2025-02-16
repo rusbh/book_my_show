@@ -1,0 +1,39 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - bin/**/*
+    - db/schema.rb
+    - log/**/*
+    - public/**/*
+    - storage/**/*
+    - tmp/**/*
+    - vendor/**/*
+    - config.ru
+    - Gemfile
+    - Rakefile
+  Include:
+    - '**/*.rb'
+    - '**/*.gemfile'
+    - '**/*.gemspec'
+    - '**/*.rake'
+    - '**/*.ru'
+    - '**/Gemfile'
+    - '**/Rakefile'
+
+Style/Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+Rails/ActionOrder:
+  Enabled: false
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false

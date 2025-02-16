@@ -1,6 +1,6 @@
 class EventRequestMailer < ApplicationMailer
   helper ApplicationHelper
-  
+
   def new_event_request(event_request)
     @event_request = event_request
     mail to: 'superadmin@bms.com', subject: 'New event request for BMS theater portal'

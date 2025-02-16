@@ -1,14 +1,14 @@
 class ScreeningPolicy < ApplicationPolicy
   def create?
-    user.admin?
+    admin?
   end
 
   def destroy?
-    user.admin?
+    admin?
   end
 
   def update?
-    user.admin?
+    admin?
   end
 
   class Scope < ApplicationPolicy::Scope

@@ -3,8 +3,8 @@ ActiveAdmin.register TheaterAdmin do
     selectable_column
     id_column
     column :theater
-    column :user do |t|
-      link_to t.user.email, superadmin_user_path(t.user)
+    column :admin do |t|
+      link_to t.admin.email, superadmin_user_path(t.admin)
     end
     column :status
     column :created_at

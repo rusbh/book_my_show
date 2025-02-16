@@ -1,6 +1,6 @@
 class UserPolicy < ApplicationPolicy
   def index?
-    !user.admin?
+    !admin?
   end
 
   class Scope < ApplicationPolicy::Scope

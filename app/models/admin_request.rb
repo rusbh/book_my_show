@@ -15,7 +15,7 @@ class AdminRequest < ApplicationRecord
 
   validate :theater_name_already_exists, on: :create
 
-  enum status: %i[pending approved rejected]
+  enum :status, { pending: 0, approved: 1, rejected: 2 }
 
   has_one_attached :business_license
   has_one_attached :ownership_proof
@@ -25,7 +25,7 @@ class AdminRequest < ApplicationRecord
   validates :business_license, :ownership_proof, :noc, :insurance,
             attached: true,
             content_type: { in: %w[application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document], message: 'must be in valid format of .pdf, .docx, .doc' },
-            size: { between: 1.kilobyte..5.megabytes, message: 'should be less than 5 MB' }
+            size: { between: (1.kilobyte)..(5.megabytes), message: 'should be less than 5 MB' }
 
   private
 

@@ -1,5 +1,13 @@
 # README
 
+### Future:
+
+- Add Seat Arrangements for theater and user to choose seats while booking
+- Payments and Pdf generation for Booking confirmation
+
+- Rspec tests
+- ViewComponents
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

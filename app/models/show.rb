@@ -11,8 +11,8 @@ class Show < ApplicationRecord
 
   after_update :show_cancelled, if: -> { status_previously_changed? && status == 'cancelled' }
 
-  enum category: %i[movie play sport event]
-  enum status: %i[inactive active pending cancelled]
+  enum :category, { movie: 0, play: 1, sport: 2, event: 3 }
+  enum :status, { inactive: 0, active: 1, pending: 2, cancelled: 3 }
 
   validates :name, :description, :cast, :languages, :genres, :category, :status, :duration,
             :release_date, presence: true
@@ -29,7 +29,7 @@ class Show < ApplicationRecord
 
   validates :poster, attached: true,
                      content_type: { in: %w[image/jpeg image/jpg image/png], message: 'must be valid image format' },
-                     size: { between: 1.kilobyte..5.megabytes, message: 'should be less than 5 MB' },
+                     size: { between: (1.kilobyte)..(5.megabytes), message: 'should be less than 5 MB' },
                      dimension: { width: { min: 200, max: 600 },
                                   height: { min: 200, max: 600 } }
 
@@ -50,7 +50,7 @@ class Show < ApplicationRecord
   end
 
   def languages=(values)
-    super(values.reject(&:blank?))
+    super(values.compact_blank)
   end
 
   def self.genres
@@ -59,7 +59,7 @@ class Show < ApplicationRecord
   end
 
   def genres=(values)
-    super(values.reject(&:blank?))
+    super(values.compact_blank)
   end
 
   def average_rating

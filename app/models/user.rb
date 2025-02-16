@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
 
-  enum status: %i[active inactive]
+  enum :status, { active: 0, inactive: 1 }
 
   scope :active, -> { where(status: :active) }
 
@@ -41,6 +41,6 @@ class User < ApplicationRecord
   end
 
   def has_booked_in_theater?(theater)
-    bookings.confirmed.joins(screening: { screen: :theater }).where(screens: { theater: }).exists?
+    bookings.confirmed.joins(screening: { screen: :theater }).exists?(screens: { theater: })
   end
 end

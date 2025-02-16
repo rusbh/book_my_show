@@ -1,18 +1,18 @@
 class FeedbackPolicy < ApplicationPolicy
   def create?
-    !user.admin?
+    !admin?
   end
 
   def destroy?
-    !user.admin? && user == record.user
+    record_owner?
   end
 
   def edit?
-    !user.admin? && user == record.user
+    record_owner?
   end
 
   def update?
-    !user.admin? && user == record.user
+    record_owner?
   end
 
   class Scope < ApplicationPolicy::Scope

@@ -14,8 +14,8 @@ class ApplicationController < ActionController::Base
     render file: Rails.public_path.join('404.html'), status: :not_found, layout: false
   end
 
-  http_basic_authenticate_with name: Rails.application.credentials.dig(:superadmin, :username),
-                               password: Rails.application.credentials.dig(:superadmin, :password),
+  http_basic_authenticate_with name: ENV.fetch('SUPERADMIN_USERNAME'),
+                               password: ENV.fetch('SUPERADMIN_PASSWORD'),
                                if: :active_admin_controller?
 
   protected
@@ -43,9 +43,9 @@ class ApplicationController < ActionController::Base
 
   # devise method for redirecting admin to theater portal after login
   def after_sign_in_path_for(resource)
-    if resource&.admin? && resource.active? && TheaterAdmin.find_by(user: resource)&.active?
+    if resource&.admin? && resource.active? && TheaterAdmin.find_by(admin: resource)&.active?
       admin_root_path
-    elsif resource&.admin? && TheaterAdmin.find_by(user: resource)&.inactive?
+    elsif resource&.admin? && TheaterAdmin.find_by(admin: resource)&.inactive?
       sign_out resource
       flash[:error] = "You can't access the Theater Admin Panel, Contact Support for details"
       root_path

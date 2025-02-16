@@ -1,4 +1,4 @@
-<%= form_with(model: [:admin, @screen, @screening], data: {
+<%= form_with(model: [:admin, screen, screening], data: {
                controller: "nested-form field-fill",
                nested_form_wrapper_selector_value: ".nested-form-wrapper",
              }, class: "contents") do |f| %>
@@ -34,12 +34,12 @@
   <div class="flex my-5 gap-x-10">
     <div>
       <%= f.label :start_date, "Starting date" %>
-      <%= f.date_field :start_date, min: Date.current, max: 3.months.from_now, class: "datepicker block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2" %>
+      <%= f.date_field :start_date, max: 3.months.from_now, class: "datepicker block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2" %>
     </div>
   
     <div>
       <%= f.label :end_date, "Ending date" %>
-      <%= f.date_field :end_date, min: Date.current, max: 3.months.from_now, class: "datepicker block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2" %>
+      <%= f.date_field :end_date, max: 3.months.from_now, class: "datepicker block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2" %>
     </div>
   </div>
 

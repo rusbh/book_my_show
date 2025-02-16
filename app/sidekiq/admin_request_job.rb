@@ -19,9 +19,9 @@ class AdminRequestJob
         if user.present?
           user.update!(admin: true, status: :inactive)
         else
-          user = User.create!(name: 'admin', email:, password: SecureRandom.base36, admin: true, status: :inactive)
+          admin = User.create!(name: 'admin', email:, password: SecureRandom.base36, admin: true, status: :inactive)
         end
-        TheaterAdmin.create!(theater:, user:, status: :active)
+        TheaterAdmin.create!(theater:, admin:, status: :active)
       end
     end
 
