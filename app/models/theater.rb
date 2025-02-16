@@ -2,6 +2,9 @@ class Theater < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
+  audited
+  has_associated_audits
+
   has_many :screens, dependent: :destroy
   has_many :shows, through: :screens
   has_many :feedbacks, as: :commentable, dependent: :destroy
@@ -10,7 +13,7 @@ class Theater < ApplicationRecord
   has_many :admins, through: :theater_admins, source: :user
   has_many :event_requests, dependent: :destroy
 
-  enum status: %i[inactive active]
+  enum :status, { inactive: 0, active: 1 }
 
   validates :name, :address, presence: true
   validates :name, uniqueness: true

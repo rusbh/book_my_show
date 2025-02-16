@@ -5,9 +5,11 @@ class Screening < ApplicationRecord
   has_many :bookings, dependent: :destroy
   has_many :show_timings, dependent: :destroy
 
-  after_save :update_screen_status
-  after_destroy :update_screen_status
+  audited associated_with: :screen
+
   before_create :start_date_before_end_date
+  after_destroy :update_screen_status
+  after_save :update_screen_status
 
   validates :language, :price, :start_date, :end_date, presence: true
   validates :price, numericality: { greater_than: 0 }
@@ -43,7 +45,7 @@ class Screening < ApplicationRecord
   end
 
   def update_screen_status
-    if screen.screenings.where('start_date <= :current_time AND end_date >= :current_time', current_time: Time.current).exists?
+    if screen.screenings.exists?(['start_date <= :current_time AND end_date >= :current_time', { current_time: Time.current }])
       screen.update(status: :running)
     else
       screen.update(status: :idle)

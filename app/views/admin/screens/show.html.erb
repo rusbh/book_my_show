@@ -10,12 +10,12 @@
       <%= button_to "Destroy this screen", @admin_screen, method: :delete, data: { turbo_confirm: "All screenings assigned to this screen will also be removed." }, class: "mt-2 rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
     </div>
 
-    <h1 class="mt-14"><%= link_to "Add/Manage Shows for this screen", admin_screen_screenings_path(@screen, @screening), class: "mt-5 text-2xl rounded-lg bg-gray-200 text-center py-10 px-5 inline-block font-medium w-full" %></h1>
+    <h1 class="my-14"><%= link_to "Add/Manage Shows for this screen", admin_screen_screenings_path(@screen, @screening), class: "mt-5 text-2xl rounded-lg bg-gray-200 text-center py-10 px-5 inline-block font-medium w-full" %></h1>
   </div>
 
   <div class="mb-10">
     <strong class="block font-medium text-2xl mt-5 mb-2">Shows running or scheduled: </strong>
-    
+
     <% if @screen_screenings.present? %>
       <% @screen_screenings.each do |ss| %>
         <li class="ml-5 text-2xl"><%= ss.show.name %> - <%= ss.language.capitalize %></li>
@@ -25,3 +25,5 @@
     <% end %>
   </div>
 </div>
+
+<%= render "logs", logs: @screen_logs, title: "screen", pagy: @pagy %>

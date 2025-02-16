@@ -29,13 +29,13 @@ module Admin
 
       @feedbacks = @theater.feedbacks.includes(:user).order(created_at: :desc).limit(10)
 
-      @logs = @theater.own_and_associated_audits.includes(:user)
+      @pagy, @theater_logs = pagy(@theater.own_and_associated_audits.includes(:user))
     end
 
     def show
       @screen_screenings = @screen.screenings.includes(:show)
 
-      @logs = @screen.own_and_associated_audits.includes(:user)
+      @pagy, @screen_logs = pagy(@screen.own_and_associated_audits.includes(:user))
     end
 
     def new

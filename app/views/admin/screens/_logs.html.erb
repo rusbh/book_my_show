@@ -1,0 +1,26 @@
+<% if logs.present? %>
+  <section>
+    <strong class="block font-medium text-2xl mb-3"><%= title.humanize %> Logs</strong>
+    <div>
+      <% logs.each do |p| %>
+        <p>
+          <strong>Change by:</strong> <%= p.user.email %><br>
+          <strong>Details: <%= p.action.humanize %> <%= p.auditable_type %></strong>
+          <br>
+          <ul class="list-disc list-inside ml-4">
+            <% p.audited_changes.each do |key, value| %>
+              <li><strong><%= key.humanize %>:</strong> <%= value.is_a?(Array) ? "#{value[0]} → #{value[1]}" : value %></li>
+            <% end %>
+          </ul>
+        </p>
+        <hr class="my-2">
+      <% end %>
+
+      <div class="my-3">
+        <%== pagy_nav(pagy) if pagy.pages > 1 %>
+      </div>
+    </div>
+  </section>
+<% else %>
+  <p>No <%= title.humanize %> logs history available.</p>
+<% end %>

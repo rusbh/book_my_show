@@ -4,9 +4,12 @@ class Screen < ApplicationRecord
   has_many :screenings, dependent: :destroy
   has_many :shows, through: :screenings
 
+  audited associated_with: :theater
+  has_associated_audits
+
   after_update :discard_screenings_if_maintenance_or_unavailable, if: -> { status_previously_changed? }
 
-  enum status: %i[idle running in_maintenance unavailable]
+  enum :status, { idle: 0, running: 1, in_maintenance: 2, unavailable: 3 }
 
   validates :screen_name, :seats, presence: true
   validates :screen_name, format: { with: /\A([A-Za-z]+|[1-9]\d*)\z/, message: '/ no. is invalid' }

@@ -26,15 +26,15 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
       <% @show_screening_details.each do |details| %>
         <% show = details[:show] %>
-          <div class="my-5">
-            <%= display_show_poster(show) %>
-            <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
-            <% details[:screenings].each do |screening| %>
-              <p class="text-xl">Screen: <%= screening.screen.screen_name %> - Price: ₹<%= screening.price %></p>
-              <p class="text-xl">language: <%= screening.language.capitalize %></p>
-              <p class="text-xl mb-3"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
-            <% end %>
-          </div>
+        <div class="my-5">
+          <%= display_show_poster(show) %>
+          <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
+          <% details[:screenings].each do |screening| %>
+            <p class="text-xl">Screen: <%= screening.screen.screen_name %> - Price: ₹<%= screening.price %></p>
+            <p class="text-xl">language: <%= screening.language.capitalize %></p>
+            <p class="text-xl mb-3"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
+          <% end %>
+        </div>
       <% end %>
     </div>
   <% else %>
@@ -79,4 +79,6 @@
       <li class="text-xl"><%= f.comment %><span class="text-gray-600"> - by <%= f.user.name %></span></li>
     <% end %>
   </ul>
+
+  <%= render "logs", logs: @theater_logs, title: "theater", pagy: @pagy %>
 </div>
