@@ -27,7 +27,7 @@ class EventRequestsController < ApplicationController
   end
 
   def event_request_params
-    params.require(:event_request).permit(:name, :description, :poster, :cast, :category, :duration, :release_date, :end_date, :at_timeof,
-                                          :status, :permit, languages: [], genres: [])
+    params.expect(event_request: [:name, :description, :poster, :cast, :category, :duration, :release_date, :end_date, :at_timeof,
+                                  :status, :permit, { languages: [], genres: [] }])
   end
 end

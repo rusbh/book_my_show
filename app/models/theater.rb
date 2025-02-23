@@ -10,10 +10,10 @@ class Theater < ApplicationRecord
   has_many :feedbacks, as: :commentable, dependent: :destroy
 
   has_many :theater_admins, dependent: :destroy
-  has_many :admins, through: :theater_admins, source: :user
+  has_many :admins, through: :theater_admins, source: :admin
   has_many :event_requests, dependent: :destroy
 
-  enum :status, { inactive: 0, active: 1 }
+  enum :status, inactive: 0, active: 1
 
   validates :name, :address, presence: true
   validates :name, uniqueness: true

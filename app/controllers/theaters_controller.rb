@@ -29,6 +29,6 @@ class TheatersController < ApplicationController
   end
 
   def theater_params
-    params.require(:theater).permit(:name, :address)
+    params.expect(theater: %i[name address])
   end
 end

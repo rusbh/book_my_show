@@ -15,7 +15,7 @@ class AdminRequest < ApplicationRecord
 
   validate :theater_name_already_exists, on: :create
 
-  enum :status, { pending: 0, approved: 1, rejected: 2 }
+  enum :status, pending: 0, approved: 1, rejected: 2
 
   has_one_attached :business_license
   has_one_attached :ownership_proof

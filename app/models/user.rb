@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
 
-  enum :status, { active: 0, inactive: 1 }
+  enum :status, active: 0, inactive: 1
 
   scope :active, -> { where(status: :active) }
 

@@ -13,7 +13,7 @@ class Show < ApplicationRecord
 
   after_update :show_cancelled, if: -> { status_previously_changed? && status == 'cancelled' }
 
-  enum :status, { inactive: 0, active: 1, pending: 2, cancelled: 3 }
+  enum :status, inactive: 0, active: 1, pending: 2, cancelled: 3
 
   scope :active, -> { where(status: :active).includes(:poster_attachment) }
   scope :available_screenings, -> { joins(:screenings).merge(Screening.available_show_timings).distinct }

@@ -40,7 +40,7 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:ticket, :booking_date, :total_price, :show_timing_id, :status).merge(
+    params.expect(booking: %i[ticket booking_date total_price show_timing_id status]).merge(
       user_id: current_user&.id
     )
   end

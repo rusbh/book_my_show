@@ -9,7 +9,7 @@ class Screen < ApplicationRecord
 
   after_update :discard_screenings_if_maintenance_or_unavailable, if: -> { status_previously_changed? }
 
-  enum :status, { idle: 0, running: 1, in_maintenance: 2, unavailable: 3 }
+  enum :status, idle: 0, running: 1, in_maintenance: 2, unavailable: 3
 
   validates :screen_name, :seats, presence: true
   validates :screen_name, format: { with: /\A([A-Za-z]+|[1-9]\d*)\z/, message: '/ no. is invalid' }

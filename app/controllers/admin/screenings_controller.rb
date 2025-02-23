@@ -7,7 +7,7 @@ module Admin
     before_action :get_event_requested_shows, only: %i[new edit]
 
     def index
-      @screenings = @screen.screenings.includes(show: [poster_attachment: :blob]).where(shows: { status: :active })
+      @screenings = @screen.screenings.includes(show: [:poster_attachment]).where(shows: { status: :active })
     end
 
     def new
@@ -40,7 +40,7 @@ module Admin
     end
 
     def show
-      @pagy, @show_timings = pagy(@screening.show_timings.order(at_timeof: :asc), items: 6)
+      @pagy, @show_timings = pagy(@screening.show_timings.order(at_timeof: :asc), limit: 6)
     end
 
     def destroy
@@ -81,8 +81,7 @@ module Admin
     end
 
     def screening_params
-      params.require(:screening).permit(:show_id, :language, :price, :start_date, :end_date,
-                                        show_timings_attributes: %i[id at_timeof seats _destroy]).merge(screen_id: @screen.id)
+      params.expect(screening: [:show_id, :language, :price, :start_date, :end_date, { show_timings_attributes: [%i[id at_timeof seats _destroy]] }]).merge(screen_id: @screen.id)
     end
   end
 end

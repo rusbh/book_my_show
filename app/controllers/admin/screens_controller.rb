@@ -98,7 +98,7 @@ module Admin
     end
 
     def screen_params
-      params.require(:screen).permit(:screen_name, :seats, :status).merge(theater_id: @theater.id)
+      params.expect(screen: %i[screen_name seats status]).merge(theater_id: @theater.id)
     end
   end
 end

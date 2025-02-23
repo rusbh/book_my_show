@@ -4,7 +4,7 @@ module Showable
   extend ActiveSupport::Concern
 
   included do
-    enum :category, { movie: 0, play: 1, sport: 2, event: 3 }
+    enum :category, movie: 0, play: 1, sport: 2, event: 3
 
     validates :name, :description, :cast, :languages, :genres, :category, :duration,
               :release_date, presence: true

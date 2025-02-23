@@ -7,7 +7,7 @@ class Booking < ApplicationRecord
   after_create :decrement_seats
   before_destroy :booking_got_deleted
 
-  enum :status, { confirmed: 0, cancelled: 1 }
+  enum :status, confirmed: 0, cancelled: 1
 
   validates :ticket, presence: true, inclusion: { in: 1..10, message: 'You can only book maximum 10 tickets' }
   validates :booking_date, :total_price, presence: true

@@ -21,7 +21,6 @@ class AdminRequestsController < ApplicationController
   end
 
   def admin_request_params
-    params.require(:admin_request).permit(:contact_email, :contact_no, :admin_emails, :theater_name,
-                                          :theater_address, :pincode, :business_license, :ownership_proof, :noc, :insurance, :status)
+    params.expect(admin_request: %i[contact_email contact_no admin_emails theater_name theater_address pincode business_license ownership_proof noc insurance status])
   end
 end

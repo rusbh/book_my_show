@@ -49,7 +49,7 @@ class FeedbacksController < ApplicationController
   private
 
   def feedback_params
-    params.require(:feedback).permit(:comment, :rating, :commentable_id, :commentable_type).merge(user_id: current_user&.id)
+    params.expect(feedback: %i[comment rating commentable_id commentable_type]).merge(user_id: current_user&.id)
   end
 
   def set_commentable
