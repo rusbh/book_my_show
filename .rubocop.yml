@@ -1,7 +1,9 @@
 require:
-  - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
+
+plugins:
+  - rubocop-performance
 
 AllCops:
   NewCops: enable
@@ -25,6 +27,8 @@ AllCops:
     - '**/Gemfile'
     - '**/Rakefile'
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
 Style/Documentation:
   Enabled: false
 

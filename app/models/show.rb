@@ -15,7 +15,7 @@ class Show < ApplicationRecord
 
   enum :status, { inactive: 0, active: 1, pending: 2, cancelled: 3 }
 
-  scope :active, -> { where(status: :active).includes(poster_attachment: :blob) }
+  scope :active, -> { where(status: :active).includes(:poster_attachment) }
   scope :available_screenings, -> { joins(:screenings).merge(Screening.available_show_timings).distinct }
   scope :can_book, -> { joins(:screenings).available_screenings.distinct }
   scope :active_forms, -> { where(status: :active) } # when using in forms avoid eager loading

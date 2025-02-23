@@ -20,7 +20,7 @@ module Showable
     end
 
     validates :poster, attached: true,
-                       content_type: { in: %w[image/jpeg image/jpg image/png], message: 'must be valid image format' },
+                       content_type: { in: %w[image/jpeg image/png], message: 'must be valid image format' },
                        size: { between: (1.kilobyte)..(5.megabytes), message: 'should be less than 5 MB' },
                        dimension: { width: { min: 200, max: 600 },
                                     height: { min: 200, max: 600 } }

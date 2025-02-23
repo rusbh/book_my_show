@@ -1,18 +1,18 @@
 source "https://rubygems.org"
 
-ruby "3.3.1"
+ruby "3.4.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.3", ">= 7.1.3.3"
+gem "rails", "~> 8.0.1"
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
+# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem "propshaft"
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.5.9"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
+gem "puma", ">= 6.6.0"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
@@ -24,19 +24,19 @@ gem "turbo-rails"
 gem "stimulus-rails"
 
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem "tailwindcss-rails"
+gem 'tailwindcss-rails', "~> 3.3.1"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-gem "redis", ">= 4.0.1"
+gem "redis", ">= 5.4.0"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+# gem "bcrypt", "~> 3.1.20"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -45,33 +45,33 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.14.0"
 
 # auth
-gem "devise", "~> 4.9"
-gem "pundit", "~> 2.3"
+gem "devise", "~> 4.9.4"
+gem "pundit", "~> 2.4.0"
 
 # active-admin
-gem "activeadmin", "~> 3.2"
+gem "activeadmin", "~> 3.2.5"
 gem "sass-rails", "~> 6.0"
 
 # better urls
 gem "friendly_id", "~> 5.5"
 
 # charts
-gem "chartkick", "~> 5.0"
-gem "groupdate", "~> 6.4"
+gem "chartkick", "~> 5.1.4"
+gem "groupdate", "~> 6.5.1"
 
 # background-jobs
-gem "sidekiq", "~> 7.2"
+gem "sidekiq", "~> 7.3.9"
 
 # search, filter
-gem "ransack", "~> 4.1"
+gem "ransack", "~> 4.3.0"
 
 # pagination
-gem "pagy", "~> 8.6"
+gem "pagy", "~> 9.3.3"
 
-gem "active_storage_validations", "~> 1.1"
+gem "active_storage_validations", "~> 2.0.2"
 
 # audits
 gem "audited", "~> 5.8"
@@ -105,7 +105,7 @@ group :development do
   # gem "spring"
 
   # Fix N+1 queries
-  gem 'bullet'
+  gem 'bullet', '~> 8.0.1'
 
   # mail previews
   gem "letter_opener", "~> 1.10"
@@ -115,7 +115,7 @@ group :development do
 
   # Use Rubocop to lint code
   gem 'rubocop-rails', require: false
-  gem "rubocop-performance", "~> 1.23", require: false
+  gem "rubocop-performance", "~> 1.24.0", require: false
   gem 'rubocop-rspec', require: false
 end
 
