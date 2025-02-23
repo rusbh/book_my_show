@@ -31,9 +31,16 @@ Style/Documentation:
 Layout/LineLength:
   Enabled: false
 
+Metrics/MethodLength:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+
 Rails/I18nLocaleTexts:
   Enabled: false
 Rails/ActionOrder:
   Enabled: false
 Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+Rails/InverseOf:
   Enabled: false

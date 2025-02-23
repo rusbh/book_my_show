@@ -1,7 +1,7 @@
 <% content_for :title, @screening.show.name %>
 
 <div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-semibold text-3xl">Buy tickets for <%= @screening.show.name %> - <%= @booking.screening.language.capitalize %></h1>
+  <h1 class="font-semibold text-3xl">Buy tickets for <%= @screening.show.name %> - <%= @booking.screening.language.humanize %></h1>
 
   <%= render "form", screening: @screening, booking: @booking %>
 

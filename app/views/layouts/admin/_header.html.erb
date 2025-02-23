@@ -1,6 +1,6 @@
 <header class="container mx-auto flex w-full items-center justify-between px-5 py-5 sm:px-6 lg:px-8">
   <div class="flex items-center">
-    <%= link_to "#{@theater.name} | Theater Portal", admin_root_path, class: "text-3xl font-bold tracking-tight" %>
+    <%= link_to "#{@theater.name.humanize} | Theater Portal", admin_root_path, class: "text-3xl font-bold tracking-tight" %>
   </div>
   <div class="flex gap-x-8 items-center">
     <% if current_user.theaters.count > 1 %>

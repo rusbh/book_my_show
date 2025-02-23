@@ -19,6 +19,10 @@ class Screening < ApplicationRecord
 
   accepts_nested_attributes_for :show_timings, reject_if: :all_blank, allow_destroy: true
 
+  scope :available_show_timings, lambda {
+    joins(:show_timings).where('show_timings.at_timeof > ?', 1.hour.ago).distinct
+  }
+
   private
 
   def start_date_before_end_date

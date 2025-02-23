@@ -22,7 +22,6 @@ export default class extends Controller {
     const searchBar = document.querySelector('.search-bar');
     if (searchBar && window.location.pathname == '/search') {
       searchBar.focus();
-      console.log(window.location.pathname);
       searchBar.setSelectionRange(
         searchBar.value.length,
         searchBar.value.length

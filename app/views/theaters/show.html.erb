@@ -13,7 +13,7 @@
           <a href="<%= new_screening_booking_path(screening) %>">
             <div class="my-5">
               <%= display_show_poster(show) %>
-              <h1 class="text-2xl my-4 font-semibold"><%= show.name.capitalize %> - ₹ <%= screening.price %></h1>
+              <h1 class="text-2xl my-4 font-semibold"><%= show.name.humanize %> - ₹ <%= screening.price %></h1>
               <p class="text-xl">On Screen: <%= screening.screen.screen_name %></p>
             </div>
           </a>

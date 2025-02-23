@@ -2,7 +2,7 @@
 
 <p>Hi <%= @booking.user.name %>, </p>
 
-<p>You have booked <span><%= pluralize(@booking.ticket, "ticket") %></span> of <span><%= @booking.screening.show.name %> - <%= @booking.screening.language.capitalize %></span> at <span><%= @booking.screening.screen.theater.name %></span></p>
+<p>You have booked <span><%= pluralize(@booking.ticket, "ticket") %></span> of <span><%= @booking.screening.show.name %> - <%= @booking.screening.language.humanize %></span> at <span><%= @booking.screening.screen.theater.name %></span></p>
 
 <p>Show/Movie Time: <span><%= @booking.show_timing.at_timeof.strftime("%I:%M %p") %></span></p>
 

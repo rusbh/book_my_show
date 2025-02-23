@@ -5,7 +5,7 @@ class ShowsController < ApplicationController
     @q = Show.active.ransack(params[:q])
     shows = @q.result(distinct: true)
 
-    shows = shows.joins(:screenings).distinct if params[:booking_available] == '1'
+    shows = shows.can_book if params[:booking_available] == '1'
     @pagy, @all_shows = pagy(shows, items: 20)
   end
 

@@ -2,7 +2,7 @@
 
 <p>Hi <%= @booking.user.name %>, </p>
 
-<p>You just have cancelled your booking of <span><%= @booking.screening.show.name %> - <%= @booking.screening.language.capitalize %></span> at <span><%= @booking.screening.screen.theater.name %></span></p> dated on <span><%= @booking.booking_date.strftime("%d %B, %Y %A") %></span> at <span><%= @booking.show_timing.at_timeof.strftime("%I:%M %p") %></span>.
+<p>You just have cancelled your booking of <span><%= @booking.screening.show.name %> - <%= @booking.screening.language.humanize %></span> at <span><%= @booking.screening.screen.theater.name %></span></p> dated on <span><%= @booking.booking_date.strftime("%d %B, %Y %A") %></span> at <span><%= @booking.show_timing.at_timeof.strftime("%I:%M %p") %></span>.
 
 <p>You will be refunded of full amount in 7 working days.</p></p>
 
