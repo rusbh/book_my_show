@@ -1,4 +1,4 @@
-ActiveAdmin.register EventRequest do
+ActiveAdmin.register(EventRequest) do
   remove_filter :poster_attachment, :poster_blob, :permit_attachment, :permit_blob, :cpics_attachments, :cpics_blobs
 
   index do
@@ -51,8 +51,8 @@ ActiveAdmin.register EventRequest do
       row :end_date
       row :at_timeof
       row :permit do |p|
-        permit_preview = image_tag url_for(p.permit.representation(resize: "500x500"))
-        permit_link = link_to "#{p.permit.filename} - Download", rails_blob_path(p.permit, disposition: "attachment")
+        permit_preview = image_tag(url_for(p.permit.representation(resize: "500x500")))
+        permit_link = link_to("#{p.permit.filename} - Download", rails_blob_path(p.permit, disposition: "attachment"))
         raw("#{permit_preview} #{permit_link}")
       end
       row :status
@@ -61,24 +61,36 @@ ActiveAdmin.register EventRequest do
 
   form decorate: true do |f|
     f.inputs do
-      f.input :theater
-      f.input :name
-      f.input :description
-      f.input :poster, as: :file, input_html: { accept: "image/jpeg, image/jpg, image/png" }
-      f.input :cast, label: "Cast: (add comma between entries)"
-      f.input :languages, as: :check_boxes, collection: Show.languages.keys.map { |lang| [ lang.humanize, lang ] }
-      f.input :genres, as: :check_boxes, collection: Show.genres.keys.map { |lang| [ lang.humanize, lang ] }
-      f.input :category
-      f.input :duration, label: "Duration of show (in Minutes)"
-      f.input :release_date
-      f.input :end_date
-      f.input :at_timeof
-      f.input :permit, as: :file
-      f.input :status
+      f.input(:theater)
+      f.input(:name)
+      f.input(:description)
+      f.input(:poster, as: :file, input_html: { accept: "image/jpeg, image/jpg, image/png" })
+      f.input(:cast, label: "Cast: (add comma between entries)")
+      f.input(:languages, as: :check_boxes, collection: Show.languages.keys.map { |lang| [lang.humanize, lang] })
+      f.input(:genres, as: :check_boxes, collection: Show.genres.keys.map { |lang| [lang.humanize, lang] })
+      f.input(:category)
+      f.input(:duration, label: "Duration of show (in Minutes)")
+      f.input(:release_date)
+      f.input(:end_date)
+      f.input(:at_timeof)
+      f.input(:permit, as: :file)
+      f.input(:status)
     end
     f.actions
   end
 
-  permit_params :theater_id, :name, :description, :poster, :cast, :category, :duration, :release_date, :end_date, :at_timeof, :status,
-                :permit, languages: [], genres: []
+  permit_params :theater_id,
+    :name,
+    :description,
+    :poster,
+    :cast,
+    :category,
+    :duration,
+    :release_date,
+    :end_date,
+    :at_timeof,
+    :status,
+    :permit,
+    languages: [],
+    genres: []
 end

@@ -26,7 +26,7 @@ class Screening < ApplicationRecord
   private
 
   def start_date_before_end_date
-    return unless start_date > end_date
+    return if start_date <= end_date
 
     errors.add(:start_date, "must be before the end date")
     throw(:abort)
@@ -34,8 +34,8 @@ class Screening < ApplicationRecord
 
   def no_overlapping_screenings
     overlapping_screenings = Screening.where(screen_id:)
-                                      .where.not(id:)
-                                      .where("start_date < ? AND end_date > ?", end_date, start_date)
+      .where.not(id:)
+      .where("start_date < ? AND end_date > ?", end_date, start_date)
 
     return unless overlapping_screenings.exists?
 
@@ -49,7 +49,7 @@ class Screening < ApplicationRecord
   end
 
   def update_screen_status
-    if screen.screenings.exists?([ "start_date <= :current_time AND end_date >= :current_time", { current_time: Time.current } ])
+    if screen.screenings.exists?(["start_date <= :current_time AND end_date >= :current_time", { current_time: Time.current }])
       screen.update(status: :running)
     else
       screen.update(status: :idle)

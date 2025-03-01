@@ -11,8 +11,12 @@ class AdminRequestJob
 
     # create theatre
     ActiveRecord::Base.transaction do
-      theater = Theater.create!(name: theater_name, address: theater_address, pincode: theater_pincode,
-                                status: :inactive)
+      theater = Theater.create!(
+        name: theater_name,
+        address: theater_address,
+        pincode: theater_pincode,
+        status: :inactive,
+      )
 
       admin_emails.each do |email|
         user = User.find_by(email:)

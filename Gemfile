@@ -116,7 +116,9 @@ group :development do
   gem 'awesome_print'
 
   # Use Rubocop to lint code
-  gem "rubocop-rails-omakase", "~> 1.0", require: false
+  gem "rubocop-shopify", require: false
+  gem "rubocop-rails", "~> 2.27", require: false
+  gem "rubocop-performance", "~> 1.24", require: false
   gem 'rubocop-rspec', require: false
 end
 

@@ -14,12 +14,12 @@ class Booking < ApplicationRecord
 
   scope :confirmed, -> { where(status: :confirmed) }
   scope :past, lambda {
-                 where(booking_date: ...Time.current).confirmed.includes(screening: [ :show, { screen: :theater } ])
+                 where(booking_date: ...Time.current).confirmed.includes(screening: [:show, { screen: :theater }])
                }
   scope :upcoming, lambda {
-                     where(booking_date: Time.current..).confirmed.includes(screening: [ :show, { screen: :theater } ])
+                     where(booking_date: Time.current..).confirmed.includes(screening: [:show, { screen: :theater }])
                    }
-  scope :cancelled, -> { where(status: :cancelled).includes(screening: [ :show, { screen: :theater } ]) }
+  scope :cancelled, -> { where(status: :cancelled).includes(screening: [:show, { screen: :theater }]) }
 
   def send_booking_confirmed_mail
     BookingMailer.booking_confirmation(self).deliver_later
@@ -44,14 +44,14 @@ class Booking < ApplicationRecord
   end
 
   def seats_not_available
-    return unless show_time.seats < ticket
+    return if show_time.seats >= ticket
 
     errors.add(:base, "Only #{show_time.seats} seats available on your selected time")
     throw(:abort)
   end
 
   def show_time_in_past
-    return unless show_time.at_timeof < Time.current
+    return if show_time.at_timeof >= Time.current
 
     errors.add(:base, "you can't select previous time")
     throw(:abort)

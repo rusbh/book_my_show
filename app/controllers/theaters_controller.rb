@@ -1,5 +1,5 @@
 class TheatersController < ApplicationController
-  before_action :set_theater, only: %i[show]
+  before_action :set_theater, only: [:show]
 
   def index
     @pagy, @theaters = pagy(Theater.active)
@@ -29,6 +29,6 @@ class TheatersController < ApplicationController
   end
 
   def theater_params
-    params.expect(theater: %i[name address])
+    params.expect(theater: [:name, :address])
   end
 end

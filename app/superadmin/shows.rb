@@ -1,4 +1,4 @@
-ActiveAdmin.register Show do
+ActiveAdmin.register(Show) do
   remove_filter :poster_attachment, :poster_blob, :cpics_attachments, :cpics_blobs
 
   index do
@@ -47,22 +47,32 @@ ActiveAdmin.register Show do
 
   form decorate: true do |f|
     f.inputs do
-      f.input :name
-      f.input :description
-      f.input :poster, as: :file, input_html: { accept: "image/jpeg, image/jpg, image/png" }
-      f.input :cast, label: "Cast: (add comma between entries)"
-      f.input :languages, as: :check_boxes, collection: Show.languages.keys.map { |lang| [ lang.humanize, lang ] }
-      f.input :genres, as: :check_boxes, collection: Show.genres.keys.map { |lang| [ lang.humanize, lang ] }
-      f.input :category
-      f.input :duration, label: "Duration of show (in Minutes)"
-      f.input :release_date
-      f.input :event_request
-      f.input :slug, label: "name helper for url" unless f.object.new_record?
-      f.input :status
+      f.input(:name)
+      f.input(:description)
+      f.input(:poster, as: :file, input_html: { accept: "image/jpeg, image/jpg, image/png" })
+      f.input(:cast, label: "Cast: (add comma between entries)")
+      f.input(:languages, as: :check_boxes, collection: Show.languages.keys.map { |lang| [lang.humanize, lang] })
+      f.input(:genres, as: :check_boxes, collection: Show.genres.keys.map { |lang| [lang.humanize, lang] })
+      f.input(:category)
+      f.input(:duration, label: "Duration of show (in Minutes)")
+      f.input(:release_date)
+      f.input(:event_request)
+      f.input(:slug, label: "name helper for url") unless f.object.new_record?
+      f.input(:status)
     end
     f.actions
   end
 
-  permit_params :name, :description, :poster, :cast, :category, :status, :duration, :release_date, :slug, :event_request,
-                languages: [], genres: []
+  permit_params :name,
+    :description,
+    :poster,
+    :cast,
+    :category,
+    :status,
+    :duration,
+    :release_date,
+    :slug,
+    :event_request,
+    languages: [],
+    genres: []
 end

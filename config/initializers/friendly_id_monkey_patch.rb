@@ -1,6 +1,6 @@
 module FriendlyIdModelMonkeyPatch
   def to_param
-    if caller.to_s.include? 'active_admin'
+    if caller.to_s.include?("active_admin")
       id&.to_s
     else
       super
@@ -8,6 +8,8 @@ module FriendlyIdModelMonkeyPatch
   end
 end
 
-module FriendlyId::Model
-  prepend FriendlyIdModelMonkeyPatch
+module FriendlyId
+  module Model
+    prepend FriendlyIdModelMonkeyPatch
+  end
 end

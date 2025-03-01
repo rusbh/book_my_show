@@ -4,20 +4,20 @@ class BookingsController < ApplicationController
 
   def new
     @booking = @screening.bookings.new
-    authorize @booking
+    authorize(@booking)
   end
 
   def create
     @booking = @screening.bookings.new(booking_params)
     @booking.booking_date = @booking.show_time&.at_timeof
     @booking.total_price = (@booking.ticket * @booking.screening.price).round(2)
-    authorize @booking
+    authorize(@booking)
 
     if @booking.save
       @booking.send_booking_confirmed_mail
-      redirect_to profile_path, notice: "Booking was successfully created."
+      redirect_to(profile_path, notice: "Booking was successfully created.")
     else
-      render :new, status: :unprocessable_entity
+      render(:new, status: :unprocessable_entity)
     end
   end
 
@@ -27,9 +27,9 @@ class BookingsController < ApplicationController
     if @booking.update(status: :cancelled)
       @booking.send_booking_cancelled_mail
       @booking.increment_seats
-      redirect_to profile_path, notice: "Booking was successfully cancelled."
+      redirect_to(profile_path, notice: "Booking was successfully cancelled.")
     else
-      redirect_to profile_path, alert: "Failed to cancel the booking."
+      redirect_to(profile_path, alert: "Failed to cancel the booking.")
     end
   end
 
@@ -40,8 +40,8 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.expect(booking: %i[ticket booking_date total_price show_time_id status]).merge(
-      user_id: current_user&.id
+    params.expect(booking: [:ticket, :booking_date, :total_price, :show_time_id, :status]).merge(
+      user_id: current_user&.id,
     )
   end
 end

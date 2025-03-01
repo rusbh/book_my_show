@@ -1,4 +1,4 @@
-ActiveAdmin.register TheaterAdmin do
+ActiveAdmin.register(TheaterAdmin) do
   index do
     selectable_column
     id_column
@@ -14,9 +14,9 @@ ActiveAdmin.register TheaterAdmin do
 
   form do |f|
     f.inputs do
-      f.input :theater, label: "Select Theater"
-      f.input :user, as: :select, collection: User.all.map { |user| [ user.email, user.id ] }, label: "Select User"
-      f.input :status
+      f.input(:theater, label: "Select Theater")
+      f.input(:user, as: :select, collection: User.all.map { |user| [user.email, user.id] }, label: "Select User")
+      f.input(:status)
     end
     f.actions
   end

@@ -1,8 +1,11 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable,
+    :registerable,
+    :recoverable,
+    :rememberable,
+    :validatable
 
   has_many :theater_admins, dependent: :destroy
   has_many :theaters, through: :theater_admins
@@ -37,7 +40,7 @@ class User < ApplicationRecord
   end
 
   def has_booked?(show)
-    bookings.confirmed.joins(screening: :show).where(screenings: { show: }).exists?
+    bookings.confirmed.joins(screening: :show).exists?(screenings: { show: })
   end
 
   def has_booked_in_theater?(theater)

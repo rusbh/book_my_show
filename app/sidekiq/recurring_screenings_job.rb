@@ -11,9 +11,15 @@ class RecurringScreeningsJob
     (start_date..end_date).each do |date|
       show_times_with_seats.each do |show_time|
         screening.show_times.create(
-          at_timeof: Time.zone.local(date.year, date.month, date.day, show_time[:at_timeof].hour,
-                                     show_time[:at_timeof].min, show_time[:at_timeof].sec),
-          seats: screening.screen.seats
+          at_timeof: Time.zone.local(
+            date.year,
+            date.month,
+            date.day,
+            show_time[:at_timeof].hour,
+            show_time[:at_timeof].min,
+            show_time[:at_timeof].sec,
+          ),
+          seats: screening.screen.seats,
         )
       end
     end

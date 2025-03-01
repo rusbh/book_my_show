@@ -1,5 +1,5 @@
 class ShowsController < ApplicationController
-  before_action :set_show, only: %i[show languages]
+  before_action :set_show, only: [:show, :languages]
 
   def index
     @q = Show.active.ransack(params[:q])
@@ -20,7 +20,7 @@ class ShowsController < ApplicationController
   end
 
   def languages
-    render json: @show.languages
+    render(json: @show.languages)
   end
 
   private
@@ -30,7 +30,19 @@ class ShowsController < ApplicationController
   end
 
   def show_params
-    params.expect(event_request: [ :name, :description, :poster, :cast, :category, :duration, :release_date, :end_date, :at_timeof,
-                                  :status, :permit, { languages: [], genres: [] } ])
+    params.expect(event_request: [
+      :name,
+      :description,
+      :poster,
+      :cast,
+      :category,
+      :duration,
+      :release_date,
+      :end_date,
+      :at_timeof,
+      :status,
+      :permit,
+      { languages: [], genres: [] },
+    ])
   end
 end

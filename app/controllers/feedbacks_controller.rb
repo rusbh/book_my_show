@@ -2,46 +2,49 @@ class FeedbacksController < ApplicationController
   include ActionView::RecordIdentifier
   before_action :authenticate_user!
   before_action :set_feedbackable
-  before_action :set_feedback, only: %i[edit update destroy]
+  before_action :set_feedback, only: [:edit, :update, :destroy]
 
   def create
     @feedback = @feedbackable.feedbacks.new(feedback_params)
-    authorize @feedback
+    authorize(@feedback)
 
     if @feedback.save
-      redirect_to @feedbackable
+      redirect_to(@feedbackable)
     else
       flash[:alert] = "All fields are required"
-      render @feedbackable, status: :unprocessable_entity
+      render(@feedbackable, status: :unprocessable_entity)
     end
   end
 
   def edit
-    authorize @feedback
+    authorize(@feedback)
   end
 
   def update
-    authorize @feedback
+    authorize(@feedback)
     respond_to do |format|
       if @feedback.update(feedback_params)
         format.turbo_stream
-        format.html { redirect_to @feedbackable }
+        format.html { redirect_to(@feedbackable) }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render(:edit, status: :unprocessable_entity) }
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(dom_id(@feedback), partial: "feedbacks/form",
-                                                                       locals: { feedbackable: @feedbackable, feedback: @feedback })
+          render(turbo_stream: turbo_stream.replace(
+            dom_id(@feedback),
+            partial: "feedbacks/form",
+            locals: { feedbackable: @feedbackable, feedback: @feedback },
+          ))
         end
       end
     end
   end
 
   def destroy
-    authorize @feedback
+    authorize(@feedback)
     @feedback.destroy
 
     respond_to do |format|
-      format.html { redirect_to @feedbackable }
+      format.html { redirect_to(@feedbackable) }
       format.turbo_stream
     end
   end
@@ -49,7 +52,7 @@ class FeedbacksController < ApplicationController
   private
 
   def feedback_params
-    params.expect(feedback: %i[comment rating feedbackable_id feedbackable_type]).merge(user_id: current_user&.id)
+    params.expect(feedback: [:comment, :rating, :feedbackable_id, :feedbackable_type]).merge(user_id: current_user&.id)
   end
 
   def set_feedbackable

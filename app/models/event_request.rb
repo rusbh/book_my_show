@@ -13,9 +13,10 @@ class EventRequest < ApplicationRecord
 
   has_one_attached :permit, dependent: :destroy
 
-  validates :permit, attached: true,
-                     content_type: { in: %w[application/pdf], message: "must be valid pdf format" },
-                     size: { between: (1.kilobyte)..(10.megabytes), message: "should be less than 10 MB" }
+  validates :permit,
+    attached: true,
+    content_type: { in: ["application/pdf"], message: "must be valid pdf format" },
+    size: { between: (1.kilobyte)..(10.megabytes), message: "should be less than 10 MB" }
 
   private
 
@@ -41,7 +42,7 @@ class EventRequest < ApplicationRecord
   end
 
   def release_date_before_end_date
-    return unless release_date > end_date
+    return if release_date <= end_date
 
     errors.add(:release_date, "must be before the end date")
     throw(:abort)

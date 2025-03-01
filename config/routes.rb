@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   root "home#index"
 
   devise_for :users,
-             path: "/",
-             path_names: {
-               sign_in: "login",
-               sign_out: "logout",
-               sign_up: "signup"
-             }
+    path: "/",
+    path_names: {
+      sign_in: "login",
+      sign_out: "logout",
+      sign_up: "signup",
+    }
 
   ActiveAdmin.routes(self)
   mount Sidekiq::Web => "/sidekiq"
@@ -22,25 +22,25 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :shows, only: %i[index show] do
+  resources :shows, only: [:index, :show] do
     get "/book-now", to: "screenings#index"
-    resources :feedbacks, only: %i[create update destroy edit]
+    resources :feedbacks, only: [:create, :update, :destroy, :edit]
     member do
       get :languages
     end
   end
 
-  resources :screenings, only: [ :index ] do
-    resources :bookings, only: %i[create new] do
+  resources :screenings, only: [:index] do
+    resources :bookings, only: [:create, :new] do
       member do
         patch :cancel_booking
       end
     end
   end
 
-  resources :theaters, only: %i[index show] do
-    resources :feedbacks, only: %i[create update destroy edit]
-    resources :event_requests, only: %i[create new]
+  resources :theaters, only: [:index, :show] do
+    resources :feedbacks, only: [:create, :update, :destroy, :edit]
+    resources :event_requests, only: [:create, :new]
   end
 
   get "search", to: "search#index", as: :search
@@ -51,6 +51,6 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   match "*path", via: :all, to: "application#not_found_method", constraints: lambda { |req|
-    req.path.exclude? "rails/active_storage"
+    req.path.exclude?("rails/active_storage")
   }
 end

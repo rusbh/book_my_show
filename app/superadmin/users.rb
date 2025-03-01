@@ -1,4 +1,4 @@
-ActiveAdmin.register User do
+ActiveAdmin.register(User) do
   index do
     selectable_column
     id_column
@@ -23,19 +23,26 @@ ActiveAdmin.register User do
   end
 
   form do |f|
-    f.inputs "User" do
-      f.input :email
+    f.inputs("User") do
+      f.input(:email)
       if f.object.new_record?
-        f.input :name
-        f.input :password, label: "Password (6 characters minimum)"
-        f.input :password_confirmation
+        f.input(:name)
+        f.input(:password, label: "Password (6 characters minimum)")
+        f.input(:password_confirmation)
       end
-      f.input :status
-      f.input :admin
+      f.input(:status)
+      f.input(:admin)
     end
     f.actions
   end
 
-  permit_params :email, :password, :password_confirmation, :reset_password_token, :reset_password_sent_at,
-                :remember_created_at, :name, :admin, :status
+  permit_params :email,
+    :password,
+    :password_confirmation,
+    :reset_password_token,
+    :reset_password_sent_at,
+    :remember_created_at,
+    :name,
+    :admin,
+    :status
 end

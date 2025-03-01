@@ -2,12 +2,12 @@ module Admin
   class ScreeningsController < Admin::BaseController
     before_action :set_theater
     before_action :set_screen
-    before_action :set_screening, only: %i[show edit update destroy]
-    before_action :set_show, only: %i[show edit update destroy]
-    before_action :get_event_requested_shows, only: %i[new edit]
+    before_action :set_screening, only: [:show, :edit, :update, :destroy]
+    before_action :set_show, only: [:show, :edit, :update, :destroy]
+    before_action :get_event_requested_shows, only: [:new, :edit]
 
     def index
-      @screenings = @screen.screenings.includes(show: [ :poster_attachment ]).where(shows: { status: :active })
+      @screenings = @screen.screenings.includes(show: [:poster_attachment]).where(shows: { status: :active })
     end
 
     def new
@@ -17,25 +17,25 @@ module Admin
 
     def create
       @screening = Screening.new(screening_params)
-      authorize @screening
+      authorize(@screening)
 
       if @screening.save
         RecurringScreeningsJob.perform_async(@screening.id)
-        redirect_to admin_screen_screenings_path(@screen), notice: "Screening was successfully created."
+        redirect_to(admin_screen_screenings_path(@screen), notice: "Screening was successfully created.")
       else
-        render :new, status: :unprocessable_entity
+        render(:new, status: :unprocessable_entity)
       end
     end
 
     def edit; end
 
     def update
-      authorize @screening
+      authorize(@screening)
 
       if @screening.update(screening_params)
-        redirect_to admin_screen_screening_url(@screen, @screening), notice: "Screening was successfully updated."
+        redirect_to(admin_screen_screening_url(@screen, @screening), notice: "Screening was successfully updated.")
       else
-        render :edit, status: :unprocessable_entity
+        render(:edit, status: :unprocessable_entity)
       end
     end
 
@@ -44,10 +44,10 @@ module Admin
     end
 
     def destroy
-      authorize @screening
+      authorize(@screening)
 
       @screening.destroy!
-      redirect_to admin_screen_screenings_url(@screen), notice: "Screening was successfully destroyed."
+      redirect_to(admin_screen_screenings_url(@screen), notice: "Screening was successfully destroyed.")
     end
 
     private
@@ -61,7 +61,7 @@ module Admin
     def set_theater
       if session[:current_theater]
         @theater = current_user.theaters.find_by(id: session[:current_theater])
-        redirect_to root_path, alert: "Selected theater not found or you do not have access." unless @theater
+        redirect_to(root_path, alert: "Selected theater not found or you do not have access.") unless @theater
       else
         @theater = current_user.theaters.first
         session[:current_theater] = @theater.id if @theater
@@ -81,7 +81,7 @@ module Admin
     end
 
     def screening_params
-      params.expect(screening: [ :show_id, :language, :price, :start_date, :end_date, { show_times_attributes: [ %i[id at_timeof seats _destroy] ] } ]).merge(screen_id: @screen.id)
+      params.expect(screening: [:show_id, :language, :price, :start_date, :end_date, { show_times_attributes: [[:id, :at_timeof, :seats, :_destroy]] }]).merge(screen_id: @screen.id)
     end
   end
 end
