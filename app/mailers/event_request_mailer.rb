@@ -3,7 +3,7 @@ class EventRequestMailer < ApplicationMailer
 
   def new_event_request(event_request)
     @event_request = event_request
-    mail to: 'superadmin@bms.com', subject: 'New event request for BMS theater portal'
+    mail to: "superadmin@bms.com", subject: "New event request for BMS theater portal"
   end
 
   def theater_event_request(event_request)
@@ -14,11 +14,11 @@ class EventRequestMailer < ApplicationMailer
 
   def event_request_approved(event_request)
     @event_request = event_request
-    mail to: @event_request.user.email, subject: 'Your Theater request has been approved'
+    mail to: @event_request.user.email, subject: "Your Theater request has been approved"
   end
 
   def event_request_rejected(event_request)
     @event_request = event_request
-    mail to: @event_request.user.email, subject: 'Your Theater request has been approved'
+    mail to: @event_request.user.email, subject: "Your Theater request has been approved"
   end
 end

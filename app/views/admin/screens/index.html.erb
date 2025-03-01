@@ -3,7 +3,7 @@
 <div class="w-full">
   <div class="flex justify-between mt-10 items-center">
     <h1 class="font-semibold text-3xl">Manage Screens</h1>
-    <%= link_to "Add New Screen", new_admin_screen_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>
+    <%= link_to "Add New Screen", new_admin_screen_path, class: "btn-blue" %>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
@@ -80,5 +80,5 @@
     <% end %>
   </ul>
 
-  <%= render "logs", logs: @theater_logs, title: "theater", pagy: @pagy %>
+  <%= render(LogsComponent.new(logs: @theater_logs, title: "theater", pagy: @pagy)) %>
 </div>

@@ -7,7 +7,8 @@
   @apply flex space-x-1 font-semibold text-sm text-gray-500;
   a:not(.gap) {
     @apply block rounded-lg px-3 py-1 bg-gray-200 hover:bg-gray-300;
-    &:not([href]) { /* disabled links */
+    &:not([href]) {
+      /* disabled links */
       @apply text-gray-300 bg-gray-100 cursor-default;
     }
     &.current {
@@ -22,12 +23,24 @@
   }
 }
 
-/*
-
 @layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+  .btn-blue {
+    @apply rounded-lg py-3 px-5 bg-blue-600 text-white font-medium cursor-pointer hover:bg-blue-700 hover:scale-105 transform transition;
+  }
+
+  .btn-green {
+    @apply rounded-lg py-3 px-5 bg-green-500 text-white font-medium hover:bg-green-600 hover:scale-105 transform transition;
+  }
+
+  .btn-red {
+    @apply rounded-lg py-3 px-5 bg-red-600 text-white inline-block font-medium hover:bg-red-600 hover:scale-105 transform transition;
+  }
+
+  .btn-gray {
+    @apply rounded-lg py-3 px-5 bg-gray-100 font-medium;
+  }
+
+  .btn-gray-disabled {
+    @apply rounded-lg py-3 px-5 bg-slate-200 cursor-default font-medium;
   }
 }
-
-*/

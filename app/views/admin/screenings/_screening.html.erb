@@ -31,7 +31,7 @@
             </li>
           <% end %>
         </ul>
-        <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+        <%= render(PaginationComponent.new(pagy: @pagy)) %>
       </div>
     </div>
   </section>

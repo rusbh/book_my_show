@@ -7,7 +7,7 @@ module Admin
     before_action :get_event_requested_shows, only: %i[new edit]
 
     def index
-      @screenings = @screen.screenings.includes(show: [:poster_attachment]).where(shows: { status: :active })
+      @screenings = @screen.screenings.includes(show: [ :poster_attachment ]).where(shows: { status: :active })
     end
 
     def new
@@ -21,7 +21,7 @@ module Admin
 
       if @screening.save
         RecurringScreeningsJob.perform_async(@screening.id)
-        redirect_to admin_screen_screenings_path(@screen), notice: 'Screening was successfully created.'
+        redirect_to admin_screen_screenings_path(@screen), notice: "Screening was successfully created."
       else
         render :new, status: :unprocessable_entity
       end
@@ -33,7 +33,7 @@ module Admin
       authorize @screening
 
       if @screening.update(screening_params)
-        redirect_to admin_screen_screening_url(@screen, @screening), notice: 'Screening was successfully updated.'
+        redirect_to admin_screen_screening_url(@screen, @screening), notice: "Screening was successfully updated."
       else
         render :edit, status: :unprocessable_entity
       end
@@ -47,7 +47,7 @@ module Admin
       authorize @screening
 
       @screening.destroy!
-      redirect_to admin_screen_screenings_url(@screen), notice: 'Screening was successfully destroyed.'
+      redirect_to admin_screen_screenings_url(@screen), notice: "Screening was successfully destroyed."
     end
 
     private
@@ -61,7 +61,7 @@ module Admin
     def set_theater
       if session[:current_theater]
         @theater = current_user.theaters.find_by(id: session[:current_theater])
-        redirect_to root_path, alert: 'Selected theater not found or you do not have access.' unless @theater
+        redirect_to root_path, alert: "Selected theater not found or you do not have access." unless @theater
       else
         @theater = current_user.theaters.first
         session[:current_theater] = @theater.id if @theater
@@ -81,7 +81,7 @@ module Admin
     end
 
     def screening_params
-      params.expect(screening: [:show_id, :language, :price, :start_date, :end_date, { show_timings_attributes: [%i[id at_timeof seats _destroy]] }]).merge(screen_id: @screen.id)
+      params.expect(screening: [ :show_id, :language, :price, :start_date, :end_date, { show_timings_attributes: [ %i[id at_timeof seats _destroy] ] } ]).merge(screen_id: @screen.id)
     end
   end
 end

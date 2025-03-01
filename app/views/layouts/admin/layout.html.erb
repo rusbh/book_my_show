@@ -14,7 +14,7 @@
 
   <body>
     <%= render 'layouts/admin/header' %>
-    <%= render 'layouts/flash' %>
+    <%= render(FlashComponent.new(flash:)) %>
     <main class="container mx-auto mt-8 mb-48 px-8">
       <%= yield %>
     </main>

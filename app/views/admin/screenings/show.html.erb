@@ -3,8 +3,8 @@
 <div class="w-full mb-40">
   <%= render @screening %>
 
-  <%= link_to "Edit details", edit_admin_screen_screening_path(@screen, @screening), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to Screen's Shows", admin_screen_screenings_path(@screen), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "Edit details", edit_admin_screen_screening_path(@screen, @screening), class: "mt-2 btn-gray" %>
+  <%= link_to "Back to Screen's Shows", admin_screen_screenings_path(@screen), class: "ml-2 btn-gray" %>
   <div class="inline-block ml-2">
     <%= button_to "Destroy this show for screen", admin_screen_screening_path(@screen, @screening), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
   </div>

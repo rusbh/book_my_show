@@ -5,7 +5,7 @@ class ShowsController < ApplicationController
     @q = Show.active.ransack(params[:q])
     shows = @q.result(distinct: true)
 
-    shows = shows.can_book if params[:booking_available] == '1'
+    shows = shows.can_book if params[:booking_available] == "1"
     @pagy, @all_shows = pagy(shows, limit: 20)
   end
 
@@ -30,7 +30,7 @@ class ShowsController < ApplicationController
   end
 
   def show_params
-    params.expect(event_request: [:name, :description, :poster, :cast, :category, :duration, :release_date, :end_date, :at_timeof,
-                                  :status, :permit, { languages: [], genres: [] }])
+    params.expect(event_request: [ :name, :description, :poster, :cast, :category, :duration, :release_date, :end_date, :at_timeof,
+                                  :status, :permit, { languages: [], genres: [] } ])
   end
 end

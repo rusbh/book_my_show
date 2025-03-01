@@ -78,6 +78,8 @@ gem "audited", "~> 5.8"
 
 gem "inline_svg", "~> 1.10"
 
+gem "view_component", "~> 3.21"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
@@ -114,8 +116,7 @@ group :development do
   gem 'awesome_print'
 
   # Use Rubocop to lint code
-  gem 'rubocop-rails', require: false
-  gem "rubocop-performance", "~> 1.24.0", require: false
+  gem "rubocop-rails-omakase", "~> 1.0", require: false
   gem 'rubocop-rspec', require: false
 end
 

@@ -15,7 +15,7 @@ class BookingsController < ApplicationController
 
     if @booking.save
       @booking.send_booking_confirmed_mail
-      redirect_to profile_path, notice: 'Booking was successfully created.'
+      redirect_to profile_path, notice: "Booking was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,9 +27,9 @@ class BookingsController < ApplicationController
     if @booking.update(status: :cancelled)
       @booking.send_booking_cancelled_mail
       @booking.increment_seats
-      redirect_to profile_path, notice: 'Booking was successfully cancelled.'
+      redirect_to profile_path, notice: "Booking was successfully cancelled."
     else
-      redirect_to profile_path, alert: 'Failed to cancel the booking.'
+      redirect_to profile_path, alert: "Failed to cancel the booking."
     end
   end
 

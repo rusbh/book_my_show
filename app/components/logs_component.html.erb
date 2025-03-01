@@ -17,7 +17,7 @@
       <% end %>
 
       <div class="my-3">
-        <%== pagy_nav(pagy) if pagy.pages > 1 %>
+        <%= render(PaginationComponent.new(pagy:)) %>
       </div>
     </div>
   </section>

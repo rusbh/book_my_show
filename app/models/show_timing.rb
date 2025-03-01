@@ -8,6 +8,6 @@ class ShowTiming < ApplicationRecord
   def formatted_time
     return unless at_timeof > Time.current
 
-    at_timeof.strftime('%d %B, %y at %I:%M %p')
+    at_timeof.strftime("%d %B, %y at %I:%M %p")
   end
 end

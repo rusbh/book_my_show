@@ -11,18 +11,7 @@
     <p><%= link_to 'See All ›', shows_path, class: "ml-2 py-3 px-5 inline-block font-normal text-xl" %></p>
   </div>
 
-  <% if @recommended_shows.present? %>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-      <% @recommended_shows.each do |show| %>
-        <a href="<%= show_path(show) %>">
-          <%= display_show_poster(show, hover: true) %>
-          <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
-        </a>
-      <% end %>
-    </div>
-  <% else %>
-    <h1 class="text-xl mb-10">No shows are currently running in theaters</h1>
-  <% end %>
+  <%= render(ShowListComponent.new(shows: @recommended_shows)) %>
 
   <% @shows_by_language.each do |language, shows| %>
     <h1 class="font-bold text-3xl my-5 underline">In <%= language.humanize %></h1>
@@ -40,6 +29,8 @@
       <h1 class="text-xl mb-10">No <%= language %> shows currently running in theaters</h1>
     <% end %>
   <% end %>
+
+  <%= render(ShowListComponent.new(shows: @recommended_shows)) %>
 
   <h1 class="font-bold text-3xl my-5 underline">In Sports/Plays/Events</h1>
 

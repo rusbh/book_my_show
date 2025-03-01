@@ -8,12 +8,12 @@
       <% @theaters.each do |theater| %>
         <%= render theater %>
         <p>
-          <%= link_to "Show this theater", theater, class: "mb-10 mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+          <%= link_to "Show this theater", theater, class: "mb-10 mt-2 btn-gray" %>
         </p>
       <% end %>
     <% else %>
       <p>No Theaters currently listed</p>
     <% end %>
   </div>
-  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+  <%= render(PaginationComponent.new(pagy: @pagy)) %>
 </div>

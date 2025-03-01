@@ -1,34 +1,34 @@
 <h1 class="text-3xl font-semibold">Edit Feedback</h1>
 
 <%= turbo_frame_tag dom_id(@feedback) do %>
-<%= form_for([@commentable, @feedback], local: true) do |form| %>
-  <% if @feedback.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(@feedback.errors.count, "error") %> prohibited this feedback from being saved:</h2>
+  <%= form_for([@commentable, @feedback], local: true) do |form| %>
+    <% if @feedback.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+        <h2><%= pluralize(@feedback.errors.count, "error") %> prohibited this feedback from being saved:</h2>
 
-      <ul>
-        <% @feedback.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% @feedback.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="my-4">
+      <%= form.label :comment %>
+      <%= form.text_area :comment, rows: 4, required: true, class: "block shadow rounded-md border resize-none border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
+
+    <div class="my-4">
+      <%= form.label :rating %>
+      <%= form.number_field :rating, step: :any, in: 1.0..10.0, placeholder: "e.g. 8.7", class: "remove-arrow block shadow rounded-md border resize-none border-gray-400 outline-none px-3 py-2 mt-2" %>
+    </div>
+
+    <div class="inline">
+      <%= form.submit "Update", data: { turbo_submits_with: "Updating..." }, class: "btn-blue" %>
+    </div>
+
+    <%= link_to 'Cancel', @commentable, class: "ml-2 btn-gray" %>
   <% end %>
-
-  <div class="my-4">
-    <%= form.label :comment %>
-    <%= form.text_area :comment, rows: 4, required: true, class: "block shadow rounded-md border resize-none border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-4">
-    <%= form.label :rating %>
-    <%= form.number_field :rating, step: :any, in: 1.0..10.0, placeholder: "e.g. 8.7", class: "remove-arrow block shadow rounded-md border resize-none border-gray-400 outline-none px-3 py-2 mt-2" %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit "Update", data: { turbo_submits_with: "Updating..." }, class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
-
-  <%= link_to 'Cancel', @commentable, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-<% end %>
 
 <% end %>

@@ -3,13 +3,13 @@ class AdminRequest < ApplicationRecord
 
   validates :contact_email, :contact_no, :admin_emails, :theater_name, :theater_address, :pincode, :business_license,
             :ownership_proof, :noc, :insurance, :status, presence: true
-  validates :contact_email, uniqueness: { message: 'was already used once to fill this form.' },
-                            format: { with: /\A[-a-z0-9_+.]+@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i, message: 'is in invalid format' }
+  validates :contact_email, uniqueness: { message: "was already used once to fill this form." },
+                            format: { with: /\A[-a-z0-9_+.]+@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i, message: "is in invalid format" }
   validates :admin_emails,
             format: {
-              with: /\A[-a-z0-9_+.]+@([-a-z0-9]+\.)+[a-z0-9]{2,4}(\s*,\s*[-a-z0-9_+.]+@([-a-z0-9]+\.)+[a-z0-9]{2,4})*\z/i, message: 'must be in valid format with comma between them'
+              with: /\A[-a-z0-9_+.]+@([-a-z0-9]+\.)+[a-z0-9]{2,4}(\s*,\s*[-a-z0-9_+.]+@([-a-z0-9]+\.)+[a-z0-9]{2,4})*\z/i, message: "must be in valid format with comma between them"
             }
-  validates :theater_address, length: { in: 1..240, message: 'must be between 1 to 240 letters' }
+  validates :theater_address, length: { in: 1..240, message: "must be between 1 to 240 letters" }
   validates :contact_no, uniqueness: true, length: { is: 10 }
   validates :pincode, length: { is: 6 }
 
@@ -24,8 +24,8 @@ class AdminRequest < ApplicationRecord
 
   validates :business_license, :ownership_proof, :noc, :insurance,
             attached: true,
-            content_type: { in: %w[application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document], message: 'must be in valid format of .pdf, .docx, .doc' },
-            size: { between: (1.kilobyte)..(5.megabytes), message: 'should be less than 5 MB' }
+            content_type: { in: %w[application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document], message: "must be in valid format of .pdf, .docx, .doc" },
+            size: { between: (1.kilobyte)..(5.megabytes), message: "should be less than 5 MB" }
 
   private
 
@@ -45,7 +45,7 @@ class AdminRequest < ApplicationRecord
       theater&.update!(status: :active)
     end
 
-    admin_emails.split(',').map(&:strip).each do |email|
+    admin_emails.split(",").map(&:strip).each do |email|
       user = User.find_by(email:)
       user&.update!(status: :active)
       user&.send_admin_invitation_email
@@ -56,13 +56,13 @@ class AdminRequest < ApplicationRecord
     theater = Theater.find_by(name: theater_name)
     theater&.destroy!
 
-    admin_emails.split(',').map(&:strip).each do |email|
+    admin_emails.split(",").map(&:strip).each do |email|
       user = User.find_by(email:)
       user&.destroy!
     end
   end
 
   def theater_name_already_exists
-    errors.add(:theater_name, 'with this name already exists') if Theater.find_by(name: theater_name).present?
+    errors.add(:theater_name, "with this name already exists") if Theater.find_by(name: theater_name).present?
   end
 end

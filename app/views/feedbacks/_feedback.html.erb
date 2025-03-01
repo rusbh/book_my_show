@@ -3,16 +3,16 @@
 
     <div class="flex justify-between text-center">
       <p class="font-semibold text-xl"><%= feedback.user.name %></p>
-      
+
       <div class="flex gap-x-5">
         <p class="text-xl flex items-center gap-2">⭐ <span class="text-xl"><%= feedback.rating.round(1) %>/10</span></p>
 
         <% if policy(feedback).record_owner? %>
-          <%= link_to "Edit", edit_polymorphic_path([commentable, feedback]), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium" %> 
-          <%= button_to "Delete", [commentable, feedback], method: :delete, data: {turbo_confirm: "are you sure?" }, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>   
+          <%= link_to "Edit", edit_polymorphic_path([commentable, feedback]), class: "btn-blue" %>
+          <%= button_to "Delete", [commentable, feedback], method: :delete, data: {turbo_confirm: "are you sure?" }, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
         <% end %>
       </div>
-      
+
     </div>
 
     <div class="prose prose-slate">

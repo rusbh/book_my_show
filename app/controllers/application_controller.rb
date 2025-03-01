@@ -13,11 +13,11 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def not_found_method
-    render file: Rails.public_path.join('404.html'), status: :not_found, layout: false
+    render file: Rails.public_path.join("404.html"), status: :not_found, layout: false
   end
 
-  http_basic_authenticate_with name: ENV.fetch('SUPERADMIN_USERNAME'),
-                               password: ENV.fetch('SUPERADMIN_PASSWORD'),
+  http_basic_authenticate_with name: ENV.fetch("SUPERADMIN_USERNAME"),
+                               password: ENV.fetch("SUPERADMIN_PASSWORD"),
                                if: :active_admin_controller?
 
   protected
@@ -34,12 +34,12 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-    flash[:alert] = 'You are not authorized to perform this action.'
+    flash[:alert] = "You are not authorized to perform this action."
     redirect_to root_path
   end
 
   def handle_no_method_error(exception)
-    flash[:alert] = exception.message || 'Oops! Something went wrong.'
+    flash[:alert] = exception.message || "Oops! Something went wrong."
     redirect_back(fallback_location: root_path)
   end
 

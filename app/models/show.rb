@@ -11,7 +11,7 @@ class Show < ApplicationRecord
   has_many :bookings, through: :screenings, dependent: :destroy
   has_many :feedbacks, as: :commentable, dependent: :destroy
 
-  after_update :show_cancelled, if: -> { status_previously_changed? && status == 'cancelled' }
+  after_update :show_cancelled, if: -> { status_previously_changed? && status == "cancelled" }
 
   enum :status, inactive: 0, active: 1, pending: 2, cancelled: 3
 
@@ -24,7 +24,7 @@ class Show < ApplicationRecord
   # home page
   scope :recommended, -> { order(created_at: :desc).active.can_book.take(5) }
   scope :by_language, lambda { |language|
-                        where(':languages = ANY (languages)', languages: language).active.can_book.take(5)
+                        where(":languages = ANY (languages)", languages: language).active.can_book.take(5)
                       }
   scope :except_movies, -> { where.not(category: :movie).active.can_book.take(5) }
 

@@ -222,6 +222,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    method_source (1.1.0)
     mini_magick (5.2.0)
       benchmark
       logger
@@ -355,6 +356,10 @@ GEM
       unicode-display_width (>= 2.4.0, < 4.0)
     rubocop-ast (1.38.0)
       parser (>= 3.3.1.0)
+    rubocop-minitest (0.37.1)
+      lint_roller (~> 1.1)
+      rubocop (>= 1.72.1, < 2.0)
+      rubocop-ast (>= 1.38.0, < 2.0)
     rubocop-performance (1.24.0)
       lint_roller (~> 1.1)
       rubocop (>= 1.72.1, < 2.0)
@@ -364,6 +369,11 @@ GEM
       rack (>= 1.1)
       rubocop (>= 1.52.0, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
+    rubocop-rails-omakase (1.0.0)
+      rubocop
+      rubocop-minitest
+      rubocop-performance
+      rubocop-rails
     rubocop-rspec (3.2.0)
       rubocop (~> 1.61)
     ruby-progressbar (1.13.0)
@@ -429,6 +439,10 @@ GEM
     uniform_notifier (1.16.0)
     uri (1.0.2)
     useragent (0.16.11)
+    view_component (3.21.0)
+      activesupport (>= 5.2.0, < 8.1)
+      concurrent-ruby (~> 1.0)
+      method_source (~> 1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.1)
@@ -486,8 +500,7 @@ DEPENDENCIES
   redis (>= 5.4.0)
   rspec-rails (~> 7.1)
   rspec-retry (~> 0.6.2)
-  rubocop-performance (~> 1.24.0)
-  rubocop-rails
+  rubocop-rails-omakase (~> 1.0)
   rubocop-rspec
   sass-rails (~> 6.0)
   selenium-webdriver
@@ -497,6 +510,7 @@ DEPENDENCIES
   tailwindcss-rails (~> 3.3.1)
   turbo-rails
   tzinfo-data
+  view_component (~> 3.21)
   web-console
 
 RUBY VERSION

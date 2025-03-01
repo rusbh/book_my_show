@@ -8,6 +8,6 @@
 #     column :updated_at
 #     actions
 #   end
-  
+
 #   permit_params :at_timeof, :screening_id, :seats
 # end

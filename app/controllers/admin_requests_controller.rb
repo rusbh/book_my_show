@@ -8,7 +8,7 @@ class AdminRequestsController < ApplicationController
 
     if @admin_request.save
       AdminRequestJob.perform_async(@admin_request.id)
-      redirect_to root_path, notice: 'Thank you for submitting the form, We will contact you details soon'
+      redirect_to root_path, notice: "Thank you for submitting the form, We will contact you details soon"
     else
       render :new, status: :unprocessable_entity
     end

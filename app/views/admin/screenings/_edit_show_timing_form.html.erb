@@ -1,11 +1,11 @@
 <div class="nested-form-wrapper">
-    <%= f.datetime_field :at_timeof, value: f.object.at_timeof, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-3" %>
+  <%= f.datetime_field :at_timeof, value: f.object.at_timeof, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-3" %>
 
-    <%= f.label :seats, "seats for that timing:" %>
-    <%= f.number_field :seats, placeholder: "enter seats capacity", class: "remove-arrow block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2" %>
+  <%= f.label :seats, "seats for that timing:" %>
+  <%= f.number_field :seats, placeholder: "enter seats capacity", class: "remove-arrow block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2" %>
 
-    <button type="button" data-action="nested-form#remove" class="my-2 hover:underline">Remove this time</button>
-    
-    <%= f.hidden_field :_destroy %>
-    <hr>
+  <button type="button" data-action="nested-form#remove" class="my-2 hover:underline">Remove this time</button>
+
+  <%= f.hidden_field :_destroy %>
+  <hr>
 </div>

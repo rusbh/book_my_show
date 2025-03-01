@@ -1,9 +1,8 @@
-require:
-  - rubocop-rails
-  - rubocop-rspec
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
 
-plugins:
-  - rubocop-performance
+require:
+  - rubocop-rspec
 
 AllCops:
   NewCops: enable
@@ -33,6 +32,9 @@ Style/Documentation:
   Enabled: false
 
 Layout/LineLength:
+  Enabled: false
+
+Lint/MissingSuper:
   Enabled: false
 
 Metrics/MethodLength:

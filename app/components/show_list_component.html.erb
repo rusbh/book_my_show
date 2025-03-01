@@ -1,0 +1,12 @@
+<% if shows.present? %>
+  <div class="grid grid-cols-1 gap-4 mb-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+    <% shows.each do |show| %>
+      <a href="<%= show_path(show) %>">
+        <%= display_show_poster(show, hover: true) %>
+        <h1 class="my-4 text-2xl font-semibold"><%= show.name %></h1>
+      </a>
+    <% end %>
+  </div>
+<% else %>
+  <h1 class="text-4xl font-semibold text-center mt-52">No Results</h1>
+<% end %>

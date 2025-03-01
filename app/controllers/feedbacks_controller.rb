@@ -11,7 +11,7 @@ class FeedbacksController < ApplicationController
     if @feedback.save
       redirect_to @commentable
     else
-      flash[:alert] = 'All fields are required'
+      flash[:alert] = "All fields are required"
       render @commentable, status: :unprocessable_entity
     end
   end
@@ -29,7 +29,7 @@ class FeedbacksController < ApplicationController
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(dom_id(@feedback), partial: 'feedbacks/form',
+          render turbo_stream: turbo_stream.replace(dom_id(@feedback), partial: "feedbacks/form",
                                                                        locals: { commentable: @commentable, feedback: @feedback })
         end
       end

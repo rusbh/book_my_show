@@ -19,7 +19,7 @@
 
       <p class="text-xl my-2">Langauge: <%= ss.language.humanize %></p>
       <p class="text-xl mb-5">Price: ₹ <%= ss.price %></p>
-      <%= link_to "Book now", new_screening_booking_path(ss), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>
+      <%= link_to "Book now", new_screening_booking_path(ss), class: "btn-blue" %>
     <% end %>
 
   <% end %>

@@ -9,6 +9,6 @@
 #     end
 #     f.actions
 #   end
-  
+
 #   permit_params :comment, :rating, :user_id, :commentable_type, :commentable_id
 # end

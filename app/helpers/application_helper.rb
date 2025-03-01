@@ -1,13 +1,13 @@
 module ApplicationHelper
   include Pagy::Frontend
 
-  def full_title(page_title = '')
-    base_title = 'BookMyShow'
+  def full_title(page_title = "")
+    base_title = "BookMyShow"
     page_title.empty? ? base_title : "#{page_title} | #{base_title}"
   end
 
-  def admin_portal_title(page_title = '')
-    base_title = 'Theater Portal'
+  def admin_portal_title(page_title = "")
+    base_title = "Theater Portal"
     page_title.empty? ? base_title : "#{page_title} | #{base_title}"
   end
 
@@ -24,14 +24,14 @@ module ApplicationHelper
   end
 
   def format_date(date)
-    date.strftime('%d %B, %Y')
+    date.strftime("%d %B, %Y")
   end
 
   def format_time(time)
-    time.strftime('%I:%M %p')
+    time.strftime("%I:%M %p")
   end
 
   def format_datetime(datetime)
-    datetime.strftime('%d %B, %y at %I:%M %p')
+    datetime.strftime("%d %B, %y at %I:%M %p")
   end
 end

@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+
 
 namespace :active_storage do
   desc 'Purges unattached active storage blobs'

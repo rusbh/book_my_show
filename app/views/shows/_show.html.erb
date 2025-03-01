@@ -10,31 +10,31 @@
         <% end %>
       <% else %>
         <p class="mt-6 text-xl flex items-center gap-2">Not rated yet</span></p>
-      <% end %>
-      
-      <p class="my-3 text-lg"><%= show.languages.map { |genre| genre.humanize }.join(", ") %></p>
+    <% end %>
 
-      <p class="mb-7 text-xl"><%= formatted_duration(show.duration) %> • <%= show.genres.map { |genre| genre.humanize }.join(", ") %> • <%= format_date(show.release_date) %></p>
+    <p class="my-3 text-lg"><%= show.languages.map { |genre| genre.humanize }.join(", ") %></p>
+
+    <p class="mb-7 text-xl"><%= formatted_duration(show.duration) %> • <%= show.genres.map { |genre| genre.humanize }.join(", ") %> • <%= format_date(show.release_date) %></p>
 
     <% if show.available_screenings.exists? %>
-      <%= link_to "Book tickets", show_book_now_path(show), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium hover:bg-blue-700 hover:scale-105 transform transition" %>
+      <%= link_to "Book tickets", show_book_now_path(show), class: "btn-blue" %>
     <% else %>
-      <%= button_to "Booking Unavailable", {}, disabled: true, class: "rounded-lg py-3 px-5 bg-slate-200 cursor-default font-medium" %>
+      <%= button_to "Booking Unavailable", {}, disabled: true, class: "btn-gray-disabled" %>
     <% end %>
-      
-    </div>
 
   </div>
 
-  <aside class="flex gap-x-40">
-    <div>
-      <h1 class="font-semibold mt-10 mb-2 text-2xl">About the <%= show.category.humanize %>:</h1>
-      <p class="prose prose-slate"><%= show.description %></p>
-    </div>
-    <div>
-      <h1 class="font-semibold mt-10 text-2xl">Cast:</h1>
-      <p class="text-xl"><%= show.cast %></p>
-    </div>
-  </aside>
+</div>
+
+<aside class="flex gap-x-40">
+  <div>
+    <h1 class="font-semibold mt-10 mb-2 text-2xl">About the <%= show.category.humanize %>:</h1>
+    <p class="prose prose-slate"><%= show.description %></p>
+  </div>
+  <div>
+    <h1 class="font-semibold mt-10 text-2xl">Cast:</h1>
+    <p class="text-xl"><%= show.cast %></p>
+  </div>
+</aside>
 
 </div>

@@ -14,7 +14,7 @@ class EventRequestsController < ApplicationController
 
     if @event_request.save
       EventRequestJob.perform_async(@event_request.id)
-      redirect_to theater_url(@theater), notice: 'Event request was successfully submitted.'
+      redirect_to theater_url(@theater), notice: "Event request was successfully submitted."
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class EventRequestsController < ApplicationController
   end
 
   def event_request_params
-    params.expect(event_request: [:name, :description, :poster, :cast, :category, :duration, :release_date, :end_date, :at_timeof,
-                                  :status, :permit, { languages: [], genres: [] }])
+    params.expect(event_request: [ :name, :description, :poster, :cast, :category, :duration, :release_date, :end_date, :at_timeof,
+                                  :status, :permit, { languages: [], genres: [] } ])
   end
 end

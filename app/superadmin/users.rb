@@ -23,11 +23,11 @@ ActiveAdmin.register User do
   end
 
   form do |f|
-    f.inputs 'User' do
+    f.inputs "User" do
       f.input :email
       if f.object.new_record?
         f.input :name
-        f.input :password, label: 'Password (6 characters minimum)'
+        f.input :password, label: "Password (6 characters minimum)"
         f.input :password_confirmation
       end
       f.input :status

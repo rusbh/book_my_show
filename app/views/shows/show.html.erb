@@ -2,7 +2,7 @@
 
 <div class="w-full">
   <%= render @show %>
-  
+
   <h2 class="text-2xl font-semibold mt-20">
     <%= turbo_frame_tag "count" do %>
       <%= pluralize(@reviews_count, "Reviews") %>
@@ -22,14 +22,14 @@
       <% end %>
     <% end %>
   </div>
-  
+
   <% if @show_feedbacks.exists? %>
     <%= render partial: "feedbacks/feedback", collection: @show_feedbacks, locals: { commentable: @show } %>
   <% else %>
     <h1 class="p-6 bg-slate-50 rounded-xl my-6">No reviews yet</h1>
   <% end %>
 
-  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
-  
-  <%= link_to "Back to shows", shows_path, class: "mt-5 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= render(PaginationComponent.new(pagy: @pagy)) %>
+
+  <%= link_to "Back to shows", shows_path, class: "mt-5 btn-gray" %>
 </div>

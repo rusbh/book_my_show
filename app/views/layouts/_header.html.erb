@@ -10,7 +10,7 @@
       <%= link_to "Theaters", theaters_path, class: "hover:underline" %>
       <%= link_to "Shows", shows_path, class: "hover:underline" %>
     </ul>
-    
+
   </div>
 
   <div class="flex items-center gap-x-5">
@@ -19,15 +19,14 @@
     <% end %>
 
     <% if user_signed_in? %>
-      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
+      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn-red" %>
       <% if !current_user&.admin? %>
         <a href="/profile"><%= inline_svg_tag "icons/outline/profile.svg", class: "h-11 w-11" %></a>
       <% end %>
     <% else %>
-      <%= link_to "Sign up", new_user_registration_path, class: "rounded-lg py-3 px-5 bg-zinc-200 font-medium" %>
-      <%= link_to "Sign in", new_user_session_path, class: "rounded-lg py-3 px-5 bg-green-500 text-white font-medium" %>
-    <% end %> 
-    
+      <%= link_to "Sign up", new_user_registration_path, class: "btn-gray" %>
+      <%= link_to "Sign in", new_user_session_path, class: "btn-green" %>
+    <% end %>
+
   </div>
 </header>
-

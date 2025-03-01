@@ -7,7 +7,7 @@ class AdminRequestJob
     theater_name = admin_request.theater_name
     theater_address = admin_request.theater_address
     theater_pincode = admin_request.pincode
-    admin_emails = admin_request.admin_emails.split(',').map(&:strip)
+    admin_emails = admin_request.admin_emails.split(",").map(&:strip)
 
     # create theatre
     ActiveRecord::Base.transaction do
@@ -19,7 +19,7 @@ class AdminRequestJob
         if user.present?
           user.update!(admin: true, status: :inactive)
         else
-          admin = User.create!(name: 'admin', email:, password: SecureRandom.base36, admin: true, status: :inactive)
+          admin = User.create!(name: "admin", email:, password: SecureRandom.base36, admin: true, status: :inactive)
         end
         TheaterAdmin.create!(theater:, admin:, status: :active)
       end
