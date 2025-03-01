@@ -1,7 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :screening
-  belongs_to :show_timing
+  belongs_to :show_time
 
   before_create :seats_not_available, :show_time_in_past
   after_create :decrement_seats
@@ -34,24 +34,24 @@ class Booking < ApplicationRecord
   end
 
   def decrement_seats
-    show_timing.seats -= ticket
-    show_timing.save
+    show_time.seats -= ticket
+    show_time.save
   end
 
   def increment_seats
-    show_timing.seats += ticket
-    show_timing.save
+    show_time.seats += ticket
+    show_time.save
   end
 
   def seats_not_available
-    return unless show_timing.seats < ticket
+    return unless show_time.seats < ticket
 
-    errors.add(:base, "Only #{show_timing.seats} seats available on your selected time")
+    errors.add(:base, "Only #{show_time.seats} seats available on your selected time")
     throw(:abort)
   end
 
   def show_time_in_past
-    return unless show_timing.at_timeof < Time.current
+    return unless show_time.at_timeof < Time.current
 
     errors.add(:base, "you can't select previous time")
     throw(:abort)

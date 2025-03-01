@@ -7,8 +7,8 @@
     <% end %>
 
     <ul class="ml-7 hidden gap-x-6 lg:flex text-xl">
-      <%= link_to "Theaters", theaters_path, class: "hover:underline" %>
-      <%= link_to "Shows", shows_path, class: "hover:underline" %>
+      <%= link_to "Theaters", theaters_path, class: "hover:underline underline-offset-4 #{current_page?(theaters_path) ? 'underline' : ''}" %>
+      <%= link_to "Shows", shows_path, class: "hover:underline underline-offset-4 #{current_page?(shows_path) ? 'underline' : ''}" %>
     </ul>
 
   </div>

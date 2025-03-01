@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_23_103128) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_01_165845) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -98,10 +98,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_23_103128) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "screening_id", null: false
-    t.bigint "show_timing_id", null: false
+    t.bigint "show_time_id", null: false
     t.decimal "total_price"
     t.index ["screening_id"], name: "index_bookings_on_screening_id"
-    t.index ["show_timing_id"], name: "index_bookings_on_show_timing_id"
+    t.index ["show_time_id"], name: "index_bookings_on_show_time_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
@@ -128,12 +128,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_23_103128) do
   create_table "feedbacks", force: :cascade do |t|
     t.text "comment"
     t.bigint "user_id", null: false
-    t.string "commentable_type", null: false
-    t.bigint "commentable_id", null: false
+    t.string "feedbackable_type", null: false
+    t.bigint "feedbackable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "rating"
-    t.index ["commentable_type", "commentable_id"], name: "index_feedbacks_on_commentable"
+    t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedbacks_on_feedbackable"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
 
@@ -171,13 +171,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_23_103128) do
     t.index ["theater_id"], name: "index_screens_on_theater_id"
   end
 
-  create_table "show_timings", force: :cascade do |t|
+  create_table "show_times", force: :cascade do |t|
     t.bigint "screening_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "at_timeof"
     t.integer "seats", default: 150
-    t.index ["screening_id"], name: "index_show_timings_on_screening_id"
+    t.index ["screening_id"], name: "index_show_times_on_screening_id"
   end
 
   create_table "shows", force: :cascade do |t|
@@ -238,7 +238,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_23_103128) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookings", "screenings"
-  add_foreign_key "bookings", "show_timings"
+  add_foreign_key "bookings", "show_times"
   add_foreign_key "bookings", "users"
   add_foreign_key "event_requests", "theaters"
   add_foreign_key "event_requests", "users"
@@ -246,7 +246,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_23_103128) do
   add_foreign_key "screenings", "screens"
   add_foreign_key "screenings", "shows"
   add_foreign_key "screens", "theaters"
-  add_foreign_key "show_timings", "screenings"
+  add_foreign_key "show_times", "screenings"
   add_foreign_key "shows", "event_requests"
   add_foreign_key "theater_admins", "theaters"
   add_foreign_key "theater_admins", "users"

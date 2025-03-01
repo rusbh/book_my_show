@@ -1,4 +1,4 @@
-# ActiveAdmin.register ShowTiming do
+# ActiveAdmin.register ShowTime do
 #   index do
 #     column :id
 #     column :at_timeof

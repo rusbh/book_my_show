@@ -12,7 +12,7 @@ module Admin
 
     def new
       @screening = Screening.new
-      @screening.show_timings.build
+      @screening.show_times.build
     end
 
     def create
@@ -40,7 +40,7 @@ module Admin
     end
 
     def show
-      @pagy, @show_timings = pagy(@screening.show_timings.order(at_timeof: :asc), limit: 6)
+      @pagy, @show_times = pagy(@screening.show_times.order(at_timeof: :asc), limit: 6)
     end
 
     def destroy
@@ -81,7 +81,7 @@ module Admin
     end
 
     def screening_params
-      params.expect(screening: [ :show_id, :language, :price, :start_date, :end_date, { show_timings_attributes: [ %i[id at_timeof seats _destroy] ] } ]).merge(screen_id: @screen.id)
+      params.expect(screening: [ :show_id, :language, :price, :start_date, :end_date, { show_times_attributes: [ %i[id at_timeof seats _destroy] ] } ]).merge(screen_id: @screen.id)
     end
   end
 end

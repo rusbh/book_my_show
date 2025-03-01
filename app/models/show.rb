@@ -9,14 +9,14 @@ class Show < ApplicationRecord
   has_many :screenings, dependent: :destroy
   has_many :screens, through: :screenings
   has_many :bookings, through: :screenings, dependent: :destroy
-  has_many :feedbacks, as: :commentable, dependent: :destroy
+  has_many :feedbacks, as: :feedbackable, dependent: :destroy
 
   after_update :show_cancelled, if: -> { status_previously_changed? && status == "cancelled" }
 
   enum :status, inactive: 0, active: 1, pending: 2, cancelled: 3
 
   scope :active, -> { where(status: :active).includes(:poster_attachment) }
-  scope :available_screenings, -> { joins(:screenings).merge(Screening.available_show_timings).distinct }
+  scope :available_screenings, -> { joins(:screenings).merge(Screening.available_show_times).distinct }
   scope :can_book, -> { joins(:screenings).available_screenings.distinct }
   scope :active_forms, -> { where(status: :active) } # when using in forms avoid eager loading
   scope :available, -> { active_forms.where.missing(:event_request) }
@@ -30,7 +30,7 @@ class Show < ApplicationRecord
 
   # views helper
   def available_screenings
-    screenings.available_show_timings
+    screenings.available_show_times
   end
 
   def average_rating

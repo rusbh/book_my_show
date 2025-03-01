@@ -1,6 +1,6 @@
 class Feedback < ApplicationRecord
   belongs_to :user
-  belongs_to :commentable, polymorphic: true
+  belongs_to :feedbackable, polymorphic: true
 
   validates :comment, :rating, presence: true
 

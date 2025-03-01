@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
 
   def create
     @booking = @screening.bookings.new(booking_params)
-    @booking.booking_date = @booking.show_timing&.at_timeof
+    @booking.booking_date = @booking.show_time&.at_timeof
     @booking.total_price = (@booking.ticket * @booking.screening.price).round(2)
     authorize @booking
 
@@ -40,7 +40,7 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.expect(booking: %i[ticket booking_date total_price show_timing_id status]).merge(
+    params.expect(booking: %i[ticket booking_date total_price show_time_id status]).merge(
       user_id: current_user&.id
     )
   end

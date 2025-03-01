@@ -35,7 +35,7 @@
   <div id="feedback_form">
     <% if @user_has_booked_in_theater %>
       <% unless @user_has_feedback %>
-        <%= render "feedbacks/form", commentable: @theater, feedback: @feedback %>
+        <%= render "feedbacks/form", feedbackable: @theater, feedback: @feedback %>
       <% end %>
     <% else %>
       <% unless @user_has_feedback %>
@@ -47,7 +47,7 @@
   </div>
 
   <% if @theater_feedbacks.present? %>
-    <%= render partial: "feedbacks/feedback", collection: @theater_feedbacks, locals: { commentable: @theater } %>
+    <%= render partial: "feedbacks/feedback", collection: @theater_feedbacks, locals: { feedbackable: @theater } %>
   <% else %>
     <h1 class="p-6 bg-slate-50 rounded-xl my-6">No feedbacks yet</h1>
   <% end %>

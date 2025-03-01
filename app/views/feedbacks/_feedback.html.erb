@@ -8,8 +8,8 @@
         <p class="text-xl flex items-center gap-2">⭐ <span class="text-xl"><%= feedback.rating.round(1) %>/10</span></p>
 
         <% if policy(feedback).record_owner? %>
-          <%= link_to "Edit", edit_polymorphic_path([commentable, feedback]), class: "btn-blue" %>
-          <%= button_to "Delete", [commentable, feedback], method: :delete, data: {turbo_confirm: "are you sure?" }, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
+          <%= link_to "Edit", edit_polymorphic_path([feedbackable, feedback]), class: "btn-blue" %>
+          <%= button_to "Delete", [feedbackable, feedback], method: :delete, data: {turbo_confirm: "are you sure?" }, class: "rounded-lg py-3 px-5 bg-red-600 text-white font-medium" %>
         <% end %>
       </div>
 

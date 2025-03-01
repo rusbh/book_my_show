@@ -1,7 +1,7 @@
 <h1 class="text-3xl font-semibold">Edit Feedback</h1>
 
 <%= turbo_frame_tag dom_id(@feedback) do %>
-  <%= form_for([@commentable, @feedback], local: true) do |form| %>
+  <%= form_for([@feedbackable, @feedback], local: true) do |form| %>
     <% if @feedback.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
         <h2><%= pluralize(@feedback.errors.count, "error") %> prohibited this feedback from being saved:</h2>
@@ -28,7 +28,7 @@
       <%= form.submit "Update", data: { turbo_submits_with: "Updating..." }, class: "btn-blue" %>
     </div>
 
-    <%= link_to 'Cancel', @commentable, class: "ml-2 btn-gray" %>
+    <%= link_to 'Cancel', @feedbackable, class: "ml-2 btn-gray" %>
   <% end %>
 
 <% end %>

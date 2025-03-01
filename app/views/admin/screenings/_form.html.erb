@@ -44,15 +44,15 @@
   </div>
 
   <template data-nested-form-target = "template">
-    <%= f.fields_for :show_timings, ShowTiming.new, child_index: "NEW_RECORD" do |show_timing_fields| %>
-      <%= render "admin/screenings/show_timing_form", f: show_timing_fields %>
+    <%= f.fields_for :show_times, ShowTime.new, child_index: "NEW_RECORD" do |show_time_fields| %>
+      <%= render "admin/screenings/show_time_form", f: show_time_fields %>
     <% end %>
   </template>
 
-  <p class="mt-5 text-xl">Set daily timings for show (time is in 24 hours format)</p>
+  <p class="mt-5 text-xl">Set daily times for show (time is in 24 hours format)</p>
 
-  <%= f.fields_for :show_timings do |show_timing_fields| %>
-    <%= render "admin/screenings/show_timing_form", f: show_timing_fields %>
+  <%= f.fields_for :show_times do |show_time_fields| %>
+    <%= render "admin/screenings/show_time_form", f: show_time_fields %>
   <% end %>
 
   <div data-nested-form-target="target" class="my-5">

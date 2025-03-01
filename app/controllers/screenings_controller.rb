@@ -3,12 +3,12 @@ class ScreeningsController < ApplicationController
 
   def index
     @show_screenings = @show.screenings.includes(screen: :theater).select do |screening|
-      last_show_timing = screening.show_timings.last
-      last_show_timing&.seats&.positive?
+      last_show_time = screening.show_times.last
+      last_show_time&.seats&.positive?
     end
 
     @last_show_times = @show_screenings.map do |screening|
-      screening.show_timings.last&.at_timeof
+      screening.show_times.last&.at_timeof
     end
   end
 

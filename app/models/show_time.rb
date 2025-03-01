@@ -1,6 +1,6 @@
-class ShowTiming < ApplicationRecord
+class ShowTime < ApplicationRecord
   belongs_to :screening
-  has_many :booking, dependent: :destroy
+  has_many :bookings, dependent: :destroy
 
   validates :at_timeof, :seats, presence: true
   validates :seats, numericality: { greater_than_or_equal_to: 0 }

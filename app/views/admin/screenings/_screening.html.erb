@@ -23,7 +23,7 @@
       <div>
         <strong>All Show Times</strong>
         <ul>
-          <% @show_timings.each do |t| %>
+          <% @show_times.each do |t| %>
             <li>
               <p class="mt-2"><%= format_datetime(t.at_timeof) %></p>
               <p>Seats available: <%= t.seats %></p>

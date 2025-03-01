@@ -3,7 +3,7 @@ class Screening < ApplicationRecord
   belongs_to :show
 
   has_many :bookings, dependent: :destroy
-  has_many :show_timings, dependent: :destroy
+  has_many :show_times, dependent: :destroy
 
   audited associated_with: :screen
 
@@ -17,10 +17,10 @@ class Screening < ApplicationRecord
   validate :no_overlapping_screenings
   validate :prohibit_screening_by_screen_status
 
-  accepts_nested_attributes_for :show_timings, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :show_times, reject_if: :all_blank, allow_destroy: true
 
-  scope :available_show_timings, lambda {
-    joins(:show_timings).where("show_timings.at_timeof > ?", 1.hour.ago).distinct
+  scope :available_show_times, lambda {
+    joins(:show_times).where("show_times.at_timeof > ?", 1.hour.ago).distinct
   }
 
   private
