@@ -1,14 +1,14 @@
 ActiveAdmin.register(AdminRequest) do
   remove_filter :business_license_attachment,
-    :business_license_blob,
-    :ownership_proof_attachment,
-    :ownership_proof_blob,
-    :noc_attachment,
-    :noc_blob,
-    :insurance_attachment,
-    :insurance_blob,
-    :cpics_attachments,
-    :cpics_blobs
+                :business_license_blob,
+                :ownership_proof_attachment,
+                :ownership_proof_blob,
+                :noc_attachment,
+                :noc_blob,
+                :insurance_attachment,
+                :insurance_blob,
+                :cpics_attachments,
+                :cpics_blobs
 
   show do
     attributes_table do
@@ -23,7 +23,7 @@ ActiveAdmin.register(AdminRequest) do
           image_tag url_for(p.business_license.representation(resize: "500x500"))
         else
           link_to p.business_license.filename,
-            rails_blob_path(p.business_license, disposition: "attachment")
+                  rails_blob_path(p.business_license, disposition: "attachment")
         end
       end
       row :ownership_proof do |p|
@@ -31,7 +31,7 @@ ActiveAdmin.register(AdminRequest) do
           image_tag url_for(p.ownership_proof.representation(resize: "500x500"))
         else
           link_to p.ownership_proof.filename,
-            rails_blob_path(p.ownership_proof, disposition: "attachment")
+                  rails_blob_path(p.ownership_proof, disposition: "attachment")
         end
       end
       row :noc do |p|
@@ -86,14 +86,14 @@ ActiveAdmin.register(AdminRequest) do
   end
 
   permit_params :contact_email,
-    :contact_no,
-    :admin_emails,
-    :theater_name,
-    :theater_address,
-    :pincode,
-    :business_license,
-    :ownership_proof,
-    :noc,
-    :insurance,
-    :status
+                :contact_no,
+                :admin_emails,
+                :theater_name,
+                :theater_address,
+                :pincode,
+                :business_license,
+                :ownership_proof,
+                :noc,
+                :insurance,
+                :status
 end

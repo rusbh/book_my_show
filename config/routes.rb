@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   root "home#index"
 
   devise_for :users,
-    path: "/",
-    path_names: {
-      sign_in: "login",
-      sign_out: "logout",
-      sign_up: "signup",
-    }
+             path: "/",
+             path_names: {
+               sign_in: "login",
+               sign_out: "logout",
+               sign_up: "signup",
+             }
 
   ActiveAdmin.routes(self)
   mount Sidekiq::Web => "/sidekiq"
@@ -43,8 +43,11 @@ Rails.application.routes.draw do
     resources :event_requests, only: [:create, :new]
   end
 
+  resource :profile, only: [:show], controller: "profile" do
+    patch :change_avatar, on: :collection
+  end
+
   get "search", to: "search#index", as: :search
-  get "profile", to: "users#index", as: :profile
 
   get "/admin-requests", to: "admin_requests#new"
   post "/admin-requests", to: "admin_requests#create"

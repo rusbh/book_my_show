@@ -6,25 +6,34 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
   include Pagy::Backend
 
-  rescue_from ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid, with: :not_found_method
+  rescue_from ActiveRecord::RecordNotFound,
+              ActiveRecord::RecordInvalid,
+              with: :not_found_method
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   # rescue_from NoMethodError, with: :handle_no_method_error
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def not_found_method
-    render(file: Rails.public_path.join("404.html"), status: :not_found, layout: false)
+    render(
+      file: Rails.public_path.join("404.html"),
+      status: :not_found,
+      layout: false,
+    )
   end
 
   http_basic_authenticate_with name: ENV.fetch("SUPERADMIN_USERNAME"),
-    password: ENV.fetch("SUPERADMIN_PASSWORD"),
-    if: :active_admin_controller?
+                               password: ENV.fetch("SUPERADMIN_PASSWORD"),
+                               if: :active_admin_controller?
 
   protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :status])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :status])
+    devise_parameter_sanitizer.permit(
+      :account_update,
+      keys: [:name, :status, :avatar],
+    )
   end
 
   private
@@ -49,11 +58,13 @@ class ApplicationController < ActionController::Base
       admin_root_path
     elsif resource&.admin? && TheaterAdmin.find_by(admin: resource)&.inactive?
       sign_out(resource)
-      flash[:error] = "You can't access the Theater Admin Panel, Contact Support for details"
+      flash[:error] =
+        "You can't access the Theater Admin Panel, Contact Support for details"
       root_path
     elsif resource&.inactive?
       sign_out(resource)
-      flash[:error] = "You can't login to application due to some reasons, Contact Support for details"
+      flash[:error] =
+        "You can't login to application due to some reasons, Contact Support for details"
       root_path
     else
       super

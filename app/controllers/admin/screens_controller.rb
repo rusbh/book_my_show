@@ -29,7 +29,9 @@ module Admin
 
       @feedbacks = @theater.feedbacks.includes(:user).order(created_at: :desc).limit(10)
 
-      @pagy, @theater_logs = pagy(@theater.own_and_associated_audits.includes(:user), limit: 1)
+      @pagy, @theater_logs = pagy(
+        @theater.own_and_associated_audits.includes(:user),
+      )
     end
 
     def show
@@ -47,7 +49,10 @@ module Admin
       authorize(@screen)
 
       if @screen.save
-        redirect_to(admin_screen_url(@screen), notice: "Screen was successfully created.")
+        redirect_to(
+          admin_screen_url(@screen),
+          notice: "Screen was successfully created.",
+        )
       else
         render(:new, status: :unprocessable_entity)
       end
@@ -58,7 +63,10 @@ module Admin
     def update
       authorize(@screen)
       if @screen.update(screen_params)
-        redirect_to(admin_screen_url(@screen), notice: "Screen was successfully updated.")
+        redirect_to(
+          admin_screen_url(@screen),
+          notice: "Screen was successfully updated.",
+        )
       else
         render(:edit, status: :unprocessable_entity)
       end
@@ -76,7 +84,10 @@ module Admin
         session[:current_theater] = theater.id
         redirect_to(admin_root_path, notice: "Switched theater successfully.")
       else
-        redirect_to(admin_root_path, alert: "You do not have access to this theater.")
+        redirect_to(
+          admin_root_path,
+          alert: "You do not have access to this theater.",
+        )
       end
     end
 
@@ -86,7 +97,10 @@ module Admin
     def set_theater
       if session[:current_theater]
         @theater = current_user.theaters.find_by(id: session[:current_theater])
-        redirect_to(root_path, alert: "Selected theater not found or you do not have access.") unless @theater
+        redirect_to(
+          root_path,
+          alert: "Selected theater not found or you do not have access.",
+        ) unless @theater
       else
         @theater = current_user.theaters.first
         session[:current_theater] = @theater.id if @theater
@@ -98,7 +112,11 @@ module Admin
     end
 
     def screen_params
-      params.expect(screen: [:screen_name, :seats, :status]).merge(theater_id: @theater.id)
+      params.expect(screen: [
+        :screen_name,
+        :seats,
+        :status,
+      ]).merge(theater_id: @theater.id)
     end
   end
 end

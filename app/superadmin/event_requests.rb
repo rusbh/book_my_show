@@ -80,17 +80,17 @@ ActiveAdmin.register(EventRequest) do
   end
 
   permit_params :theater_id,
-    :name,
-    :description,
-    :poster,
-    :cast,
-    :category,
-    :duration,
-    :release_date,
-    :end_date,
-    :at_timeof,
-    :status,
-    :permit,
-    languages: [],
-    genres: []
+                :name,
+                :description,
+                :poster,
+                :cast,
+                :category,
+                :duration,
+                :release_date,
+                :end_date,
+                :at_timeof,
+                :status,
+                :permit,
+                languages: [],
+                genres: []
 end

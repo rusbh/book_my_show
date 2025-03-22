@@ -13,3 +13,4 @@ pin "local-time" # @3.0.2
 pin "@stimulus-components/rails-nested-form", to: "@stimulus-components--rails-nested-form.js" # @5.0.0
 pin "@rails/activestorage", to: "@rails--activestorage.js" # @7.1.3
 pin "slim-select" # @2.9.2
+pin "flowbite", to: "https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.turbo.min.js"

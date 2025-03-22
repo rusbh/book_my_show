@@ -37,12 +37,12 @@ ActiveAdmin.register(User) do
   end
 
   permit_params :email,
-    :password,
-    :password_confirmation,
-    :reset_password_token,
-    :reset_password_sent_at,
-    :remember_created_at,
-    :name,
-    :admin,
-    :status
+                :password,
+                :password_confirmation,
+                :reset_password_token,
+                :reset_password_sent_at,
+                :remember_created_at,
+                :name,
+                :admin,
+                :status
 end

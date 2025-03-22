@@ -64,15 +64,15 @@ ActiveAdmin.register(Show) do
   end
 
   permit_params :name,
-    :description,
-    :poster,
-    :cast,
-    :category,
-    :status,
-    :duration,
-    :release_date,
-    :slug,
-    :event_request,
-    languages: [],
-    genres: []
+                :description,
+                :poster,
+                :cast,
+                :category,
+                :status,
+                :duration,
+                :release_date,
+                :slug,
+                :event_request,
+                languages: [],
+                genres: []
 end

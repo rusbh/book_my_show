@@ -1,13 +1,22 @@
 <div id="<%= dom_id theater %>">
-  <h1 class="font-semibold text-3xl"><%= theater.name %></h1>
+  <div class="flex justify-between">
+    <section>
+      <h1 class="font-semibold text-3xl"><%= theater.name %></h1>
 
-  <p class="ml-1 text-2xl mt-2"><%= theater.address %></p>
+      <p class="text-2xl mt-2"><%= theater.address %></p>
 
-  <% unless theater.average_rating == 0 %>
-    <%= turbo_frame_tag "rating_star" do %>
-      <p class="mt-6 text-xl flex items-center gap-2">Ratings: ⭐ <span class="text-xl"><%= theater.average_rating %>/10</span></p>
-    <% end %>
-  <% else %>
-    <p class="mt-6 text-xl flex items-center gap-2">Ratings ⭐: Not rated yet</span></p>
-  <% end %>
+      <% unless theater.average_rating == 0 %>
+        <%= turbo_frame_tag "rating_star" do %>
+          <p class="mt-6 text-xl flex items-center gap-2">Ratings: ⭐ <span class="text-xl"><%= theater.average_rating %>/10</span></p>
+        <% end %>
+      <% else %>
+        <p class="mt-6 text-xl flex items-center gap-2">Ratings ⭐: Not rated yet</span></p>
+      <% end %>
+    </section>
+    <aside>
+      <%= link_to "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(theater.address)}", target: "_blank" do %>
+        <%= inline_svg_tag "icons/outline/location.svg", height: "40", width: "40" %>
+      <% end %>
+    </aside>
+  </div>
 </div>

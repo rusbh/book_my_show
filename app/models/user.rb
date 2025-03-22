@@ -2,17 +2,24 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
-    :registerable,
-    :recoverable,
-    :rememberable,
-    :validatable
+         :registerable,
+         :recoverable,
+         :rememberable,
+         :validatable
 
   has_many :theater_admins, dependent: :destroy
   has_many :theaters, through: :theater_admins
-
   has_many :bookings, dependent: :destroy
   has_many :feedbacks, dependent: :destroy
   has_many :event_requests, dependent: :destroy
+
+  has_one_attached :avatar, dependent: :destroy do |attachable|
+    attachable.variant(
+      :display,
+      resize_to_fit: [40, 40],
+      preprocessed: true,
+    )
+  end
 
   validates :name, presence: true
 

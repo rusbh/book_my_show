@@ -115,11 +115,13 @@ group :development do
   # Pretty print console
   gem 'awesome_print'
 
+
   # Use Rubocop to lint code
   gem "rubocop-shopify", require: false
   gem "rubocop-rails", "~> 2.27", require: false
   gem "rubocop-performance", "~> 1.24", require: false
   gem 'rubocop-rspec', require: false
+  gem "ruby-lsp", "~> 0.23.11", require: false
 end
 
 group :test do

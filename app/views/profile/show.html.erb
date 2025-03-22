@@ -1,0 +1,73 @@
+<% content_for :title, "Profile" %>
+
+<h1 class="font-semibold text-2xl">Hi, <%= current_user&.name %></h1>
+
+<div class="flex flex-row justify-between">
+  <section>
+    <h1 class="mt-10 text-3xl font-semibold underline">Booking History:</h1>
+
+    <div class="my-6">
+      <h1 class="text-2xl mt-10">Upcoming bookings:</h1>
+
+      <% if @upcoming_bookings.exists? %>
+        <div class="text-2xl my-3">
+          <% @upcoming_bookings.each do |b| %>
+            <li class="my-5">
+              <%= pluralize(b.ticket, "ticket") %> of <span class="font-medium"><%= b.screening.show.name %> - <%= b.screening.language.humanize %></span>, <%= b.screening.screen.theater.name %> on <%= format_datetime(b.show_time.at_timeof) %>
+              <%= button_to "Cancel Booking", cancel_booking_screening_booking_path(b.screening, b), method: :patch, data: { turbo_confirm: "Are you sure?" }, class: "mt-2 ml-8 rounded-lg py-3 px-5 bg-zinc-100 text-sm" %>
+            </li>
+          <% end %>
+        </div>
+      <% else %>
+        <h1>You don't have any bookings scheduled yet</h1>
+      <% end %>
+
+      <h1 class="text-2xl mt-10">Past bookings:</h1>
+
+      <% if @past_bookings.exists? %>
+        <div class="text-2xl my-3">
+          <% @past_bookings.each do |b| %>
+            <li><%= pluralize(b.ticket, "ticket") %> of <span class="font-medium"></span><span class="font-medium"><%= b.screening.show.name %> - <%= b.screening.language.humanize %></span>, <%= b.screening.screen.theater.name %> on  <%= format_datetime(b.show_time.at_timeof) %></li>
+          <% end %>
+        </div>
+      <% else %>
+        <h1>You don't have any history of bookings</h1>
+      <% end %>
+
+      <% if @cancelled_bookings.exists? %>
+        <h1 class="text-2xl mt-10 underline">Cancelled bookings:</h1>
+        <div class="text-2xl my-3">
+          <% @cancelled_bookings.each do |b| %>
+            <li><%= pluralize(b.ticket, "ticket") %> of <span class="font-medium"><%= b.screening.show.name %> - <%= b.screening.language.humanize %></span>, <%= b.screening.screen.theater.name %> on  <%= format_datetime(b.show_time.at_timeof) %></li>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <section>
+    <%= form_with url: change_avatar_profile_path, method: :patch, local: true, data: { controller: "avatar-upload" }, html: { multipart: true } do |form| %>
+      <div class="flex flex-col items-center space-y-4">
+        <div class="w-32 h-32 rounded-full overflow-hidden border">
+          <% if current_user.avatar.attached? %>
+            <%= image_tag(url_for(current_user.avatar), id: "current-avatar", class: "w-full h-full object-cover") %>
+          <% else %>
+            <%= inline_svg_tag("icons/outline/profile.svg", id: "current-avatar", class: "w-full h-full object-cover") %>
+          <% end %>
+        </div>
+
+        <%= form.label :avatar, "Upload Avatar", class: "btn-blue inline-block" %>
+        <%= form.hidden_field :avatar, value: form.object.avatar.signed_id if form.object&.avatar&.attached? %>
+        <%= form.file_field :avatar, direct_upload: true, accept: 'image/jpeg, image/jpg, image/png', 
+                        data: { avatar_upload_target: "source", action: "avatar-upload#show" }, 
+                        class: "shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full hidden" %>
+
+        <%= image_tag '', data: { avatar_upload_target: 'canvas' }, class: 'object-cover size-48 rounded-full', hidden: true %>
+        <%= tag.p '', data: { avatar_upload_target: 'fileName' }, class: 'mt-2 text-gray-700', hidden: true %>
+
+        <%= form.submit "Save", disabled: true, id: "submit-avatar", data: { turbo_submits_with: "Saving..." }, 
+                    class: "btn-green inline-block cursor-pointer opacity-50 cursor-not-allowed" %>
+      </div>
+    <% end %>
+  </section>
+</div>

@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module BookMyShow
   class Application < Rails::Application
+    require "owner"
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults(8.0)
 

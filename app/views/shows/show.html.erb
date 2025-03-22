@@ -26,10 +26,10 @@
   <% if @show_feedbacks.exists? %>
     <%= render partial: "feedbacks/feedback", collection: @show_feedbacks, locals: { feedbackable: @show } %>
   <% else %>
-    <h1 class="p-6 bg-slate-50 rounded-xl my-6">No reviews yet</h1>
+    <h1 id="kill" class="p-6 bg-slate-50 rounded-xl my-6">No reviews yet</h1>
   <% end %>
 
   <%= render(PaginationComponent.new(pagy: @pagy)) %>
 
-  <%= link_to "Back to shows", shows_path, class: "mt-5 btn-gray" %>
+  <%= link_to "Back to shows", shows_path, class: "mt-5 btn-gray inline-block" %>
 </div>

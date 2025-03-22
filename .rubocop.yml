@@ -34,7 +34,13 @@ Style/Documentation:
   Enabled: false
 
 Layout/LineLength:
-  Enabled: false
+  Max: 80
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_first_argument
+Layout/BlockAlignment:
+  EnforcedStyleAlignWith: start_of_block
+Layout/FirstArgumentIndentation:
+  Enabled: true
 
 Lint/MissingSuper:
   Enabled: false
