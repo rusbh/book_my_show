@@ -15,7 +15,7 @@ export default class extends Controller {
       reader.onload = (e) => {
         this.canvasTarget.src = e.target.result;
         this.canvasTarget.hidden = false;
-        this.fileNameTarget.textContent = file.name;
+        this.fileNameTarget.textContent = `Selected Image: ${file.name}`;
         this.fileNameTarget.hidden = false;
 
         // Enable the submit button

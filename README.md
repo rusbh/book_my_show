@@ -7,6 +7,7 @@
 
 ## Future
 
+- [ ] Email, Password Change
 - [ ] Add Seat Arrangements for theater and user to choose seats while booking
 - [ ] Payments and Pdf generation for Booking confirmation
 - [ ] Rspec tests
