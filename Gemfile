@@ -90,10 +90,15 @@ group :development, :test do
   # spec
   gem "rspec-rails", "~> 7.1"
 
+gem "faker", "~> 3.5"
+
   # Use factory-bot to replace fixtures
   gem "factory_bot_rails", "~> 6.4"
 
   gem "rails-controller-testing", "~> 1.0"
+
+  gem "webmock", "~> 3.25"
+  gem "vcr", "~> 6.3"
 
   # Load environment variables from .env
   gem "dotenv-rails", "~> 3.1"
@@ -131,7 +136,10 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 
+  gem "simplecov", "~> 0.22.0", require: false
+
   gem "shoulda-matchers", "~> 6.4"
+  gem "shoulda-callback-matchers", "~> 1.1"
 
   gem "rspec-retry", "~> 0.6.2"
 

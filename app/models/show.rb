@@ -24,8 +24,8 @@ class Show < ApplicationRecord
   # home page
   scope :recommended, -> { order(created_at: :desc).active.can_book.take(5) }
   scope :by_language, lambda { |language|
-                        where(":languages = ANY (languages)", languages: language).active.can_book.take(5)
-                      }
+    where(":languages = ANY (languages)", languages: language).active.can_book.take(5)
+  }
   scope :except_movies, -> { where.not(category: :movie).active.can_book.take(5) }
 
   # views helper

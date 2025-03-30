@@ -14,9 +14,9 @@ class EventRequest < ApplicationRecord
   has_one_attached :permit, dependent: :destroy
 
   validates :permit,
-    attached: true,
-    content_type: { in: ["application/pdf"], message: "must be valid pdf format" },
-    size: { between: (1.kilobyte)..(10.megabytes), message: "should be less than 10 MB" }
+            attached: true,
+            content_type: { in: ["application/pdf"], message: "must be valid pdf format" },
+            size: { between: (1.kilobyte)..(10.megabytes), message: "should be less than 10 MB" }
 
   private
 

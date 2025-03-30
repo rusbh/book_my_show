@@ -17,7 +17,10 @@ class Theater < ApplicationRecord
 
   validates :name, :address, presence: true
   validates :name, uniqueness: true
-  validates :pincode, presence: true, length: { is: 6 }
+  validates :pincode,
+            presence: true,
+            length: { is: 6 },
+            numericality: { only_integer: true }
 
   scope :active, -> { where(status: :active) }
 

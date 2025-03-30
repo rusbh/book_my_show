@@ -43,3 +43,6 @@ dump.rdb
 
 # Ruby LSP
 .ruby-lsp/
+
+# simplecov's coverage report
+/coverage

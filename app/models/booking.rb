@@ -9,17 +9,24 @@ class Booking < ApplicationRecord
 
   enum :status, confirmed: 0, cancelled: 1
 
-  validates :ticket, presence: true, inclusion: { in: 1..10, message: "You can only book maximum 10 tickets" }
+  validates :ticket,
+            presence: true,
+            inclusion: {
+              in: 1..10,
+              message: "You can only book maximum 10 tickets",
+            }
   validates :booking_date, :total_price, presence: true
 
   scope :confirmed, -> { where(status: :confirmed) }
   scope :past, lambda {
-                 where(booking_date: ...Time.current).confirmed.includes(screening: [:show, { screen: :theater }])
-               }
+    where(booking_date: ...Time.current).confirmed.includes(screening: [:show, { screen: :theater }])
+  }
   scope :upcoming, lambda {
-                     where(booking_date: Time.current..).confirmed.includes(screening: [:show, { screen: :theater }])
-                   }
-  scope :cancelled, -> { where(status: :cancelled).includes(screening: [:show, { screen: :theater }]) }
+    where(booking_date: Time.current..).confirmed.includes(screening: [:show, { screen: :theater }])
+  }
+  scope :cancelled, -> {
+    where(status: :cancelled).includes(screening: [:show, { screen: :theater }])
+  }
 
   def send_booking_confirmed_mail
     BookingMailer.booking_confirmation(self).deliver_later
@@ -46,7 +53,10 @@ class Booking < ApplicationRecord
   def seats_not_available
     return if show_time.seats >= ticket
 
-    errors.add(:base, "Only #{show_time.seats} seats available on your selected time")
+    errors.add(
+      :base,
+      "Only #{show_time.seats} seats available on your selected time",
+    )
     throw(:abort)
   end
 
