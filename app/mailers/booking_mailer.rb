@@ -2,6 +2,11 @@ class BookingMailer < ApplicationMailer
   def booking_confirmation(booking)
     @booking = booking
 
+    attachments["invoice.pdf"] = {
+      mime_type: "application/pdf",
+      content: generate_booking_invoice(@booking),
+    }
+
     mail(to: @booking.user.email, subject: "Booking Confirmation")
   end
 
@@ -15,5 +20,11 @@ class BookingMailer < ApplicationMailer
     @booking = booking
 
     mail(to: @booking.user.email, subject: "Booking unexpectedly got cancelled")
+  end
+
+  private
+
+  def generate_booking_invoice(booking)
+    BookingInvoice.new(booking).render
   end
 end
