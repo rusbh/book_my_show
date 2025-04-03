@@ -1,3 +1,5 @@
-<h2 class="text-2xl font-semibold mt-20">
-  <%= pluralize(count, "Reviews") %>
-</h2>
+<%= turbo_frame_tag "count" do %>
+  <h2 class="text-2xl font-semibold mt-20">
+    <%= pluralize(count, "Reviews") %>
+  </h2>
+<% end %>

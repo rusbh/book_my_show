@@ -76,12 +76,15 @@
     <%= pie_chart @popular_shows, download: true %>
   </div>
 
-  <h1 class="font-bold text-3xl mt-32">Feedbacks</h1>
-  <ul class="list-disc list-inside mt-4 space-y-2 mb-40">
-    <% @feedbacks.each do |f| %>
-      <li class="text-xl"><%= f.comment %><span class="text-gray-600"> - by <%= f.user.name %></span></li>
-    <% end %>
-  </ul>
+  <%= turbo_frame_tag "theater_feedbacks" do %>
+    <h1 class="font-bold text-3xl mt-32">Feedbacks</h1>
+    <ul class="list-disc list-inside mt-4 space-y-2 mb-40">
+      <% @feedbacks.each do |f| %>
+        <li class="text-xl"><%= f.comment %><span class="text-gray-600"> - by <%= f.user.name %></span></li>
+        <%= render(PaginationComponent.new(pagy: @pagy_feedbacks)) %>
+      <% end %>
+    </ul>
+  <% end %>
 
-  <%= render(LogsComponent.new(logs: @theater_logs, title: "theater", pagy: @pagy)) %>
+  <%= render(LogsComponent.new(logs: @theater_logs, title: "theater", pagy: @pagy_audits)) %>
 </div>

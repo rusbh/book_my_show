@@ -26,11 +26,7 @@
 
   <h1 class="text-2xl my-10">Request your show/event in this theater <%= link_to "here", new_theater_event_request_path(@theater), class: "underline text-blue-500" %></h1>
 
-  <h2 class="text-2xl font-semibold mt-10">
-    <%= turbo_frame_tag "count" do %>
-      <%= pluralize(@feedbacks_count, "Feedback") %>
-    <% end %>
-  </h2>
+  <%= render "feedbacks/count", count: @feedbacks_count %>
 
   <div id="feedback_form">
     <% if @user_has_booked_in_theater %>
@@ -46,13 +42,15 @@
     <% end %>
   </div>
 
-  <% if @theater_feedbacks.present? %>
-    <%= render partial: "feedbacks/feedback", collection: @theater_feedbacks, locals: { feedbackable: @theater } %>
-  <% else %>
-    <h1 class="p-6 bg-slate-50 rounded-xl my-6">No feedbacks yet</h1>
+  <%= turbo_frame_tag "theater#{@theater.id}_feedbacks" do %>
+    <% if @theater_feedbacks.present? %>
+      <%= render partial: "feedbacks/feedback", collection: @theater_feedbacks, locals: { feedbackable: @theater } %>
+    <% else %>
+      <h1 class="p-6 bg-slate-50 rounded-xl my-6">No feedbacks yet</h1>
+    <% end %>
+
+    <%= render(PaginationComponent.new(pagy: @pagy)) %>
   <% end %>
 
-  <%= render(PaginationComponent.new(pagy: @pagy)) %>
-
-  <%= link_to "Back to theaters", theaters_path, class: "mt-5 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+  <%= link_to "Back to theaters", theaters_path, class: "mt-5 rounded-lg py-3 px-5 bg-gray-100 font-medium inline-block" %>
 </div>

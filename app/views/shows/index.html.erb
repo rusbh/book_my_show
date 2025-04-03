@@ -20,6 +20,7 @@
   </div>
 </section>
 
-<%= render(ShowListComponent.new(shows: @all_shows)) %>
-
-<%= render(PaginationComponent.new(pagy: @pagy)) %>
+<%= turbo_frame_tag "shows" do %>
+  <%= render(ShowListComponent.new(shows: @all_shows)) %>
+  <%= render(PaginationComponent.new(pagy: @pagy)) %>
+<% end %>

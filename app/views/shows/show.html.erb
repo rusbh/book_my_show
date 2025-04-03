@@ -3,11 +3,7 @@
 <div class="w-full">
   <%= render @show %>
 
-  <h2 class="text-2xl font-semibold mt-20">
-    <%= turbo_frame_tag "count" do %>
-      <%= pluralize(@reviews_count, "Reviews") %>
-    <% end %>
-  </h2>
+  <%= render "feedbacks/count", count: @reviews_count %>
 
   <div id="feedback_form">
     <% if @user_has_booked %>
@@ -23,13 +19,15 @@
     <% end %>
   </div>
 
-  <% if @show_feedbacks.exists? %>
-    <%= render partial: "feedbacks/feedback", collection: @show_feedbacks, locals: { feedbackable: @show } %>
-  <% else %>
-    <h1 id="kill" class="p-6 bg-slate-50 rounded-xl my-6">No reviews yet</h1>
-  <% end %>
+  <%= turbo_frame_tag "show_#{@show.id}_feedbacks" do %>
+    <% if @show_feedbacks.exists? %>
+      <%= render partial: "feedbacks/feedback", collection: @show_feedbacks, locals: { feedbackable: @show } %>
+    <% else %>
+      <h1 id="kill" class="p-6 bg-slate-50 rounded-xl my-6">No reviews yet</h1>
+    <% end %>
 
-  <%= render(PaginationComponent.new(pagy: @pagy)) %>
+    <%= render(PaginationComponent.new(pagy: @pagy)) %>
+  <% end %>
 
   <%= link_to "Back to shows", shows_path, class: "mt-5 btn-gray inline-block" %>
 </div>

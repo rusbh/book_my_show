@@ -1,4 +1,4 @@
 <%= turbo_stream.remove dom_id(@feedback) %>
 <%= turbo_stream.replace "feedback_form", partial: "feedbacks/form", locals: { feedbackable: @feedbackable, feedback: Feedback.new } %>
 <%= turbo_stream.replace "count", partial: "feedbacks/count", locals: { count: @feedbackable.feedbacks.count } %>
-<%= turbo_stream.update "rating_star", partial: "feedbacks/star", locals: { feedbackable: @feedbackable } %>
+<%= turbo_stream.update "rating", partial: "feedbacks/star", locals: { feedbackable: @feedbackable } %>

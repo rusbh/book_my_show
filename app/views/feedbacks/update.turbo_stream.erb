@@ -1,3 +1,6 @@
-<%= turbo_stream.update "rating_star", partial: "feedbacks/star", locals: { feedbackable: @feedbackable } %>
-
-<%= turbo_stream.replace(dom_id(@feedback), partial: "feedbacks/feedback", locals: { feedback: @feedback, feedbackable: @feedbackable }) %>
+<% if @feedback.errors.any? %>
+  <%= turbo_stream.replace(dom_id(@feedback), partial: "feedbacks/form", locals: { feedbackable: @feedbackable, feedback: @feedback }) %>
+<% else %>
+  <%= turbo_stream.update "rating", partial: "feedbacks/star", locals: { feedbackable: @feedbackable } %>
+  <%= turbo_stream.replace(dom_id(@feedback), partial: "feedbacks/feedback", locals: { feedback: @feedback, feedbackable: @feedbackable }) %>
+<% end %>

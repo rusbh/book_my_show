@@ -22,20 +22,11 @@ class FeedbacksController < ApplicationController
 
   def update
     authorize(@feedback)
+    @feedback.update(feedback_params)
+
     respond_to do |format|
-      if @feedback.update(feedback_params)
-        format.turbo_stream
-        format.html { redirect_to(@feedbackable) }
-      else
-        format.html { render(:edit, status: :unprocessable_entity) }
-        format.turbo_stream do
-          render(turbo_stream: turbo_stream.replace(
-            dom_id(@feedback),
-            partial: "feedbacks/form",
-            locals: { feedbackable: @feedbackable, feedback: @feedback },
-          ))
-        end
-      end
+      format.turbo_stream
+      format.html { redirect_to(@feedbackable) }
     end
   end
 
@@ -52,7 +43,12 @@ class FeedbacksController < ApplicationController
   private
 
   def feedback_params
-    params.expect(feedback: [:comment, :rating, :feedbackable_id, :feedbackable_type]).merge(user_id: current_user&.id)
+    params.expect(feedback: [
+      :comment,
+      :rating,
+      :feedbackable_id,
+      :feedbackable_type,
+    ]).merge(user_id: current_user&.id)
   end
 
   def set_feedbackable

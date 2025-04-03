@@ -27,9 +27,11 @@ module Admin
 
       @popular_shows = @bookings.joins(screening: :show).group("shows.name").count
 
-      @feedbacks = @theater.feedbacks.includes(:user).order(created_at: :desc).limit(10)
+      @pagy_feedbacks, @feedbacks = pagy(
+        @theater.feedbacks.includes(:user).order(created_at: :desc),
+      )
 
-      @pagy, @theater_logs = pagy(
+      @pagy_audits, @theater_logs = pagy(
         @theater.own_and_associated_audits.includes(:user),
       )
     end
@@ -37,7 +39,9 @@ module Admin
     def show
       @screen_screenings = @screen.screenings.includes(:show)
 
-      @pagy, @screen_logs = pagy(@screen.own_and_associated_audits.includes(:user))
+      @pagy, @screen_logs = pagy(
+        @screen.own_and_associated_audits.includes(:user),
+      )
     end
 
     def new

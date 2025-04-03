@@ -1,1 +1,3 @@
-<p class="mt-6 text-xl flex items-center gap-2">Ratings: ⭐ <span class="text-xl"><%= @feedbackable.average_rating %>/10</span></p>
+<%= turbo_frame_tag "rating" do %>
+  <p class="mt-6 text-xl flex items-center gap-2">Ratings: ⭐ <span class="text-xl"><%= feedbackable.average_rating %>/10</span></p>
+<% end %>

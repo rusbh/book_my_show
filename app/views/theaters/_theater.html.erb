@@ -6,9 +6,7 @@
       <p class="text-2xl mt-2"><%= theater.address %></p>
 
       <% unless theater.average_rating == 0 %>
-        <%= turbo_frame_tag "rating_star" do %>
-          <p class="mt-6 text-xl flex items-center gap-2">Ratings: ⭐ <span class="text-xl"><%= theater.average_rating %>/10</span></p>
-        <% end %>
+        <%= render "feedbacks/star", feedbackable: theater %>
       <% else %>
         <p class="mt-6 text-xl flex items-center gap-2">Ratings ⭐: Not rated yet</span></p>
       <% end %>

@@ -20,7 +20,7 @@
           <strong class="block font-medium mb-1">Screening End date: <%= format_date(screening.end_date) %></strong>
         </p>
       </div>
-      <div>
+      <%= turbo_frame_tag "show_times_#{@screening.id}" do %>
         <strong>All Show Times</strong>
         <ul>
           <% @show_times.each do |t| %>
@@ -32,7 +32,7 @@
           <% end %>
         </ul>
         <%= render(PaginationComponent.new(pagy: @pagy)) %>
-      </div>
+      <% end %>
     </div>
   </section>
 </div>
