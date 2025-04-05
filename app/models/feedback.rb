@@ -4,4 +4,6 @@ class Feedback < ApplicationRecord
 
   validates :comment, :rating, presence: true
   validates :rating, inclusion: { in: 1..10 }
+
+  after_commit -> { broadcast_refresh_to([feedbackable, :feedbacks]) }, on: [:create, :update, :destroy]
 end

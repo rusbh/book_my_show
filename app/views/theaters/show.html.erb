@@ -42,7 +42,8 @@
     <% end %>
   </div>
 
-  <%= turbo_frame_tag "theater#{@theater.id}_feedbacks" do %>
+  <%= turbo_stream_from [@theater, :feedbacks] %>
+  <%= turbo_frame_tag dom_id(@theater, :feedbacks) do %>
     <% if @theater_feedbacks.present? %>
       <%= render partial: "feedbacks/feedback", collection: @theater_feedbacks, locals: { feedbackable: @theater } %>
     <% else %>
