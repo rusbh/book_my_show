@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   namespace :admin do
     root "screens#index"
     resources :screens do
-      resources :screenings
+      resources :screenings do
+        get :show_times, on: :member
+      end
       post "switch_theater", on: :collection, as: :switch_theater
     end
   end

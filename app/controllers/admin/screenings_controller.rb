@@ -2,7 +2,8 @@ module Admin
   class ScreeningsController < Admin::BaseController
     before_action :set_theater
     before_action :set_screen
-    before_action :set_screening, only: [:show, :edit, :update, :destroy]
+    before_action :set_screening,
+                  only: [:show, :edit, :update, :destroy, :show_times]
     before_action :set_show, only: [:show, :edit, :update, :destroy]
     before_action :get_event_requested_shows, only: [:new, :edit]
 
@@ -22,7 +23,7 @@ module Admin
       if @screening.save
         RecurringScreeningsJob.perform_async(@screening.id)
         redirect_to(
-          admin_screen_screenings_path(@screen),
+          admin_screen_screening_path(@screen, @screening),
           notice: "Screening was successfully created.",
         )
       else
@@ -46,6 +47,9 @@ module Admin
     end
 
     def show
+    end
+
+    def show_times
       @pagy, @show_times = pagy(
         @screening.show_times.order(at_timeof: :asc),
         limit: 6,

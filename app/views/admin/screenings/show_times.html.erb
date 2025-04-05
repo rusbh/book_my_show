@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "show_times" do %>
+  <ul>
+    <% @show_times.each do |t| %>
+      <li>
+        <p class="mt-2"><%= format_datetime(t.at_timeof) %></p>
+        <p>Seats available: <%= t.seats %></p>
+        <hr class="my-2">
+      </li>
+    <% end %>
+  </ul>
+  <%= render(PaginationComponent.new(pagy: @pagy)) %>
+<% end %>
