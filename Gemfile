@@ -14,8 +14,8 @@ gem "pg", "~> 1.5.9"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 6.6.0"
 
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
+# Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
+gem "jsbundling-rails", "~> 1.3"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"

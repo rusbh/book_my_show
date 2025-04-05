@@ -43,3 +43,5 @@ dump.rdb
 
 # Ruby LSP
 .ruby-lsp/
+
+/node_modules

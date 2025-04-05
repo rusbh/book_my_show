@@ -1,3 +1,4 @@
-web: bin/rails server -p $PORT
+web: env RUBY_DEBUG_OPEN=true bin/rails server -p $PORT
+js: yarn build --watch
 css: bin/rails tailwindcss:watch
 # sidekiq: bundle exec sidekiq -C config/sidekiq.yml
