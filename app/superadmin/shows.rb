@@ -1,5 +1,8 @@
 ActiveAdmin.register(Show) do
-  remove_filter :poster_attachment, :poster_blob, :cpics_attachments, :cpics_blobs
+  remove_filter :poster_attachment,
+                :poster_blob,
+                :cpics_attachments,
+                :cpics_blobs
 
   index do
     selectable_column
@@ -49,10 +52,18 @@ ActiveAdmin.register(Show) do
     f.inputs do
       f.input(:name)
       f.input(:description)
-      f.input(:poster, as: :file, input_html: { accept: "image/jpeg, image/jpg, image/png" })
+      f.input(
+        :poster,
+        as: :file,
+        input_html: { accept: "image/jpeg, image/jpg, image/png" },
+      )
       f.input(:cast, label: "Cast: (add comma between entries)")
-      f.input(:languages, as: :check_boxes, collection: Show.languages.keys.map { |lang| [lang.humanize, lang] })
-      f.input(:genres, as: :check_boxes, collection: Show.genres.keys.map { |lang| [lang.humanize, lang] })
+      f.input(:languages, as: :check_boxes, collection: Show.languages.keys.map do |lang|
+        [lang.humanize, lang]
+      end)
+      f.input(:genres, as: :check_boxes, collection: Show.genres.keys.map do |lang|
+        [lang.humanize, lang]
+      end)
       f.input(:category)
       f.input(:duration, label: "Duration of show (in Minutes)")
       f.input(:release_date)

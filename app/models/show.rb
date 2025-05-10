@@ -11,22 +11,30 @@ class Show < ApplicationRecord
   has_many :bookings, through: :screenings, dependent: :destroy
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
 
-  after_update :show_cancelled, if: -> { status_previously_changed? && status == "cancelled" }
+  after_update :show_cancelled, if: -> {
+    status_previously_changed? && status == "cancelled"
+  }
 
   enum :status, inactive: 0, active: 1, pending: 2, cancelled: 3
 
   scope :active, -> { where(status: :active).includes(:poster_attachment) }
-  scope :available_screenings, -> { joins(:screenings).merge(Screening.available_show_times).distinct }
+  scope :available_screenings, -> {
+    joins(:screenings).merge(Screening.available_show_times).distinct
+  }
   scope :can_book, -> { joins(:screenings).available_screenings.distinct }
-  scope :active_forms, -> { where(status: :active) } # when using in forms avoid eager loading
+  scope :active_forms, -> {
+    where(status: :active)
+  } # when using in forms avoid eager loading
   scope :available, -> { active_forms.where.missing(:event_request) }
 
   # home page
   scope :recommended, -> { order(created_at: :desc).active.can_book.take(5) }
   scope :by_language, lambda { |language|
-                        where(":languages = ANY (languages)", languages: language).active.can_book.take(5)
-                      }
-  scope :except_movies, -> { where.not(category: :movie).active.can_book.take(5) }
+    where(":languages = ANY (languages)", languages: language).active.can_book.take(5)
+  }
+  scope :except_movies, -> {
+    where.not(category: :movie).active.can_book.take(5)
+  }
 
   # views helper
   def available_screenings

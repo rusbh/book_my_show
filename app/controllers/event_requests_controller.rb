@@ -4,7 +4,10 @@ class EventRequestsController < ApplicationController
 
   def new
     @event_request = EventRequest.new
-    @previous_requests = EventRequest.where(theater: @theater, user: current_user)
+    @previous_requests = EventRequest.where(
+      theater: @theater,
+      user: current_user,
+    )
   end
 
   def create
@@ -14,7 +17,10 @@ class EventRequestsController < ApplicationController
 
     if @event_request.save
       EventRequestJob.perform_async(@event_request.id)
-      redirect_to(theater_url(@theater), notice: "Event request was successfully submitted.")
+      redirect_to(
+        theater_url(@theater),
+        notice: "Event request was successfully submitted.",
+      )
     else
       render(:new, status: :unprocessable_entity)
     end

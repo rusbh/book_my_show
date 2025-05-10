@@ -3,7 +3,9 @@ class ApplicationRecord < ActiveRecord::Base
 
   class << self
     def ransackable_associations(_auth_object = nil)
-      @ransackable_associations ||= reflect_on_all_associations.map { |a| a.name.to_s }
+      @ransackable_associations ||= reflect_on_all_associations.map do |a|
+        a.name.to_s
+      end
     end
 
     def ransackable_attributes(_auth_object = nil)

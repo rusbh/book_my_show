@@ -38,14 +38,16 @@ ActiveAdmin.register(AdminRequest) do
         if p.noc.previewable?
           image_tag url_for(p.noc.representation(resize: "500x500"))
         else
-          link_to p.noc.filename, rails_blob_path(p.noc, disposition: "attachment")
+          link_to p.noc.filename,
+                  rails_blob_path(p.noc, disposition: "attachment")
         end
       end
       row :insurance do |p|
         if p.insurance.previewable?
           image_tag url_for(p.insurance.representation(resize: "500x500"))
         else
-          link_to p.insurance.filename, rails_blob_path(p.insurance, disposition: "attachment")
+          link_to p.insurance.filename,
+                  rails_blob_path(p.insurance, disposition: "attachment")
         end
       end
       row :status

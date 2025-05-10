@@ -2,7 +2,9 @@ class EventRequest < ApplicationRecord
   include Showable
 
   before_create :release_date_before_end_date
-  after_update :handle_status_change, if: -> { status_previously_changed?(from: :pending) }
+  after_update :handle_status_change, if: -> {
+    status_previously_changed?(from: :pending)
+  }
 
   belongs_to :theater
   belongs_to :user
@@ -14,9 +16,15 @@ class EventRequest < ApplicationRecord
   has_one_attached :permit, dependent: :destroy
 
   validates :permit,
-    attached: true,
-    content_type: { in: ["application/pdf"], message: "must be valid pdf format" },
-    size: { between: (1.kilobyte)..(10.megabytes), message: "should be less than 10 MB" }
+            attached: true,
+            content_type: {
+              in: ["application/pdf"],
+              message: "must be valid pdf format",
+            },
+            size: {
+              between: (1.kilobyte)..(10.megabytes),
+              message: "should be less than 10 MB",
+            }
 
   private
 

@@ -26,4 +26,6 @@
   </div>
 </div>
 
-<%= render(LogsComponent.new(logs: @screen_logs, title: "screen", pagy: @pagy)) %>
+<%= render(LogsComponent.new(logs: @screen_logs, title: "screen")) do |component| %>
+  <% component.with_pagination(pagy: @pagy) %>
+<% end %>

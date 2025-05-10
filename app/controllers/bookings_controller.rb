@@ -40,7 +40,13 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.expect(booking: [:ticket, :booking_date, :total_price, :show_time_id, :status]).merge(
+    params.expect(booking: [
+      :ticket,
+      :booking_date,
+      :total_price,
+      :show_time_id,
+      :status,
+    ]).merge(
       user_id: current_user&.id,
     )
   end

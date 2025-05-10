@@ -5,7 +5,9 @@ class RecurringScreeningsJob
     screening = Screening.find(screening_id)
     start_date = screening.start_date
     end_date = screening.end_date
-    show_times_with_seats = screening.show_times.map { |st| { at_timeof: st.at_timeof, seats: st.seats } }
+    show_times_with_seats = screening.show_times.map do |st|
+      { at_timeof: st.at_timeof, seats: st.seats }
+    end
     screening.show_times.destroy_all # deletes current date's unwanted entries when show times created
 
     (start_date..end_date).each do |date|

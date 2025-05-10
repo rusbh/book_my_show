@@ -17,7 +17,9 @@ class Screening < ApplicationRecord
   validate :no_overlapping_screenings
   validate :prohibit_screening_by_screen_status
 
-  accepts_nested_attributes_for :show_times, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :show_times,
+                                reject_if: :all_blank,
+                                allow_destroy: true
 
   scope :available_show_times, lambda {
     joins(:show_times).where("show_times.at_timeof > ?", 1.hour.ago).distinct
@@ -39,17 +41,25 @@ class Screening < ApplicationRecord
 
     return unless overlapping_screenings.exists?
 
-    errors.add(:base, "This screen is already assigned for the selected date range")
+    errors.add(
+      :base,
+      "This screen is already assigned for the selected date range",
+    )
   end
 
   def prohibit_screening_by_screen_status
     return unless screen.in_maintenance? || screen.unavailable?
 
-    errors.add(:base, "Screen is in maintenance or unavailable for new screenings")
+    errors.add(
+      :base,
+      "Screen is in maintenance or unavailable for new screenings",
+    )
   end
 
   def update_screen_status
-    if screen.screenings.exists?(["start_date <= :current_time AND end_date >= :current_time", { current_time: Time.current }])
+    if screen.screenings.exists?([
+      "start_date <= :current_time AND end_date >= :current_time", { current_time: Time.current },
+    ])
       screen.update(status: :running)
     else
       screen.update(status: :idle)

@@ -15,7 +15,14 @@ ActiveAdmin.register(TheaterAdmin) do
   form do |f|
     f.inputs do
       f.input(:theater, label: "Select Theater")
-      f.input(:user, as: :select, collection: User.all.map { |user| [user.email, user.id] }, label: "Select User")
+      f.input(
+        :user,
+        as: :select,
+        collection: User.all.map do |user|
+          [user.email, user.id]
+        end,
+        label: "Select User",
+      )
       f.input(:status)
     end
     f.actions

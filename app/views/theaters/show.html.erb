@@ -29,16 +29,22 @@
   <%= render "feedbacks/count", count: @feedbacks_count %>
 
   <div id="feedback_form">
-    <% if @user_has_booked_in_theater %>
-      <% unless @user_has_feedback %>
-        <%= render "feedbacks/form", feedbackable: @theater, feedback: @feedback %>
+    <% if current_user.present? %>
+      <% if @user_has_booked_in_theater %>
+        <% unless @user_has_feedback %>
+          <%= render "feedbacks/form", feedbackable: @theater, feedback: @feedback %>
+        <% end %>
+      <% else %>
+        <% unless @user_has_feedback %>
+          <p class="p-6 bg-slate-50 rounded-xl my-6">
+            You needs to have booked a show in this theater before you can leave a feedback here.
+          </p>
+        <% end %>
       <% end %>
     <% else %>
-      <% unless @user_has_feedback %>
-        <p class="p-6 bg-slate-50 rounded-xl my-6">
-          You needs to have booked a show in this theater before you can leave a feedback here.
-        </p>
-      <% end %>
+      <p class="p-6 bg-slate-50 rounded-xl my-6">
+        You are requested to <a href="<%= new_user_session_path %>" class="text-blue-600 underline">log in</a> to give a review.
+      </p>
     <% end %>
   </div>
 

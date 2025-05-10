@@ -25,23 +25,34 @@
 
   <h1 class="font-semibold text-3xl mt-20 mb-3">All Theater Shows</h1>
 
+  <% any_current_screenings = false %>
+
   <% if @screen_shows.exists? %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
       <% @show_screening_details.each do |details| %>
         <% show = details[:show] %>
-        <div class="my-5">
-          <%= display_show_poster(show) %>
-          <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
-          <% details[:screenings].each do |screening| %>
-            <p class="text-xl">Screen: <%= screening.screen.screen_name %> - Price: ₹<%= screening.price %></p>
-            <p class="text-xl">language: <%= screening.language.humanize %></p>
-            <p class="text-xl mb-3"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
-          <% end %>
-        </div>
+        <% current_screenings = details[:screenings].select { |s| s.end_date >= Date.today } %>
+
+        <% if current_screenings.any? %>
+          <% any_current_screenings = true %>
+          <div class="my-5">
+            <%= display_show_poster(show) %>
+            <h1 class="text-2xl my-4 font-semibold"><%= show.name %></h1>
+            <% current_screenings.each do |screening| %>
+              <p class="text-xl">Screen: <%= screening.screen.screen_name %> - Price: ₹<%= screening.price %></p>
+              <p class="text-xl">Language: <%= screening.language.humanize %></p>
+              <p class="text-xl mb-3"><%= screening.start_date.strftime("%d %B") %> - <%= screening.end_date.strftime("%d %B") %></p>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     </div>
+
+    <% unless any_current_screenings %>
+      <p class="text-center text-lg text-gray-500 mt-10">No screenings are currently running. Please check back later.</p>
+    <% end %>
   <% else %>
-    <p>No shows scheduled or Running currently</p>
+    <p class="text-center text-lg text-gray-500 mt-10">No shows scheduled or running currently.</p>
   <% end %>
 
   <h1 class="mt-24 text-3xl font-bold">Total Bookings of Shows by Screen for Current Week</h1>
@@ -86,5 +97,7 @@
     </ul>
   <% end %>
 
-  <%= render(LogsComponent.new(logs: @theater_logs, title: "theater", pagy: @pagy_audits)) %>
+  <%= render(LogsComponent.new(logs: @theater_logs, title: "theater")) do |component| %>
+    <% component.with_pagination(pagy: @pagy_audits) %>
+  <% end %>
 </div>

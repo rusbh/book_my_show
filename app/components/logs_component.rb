@@ -1,9 +1,10 @@
 class LogsComponent < ApplicationComponent
-  attr_reader :logs, :title, :pagy
+  attr_reader :logs, :title
 
-  def initialize(logs:, title:, pagy:)
+  renders_one :pagination
+
+  def initialize(logs:, title:)
     @logs = logs
     @title = title
-    @pagy = pagy
   end
 end

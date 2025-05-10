@@ -10,17 +10,14 @@ application.register("avatar-upload", AvatarUploadController)
 import CounterController from "./counter_controller"
 application.register("counter", CounterController)
 
-import FieldFillController from "./field_fill_controller"
-application.register("field-fill", FieldFillController)
-
 import FileUploadController from "./file_upload_controller"
 application.register("file-upload", FileUploadController)
 
+import FillLanguageController from "./fill_language_controller"
+application.register("fill-language", FillLanguageController)
+
 import FlashController from "./flash_controller"
 application.register("flash", FlashController)
-
-import ImageLoaderController from "./image_loader_controller"
-application.register("image-loader", ImageLoaderController)
 
 import ImagePreviewController from "./image_preview_controller"
 application.register("image-preview", ImagePreviewController)

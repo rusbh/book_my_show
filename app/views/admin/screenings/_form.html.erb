@@ -1,5 +1,5 @@
 <%= form_with(model: [:admin, screen, screening], data: {
-               controller: "nested-form field-fill",
+               controller: "nested-form fill-language",
                nested_form_wrapper_selector_value: ".nested-form-wrapper",
              }, class: "contents") do |f| %>
   <% if screening.errors.any? %>
@@ -16,13 +16,13 @@
 
   <div class="my-5">
     <%= f.label :show_id, "Pick a Show" %>
-    <%= f.collection_select :show_id, @available_shows || [], :id, :name, {}, data: { controller: 'slim-select', field_fill_target: "showSelect" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= f.collection_select :show_id, @available_shows || [], :id, :name, {}, data: { controller: 'slim-select', fill_language_target: "showSelect" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="flex my-5 gap-x-10">
     <div>
       <%= f.label :language, "Choose language" %>
-      <%= f.select :language, [], {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-32", data: { field_fill_target: "languageSelect" } %>
+      <%= f.select :language, [], {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-32", data: { fill_language_target: "languageSelect" } %>
     </div>
 
     <div>

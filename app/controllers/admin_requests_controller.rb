@@ -8,7 +8,10 @@ class AdminRequestsController < ApplicationController
 
     if @admin_request.save
       AdminRequestJob.perform_async(@admin_request.id)
-      redirect_to(root_path, notice: "Thank you for submitting the form, We will contact you details soon")
+      redirect_to(
+        root_path,
+        notice: "Thank you for submitting the form, We will contact you details soon",
+      )
     else
       render(:new, status: :unprocessable_entity)
     end
@@ -21,6 +24,18 @@ class AdminRequestsController < ApplicationController
   end
 
   def admin_request_params
-    params.expect(admin_request: [:contact_email, :contact_no, :admin_emails, :theater_name, :theater_address, :pincode, :business_license, :ownership_proof, :noc, :insurance, :status])
+    params.expect(admin_request: [
+      :contact_email,
+      :contact_no,
+      :admin_emails,
+      :theater_name,
+      :theater_address,
+      :pincode,
+      :business_license,
+      :ownership_proof,
+      :noc,
+      :insurance,
+      :status,
+    ])
   end
 end
