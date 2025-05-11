@@ -33,10 +33,14 @@ class Booking < ApplicationRecord
   end
 
   def send_booking_cancelled_mail
+    return if show_time.at_timeof <= Time.current
+
     BookingMailer.booking_cancelled(self).deliver_later
   end
 
   def booking_got_deleted
+    return if show_time.at_timeof <= Time.current
+    
     BookingMailer.booking_deleted_unexpected(self).deliver_now
   end
 
