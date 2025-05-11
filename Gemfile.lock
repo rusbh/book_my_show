@@ -145,6 +145,8 @@ GEM
       railties (>= 6.1)
     drb (2.2.1)
     erubi (1.12.0)
+    et-orbi (1.2.11)
+      tzinfo
     factory_bot (6.5.0)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.4.4)
@@ -156,6 +158,9 @@ GEM
     formtastic_i18n (0.7.0)
     friendly_id (5.5.1)
       activerecord (>= 4.0.0)
+    fugit (1.11.1)
+      et-orbi (~> 1, >= 1.2.11)
+      raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
     groupdate (6.5.1)
@@ -266,6 +271,7 @@ GEM
       nio4r (~> 2.0)
     pundit (2.4.0)
       activesupport (>= 3.0.0)
+    raabro (1.4.0)
     racc (1.8.0)
     rack (3.0.11)
     rack-session (2.0.0)
@@ -386,6 +392,8 @@ GEM
       logger
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
+    rufus-scheduler (3.9.2)
+      fugit (~> 1.1, >= 1.11.1)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -410,6 +418,10 @@ GEM
       logger
       rack (>= 2.2.4)
       redis-client (>= 0.22.2)
+    sidekiq-scheduler (5.0.6)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 6, < 8)
+      tilt (>= 1.4.0, < 3)
     sorbet-runtime (0.5.11899)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
@@ -517,6 +529,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers (~> 6.4)
   sidekiq (~> 7.3.9)
+  sidekiq-scheduler (~> 5.0)
   stimulus-rails
   tailwindcss-rails (~> 3.3.1)
   turbo-rails

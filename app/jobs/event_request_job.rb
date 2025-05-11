@@ -1,5 +1,5 @@
-class EventRequestJob
-  include Sidekiq::Job
+class EventRequestJob < ApplicationJob
+  queue_as :default
 
   def perform(event_request_id)
     er = EventRequest.find(event_request_id)

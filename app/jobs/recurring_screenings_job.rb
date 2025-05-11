@@ -1,5 +1,5 @@
-class RecurringScreeningsJob
-  include Sidekiq::Job
+class RecurringScreeningsJob < ApplicationJob
+  queue_as :default
 
   def perform(screening_id)
     screening = Screening.find(screening_id)

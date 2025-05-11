@@ -21,7 +21,7 @@ module Admin
       authorize(@screening)
 
       if @screening.save
-        RecurringScreeningsJob.perform_async(@screening.id)
+        RecurringScreeningsJob.perform_now(@screening.id)
         redirect_to(
           admin_screen_screening_path(@screen, @screening),
           notice: "Screening was successfully created.",

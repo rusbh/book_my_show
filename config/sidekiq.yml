@@ -1,0 +1,14 @@
+:concurrency: 5
+:queues:
+  - default
+
+:scheduler:
+  :schedule:
+    completed_screening_cleanup:
+      cron: "0 1 * * * *" # Runs once evey day at 1:00 am
+      class: ExpiredScreeningCleanupJob
+      description: "Deletes all expired screenings"
+    cleanup_blobs_job:
+      cron: "0 */12 * * *" # Runs once evey 12 hours
+      class: ActiveStorage::CleanupBlobsJob
+      description: "Purges unattached active storage blobs"

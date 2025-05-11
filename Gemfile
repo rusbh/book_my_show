@@ -64,6 +64,7 @@ gem "groupdate", "~> 6.5.1"
 
 # background-jobs
 gem "sidekiq", "~> 7.3.9"
+gem "sidekiq-scheduler", "~> 5.0"
 
 # search, filter
 gem "ransack", "~> 4.3.0"

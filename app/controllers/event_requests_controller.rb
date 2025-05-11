@@ -16,7 +16,7 @@ class EventRequestsController < ApplicationController
     @event_request.user = current_user
 
     if @event_request.save
-      EventRequestJob.perform_async(@event_request.id)
+      EventRequestJob.perform_later(@event_request.id)
       redirect_to(
         theater_url(@theater),
         notice: "Event request was successfully submitted.",

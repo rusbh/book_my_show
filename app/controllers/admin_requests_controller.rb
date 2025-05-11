@@ -7,7 +7,7 @@ class AdminRequestsController < ApplicationController
     @admin_request = AdminRequest.new(admin_request_params)
 
     if @admin_request.save
-      AdminRequestJob.perform_async(@admin_request.id)
+      AdminRequestJob.perform_later(@admin_request.id)
       redirect_to(
         root_path,
         notice: "Thank you for submitting the form, We will contact you details soon",

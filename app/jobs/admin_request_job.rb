@@ -1,5 +1,5 @@
-class AdminRequestJob
-  include Sidekiq::Job
+class AdminRequestJob < ApplicationJob
+  queue_as :default
 
   def perform(admin_request_id)
     admin_request = AdminRequest.find(admin_request_id)
