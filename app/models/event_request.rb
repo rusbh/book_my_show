@@ -2,7 +2,7 @@ class EventRequest < ApplicationRecord
   include Showable
 
   before_create :release_date_before_end_date
-  after_update :handle_status_change, if: -> {
+  after_update_commit :handle_status_change, if: -> {
     status_previously_changed?(from: :pending)
   }
 

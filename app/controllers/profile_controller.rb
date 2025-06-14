@@ -10,7 +10,7 @@ class ProfileController < ApplicationController
 
   def change_avatar
     avatar = params.fetch(:avatar)
-    current_user.update(avatar: avatar)
+    current_user.update(avatar:)
     redirect_to(profile_path, notice: "Avatar updated successfully!")
   end
 

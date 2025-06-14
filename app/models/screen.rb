@@ -7,7 +7,7 @@ class Screen < ApplicationRecord
   audited associated_with: :theater
   has_associated_audits
 
-  after_update :discard_screenings_if_maintenance_or_unavailable, if: -> {
+  after_update_commit :discard_screenings_if_maintenance_or_unavailable, if: -> {
     status_previously_changed?
   }
 

@@ -1,5 +1,9 @@
 class AdminRequest < ApplicationRecord
-  after_update :handle_status_change, if: -> { status_previously_changed? }
+  EMAIL_FORMAT = /\A[-a-z0-9_+.]+@([-a-z0-9]+\.)+[a-z0-9]{2,4}(\s*,\s*[-a-z0-9_+.]+@([-a-z0-9]+\.)+[a-z0-9]{2,4})*\z/i
+
+  after_update_commit :handle_status_change, if: -> {
+    status_previously_changed?
+  }
 
   validates :contact_email,
             :contact_no,
@@ -21,7 +25,7 @@ class AdminRequest < ApplicationRecord
             }
   validates :admin_emails,
             format: {
-              with: /\A[-a-z0-9_+.]+@([-a-z0-9]+\.)+[a-z0-9]{2,4}(\s*,\s*[-a-z0-9_+.]+@([-a-z0-9]+\.)+[a-z0-9]{2,4})*\z/i, message: "must be in valid format with comma between them",
+              with: EMAIL_FORMAT, message: "must be in valid format with comma between them",
             }
   validates :theater_address,
             length: { in: 1..240, message: "must be between 1 to 240 letters" }

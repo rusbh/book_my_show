@@ -4,7 +4,7 @@ class Booking < ApplicationRecord
   belongs_to :show_time
 
   before_create :seats_not_available, :show_time_in_past
-  after_create :decrement_seats
+  after_create_commit :decrement_seats
   before_destroy :booking_got_deleted
 
   enum :status, confirmed: 0, cancelled: 1
@@ -40,7 +40,7 @@ class Booking < ApplicationRecord
 
   def booking_got_deleted
     return if show_time.at_timeof <= Time.current
-    
+
     BookingMailer.booking_deleted_unexpected(self).deliver_now
   end
 

@@ -13,7 +13,7 @@ module Admin
 
     def new
       @screening = Screening.new
-      @screening.show_times.build
+      # @screening.show_times.build  # Fix for RecurringScreeningsJob
     end
 
     def create

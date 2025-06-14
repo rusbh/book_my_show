@@ -8,8 +8,7 @@ class Screening < ApplicationRecord
   audited associated_with: :screen
 
   before_create :start_date_before_end_date
-  after_destroy :update_screen_status
-  after_save :update_screen_status
+  after_commit :update_screen_status
 
   validates :language, :price, :start_date, :end_date, presence: true
   validates :price, numericality: { greater_than: 0 }

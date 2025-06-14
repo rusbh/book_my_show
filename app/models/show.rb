@@ -11,7 +11,7 @@ class Show < ApplicationRecord
   has_many :bookings, through: :screenings, dependent: :destroy
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
 
-  after_update :show_cancelled, if: -> {
+  after_update_commit :show_cancelled, if: -> {
     status_previously_changed? && status == "cancelled"
   }
 
@@ -22,10 +22,10 @@ class Show < ApplicationRecord
     joins(:screenings).merge(Screening.available_show_times).distinct
   }
   scope :can_book, -> { joins(:screenings).available_screenings.distinct }
-  scope :active_forms, -> {
+  scope :active_for_forms, -> {
     where(status: :active)
   } # when using in forms avoid eager loading
-  scope :available, -> { active_forms.where.missing(:event_request) }
+  scope :available, -> { active_for_forms.where.missing(:event_request) }
 
   # home page
   scope :recommended, -> { order(created_at: :desc).active.can_book.take(5) }
